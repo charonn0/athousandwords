@@ -713,20 +713,6 @@ Protected Module Platform
 	#tag EndMethod
 
 	#tag Method, Flags = &h1
-		Protected Function HostName() As String
-		  //Returns the system's HostName
-		  #If TargetWin32 Then
-		    Declare Function GetHostName Lib "ws2_32" (name As Ptr, size As Integer) As Integer
-		    
-		    Dim mb As New MemoryBlock(1024)
-		    If gethostname(mb, mb.Size) = 0 Then
-		      Return mb.CString(0)
-		    End
-		  #endif
-		End Function
-	#tag EndMethod
-
-	#tag Method, Flags = &h1
 		Protected Function IPAdaptors() As Dictionary()
 		  //Returns an array of dictionaries, each Dictionary containing a Name, Description, local IP, subnet mask, and Gateway address
 		  //for a local Network adpater, as strings.

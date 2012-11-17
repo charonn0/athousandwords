@@ -182,7 +182,7 @@ Begin Window WizWindow
          DataField       =   ""
          DataSource      =   ""
          Enabled         =   True
-         Height          =   109
+         Height          =   90
          HelpTag         =   ""
          Index           =   -2147483648
          InitialParent   =   "PagePanel1"
@@ -515,6 +515,77 @@ Begin Window WizWindow
          Visible         =   True
          Width           =   332
       End
+      Begin CheckBox usemetadata
+         AutoDeactivate  =   True
+         Bold            =   ""
+         Caption         =   "Embed my computer's specifications in the image"
+         DataField       =   ""
+         DataSource      =   ""
+         Enabled         =   True
+         Height          =   20
+         HelpTag         =   ""
+         Index           =   -2147483648
+         InitialParent   =   "PagePanel1"
+         Italic          =   ""
+         Left            =   141
+         LockBottom      =   ""
+         LockedInPosition=   False
+         LockLeft        =   True
+         LockRight       =   ""
+         LockTop         =   True
+         Scope           =   0
+         State           =   1
+         TabIndex        =   5
+         TabPanelIndex   =   3
+         TabStop         =   True
+         TextFont        =   "System"
+         TextSize        =   0
+         TextUnit        =   0
+         Top             =   99
+         Underline       =   ""
+         Value           =   True
+         Visible         =   False
+         Width           =   289
+      End
+      Begin LinkLabel LinkLabel2
+         ActiveColor     =   16711680
+         AltText         =   ""
+         AutoDeactivate  =   True
+         Bold            =   ""
+         DataField       =   ""
+         DataSource      =   ""
+         Draggable       =   False
+         Enabled         =   True
+         Height          =   20
+         HilightColor    =   65535
+         HoverPeriod     =   250
+         Index           =   -2147483648
+         InitialParent   =   "PagePanel1"
+         Italic          =   ""
+         Left            =   428
+         LockBottom      =   ""
+         LockedInPosition=   False
+         LockLeft        =   True
+         LockRight       =   ""
+         LockTop         =   True
+         Multiline       =   ""
+         ResetPeriod     =   1000
+         Scope           =   0
+         Selectable      =   ""
+         TabIndex        =   6
+         TabPanelIndex   =   3
+         Text            =   "What's This?"
+         TextAlign       =   2
+         TextColor       =   255
+         TextFont        =   "System"
+         TextSize        =   8
+         TextUnit        =   0
+         Top             =   99
+         Transparent     =   True
+         Underline       =   ""
+         Visible         =   False
+         Width           =   51
+      End
    End
    Begin Timer Timer1
       Height          =   32
@@ -637,6 +708,13 @@ End
 		  FinalFolder = SpecialFolder.Desktop.Child(FinalFolder.Name)
 		  PagePanel1.Value = PagePanel1.Value + 1
 		  'Self.Resizeable = True
+		  If usemetadata.Value Then
+		    Dim s As String = Metadata.GetMetadata()
+		    Dim bs As BinaryStream = BinaryStream.Open(FinalFolder, True)
+		    bs.Position = bs.Length
+		    bs.Write(s)
+		    bs.Close
+		  End If
 		  LinkLabel1.Text = LinkLabel1.Text + FinalFolder.AbsolutePath
 		End Sub
 	#tag EndEvent
@@ -680,6 +758,13 @@ End
 	#tag Event
 		Sub Action()
 		  FinalFolder.ShowInExplorer
+		End Sub
+	#tag EndEvent
+#tag EndEvents
+#tag Events LinkLabel2
+	#tag Event
+		Sub Action()
+		  ShowURL("http://www.boredomsoft.org/a-thousand-words.bs#metadatacollection")
 		End Sub
 	#tag EndEvent
 #tag EndEvents
