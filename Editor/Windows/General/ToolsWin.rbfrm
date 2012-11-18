@@ -437,7 +437,7 @@ End
 #tag EndEvents
 #tag Events ModeButton
 	#tag Event
-		Sub Open()
+		Sub Open(index as Integer)
 		  Debug("Simple Plaint: Tools window button " + Str(index) + " loaded")
 		  ModeButton(PreviousButton).setValue(True)
 		  If Me.Index = 8 Then
@@ -451,7 +451,7 @@ End
 		End Sub
 	#tag EndEvent
 	#tag Event
-		Sub Action()
+		Sub Action(index as Integer)
 		  Select Case index
 		  Case 0  //Flood
 		    MainWindow.PaintTarget1.Mode =MainWindow.PaintTarget1.Mode_Fill
@@ -471,7 +471,7 @@ End
 		    MainWindow.DropperMode = True
 		    Return
 		  Case 8
-		    Dim c As Color 
+		    Dim c As Color
 		    Call SelectColor(c, "New drawing color")
 		    Dim p As New Picture(Me.Width, Me.Height, 32)
 		    p.Graphics.ForeColor = c
@@ -489,7 +489,7 @@ End
 		End Sub
 	#tag EndEvent
 	#tag Event
-		Sub ValueChanged()
+		Sub ValueChanged(index as Integer)
 		  For i As Integer = 0 To 7
 		    If i = index Then Continue
 		    ModeButton(i).setValue(False)

@@ -20,7 +20,7 @@ Begin Window WizWindow
    MinimizeButton  =   False
    MinWidth        =   64
    Placement       =   2
-   Resizeable      =   True
+   Resizeable      =   False
    Title           =   "A Thousand Words"
    Visible         =   True
    Width           =   626
@@ -43,7 +43,7 @@ Begin Window WizWindow
       TabIndex        =   0
       TabPanelIndex   =   0
       Top             =   0
-      Value           =   2
+      Value           =   3
       Visible         =   True
       Width           =   626
       Begin Label Label1
@@ -515,40 +515,8 @@ Begin Window WizWindow
          Visible         =   True
          Width           =   332
       End
-      Begin CheckBox usemetadata
-         AutoDeactivate  =   True
-         Bold            =   ""
-         Caption         =   "Embed my computer's specifications in the image"
-         DataField       =   ""
-         DataSource      =   ""
-         Enabled         =   True
-         Height          =   20
-         HelpTag         =   ""
-         Index           =   -2147483648
-         InitialParent   =   "PagePanel1"
-         Italic          =   ""
-         Left            =   141
-         LockBottom      =   ""
-         LockedInPosition=   False
-         LockLeft        =   True
-         LockRight       =   ""
-         LockTop         =   True
-         Scope           =   0
-         State           =   1
-         TabIndex        =   5
-         TabPanelIndex   =   3
-         TabStop         =   True
-         TextFont        =   "System"
-         TextSize        =   0
-         TextUnit        =   0
-         Top             =   99
-         Underline       =   ""
-         Value           =   True
-         Visible         =   False
-         Width           =   289
-      End
       Begin LinkLabel LinkLabel2
-         ActiveColor     =   16711680
+         ActiveColor     =   "&cFF0000"
          AltText         =   ""
          AutoDeactivate  =   True
          Bold            =   ""
@@ -557,12 +525,12 @@ Begin Window WizWindow
          Draggable       =   False
          Enabled         =   True
          Height          =   20
-         HilightColor    =   65535
+         HilightColor    =   "&c00FFFF"
          HoverPeriod     =   250
          Index           =   -2147483648
          InitialParent   =   "PagePanel1"
          Italic          =   ""
-         Left            =   428
+         Left            =   7
          LockBottom      =   ""
          LockedInPosition=   False
          LockLeft        =   True
@@ -572,19 +540,19 @@ Begin Window WizWindow
          ResetPeriod     =   1000
          Scope           =   0
          Selectable      =   ""
-         TabIndex        =   6
-         TabPanelIndex   =   3
-         Text            =   "What's This?"
-         TextAlign       =   2
-         TextColor       =   255
+         TabIndex        =   7
+         TabPanelIndex   =   4
+         Text            =   "Copyright 𹢩 2012 Boredom Software"
+         TextAlign       =   0
+         TextColor       =   "&c0000FF"
          TextFont        =   "System"
-         TextSize        =   8
+         TextSize        =   0
          TextUnit        =   0
-         Top             =   99
+         Top             =   139
          Transparent     =   True
          Underline       =   ""
-         Visible         =   False
-         Width           =   51
+         Visible         =   True
+         Width           =   215
       End
    End
    Begin Timer Timer1
@@ -708,13 +676,11 @@ End
 		  FinalFolder = SpecialFolder.Desktop.Child(FinalFolder.Name)
 		  PagePanel1.Value = PagePanel1.Value + 1
 		  'Self.Resizeable = True
-		  If usemetadata.Value Then
-		    Dim s As String = Metadata.GetMetadata()
-		    Dim bs As BinaryStream = BinaryStream.Open(FinalFolder, True)
-		    bs.Position = bs.Length
-		    bs.Write(s)
-		    bs.Close
-		  End If
+		  'Dim s As String = Metadata.GetMetadata()
+		  'Dim bs As BinaryStream = BinaryStream.Open(FinalFolder, True)
+		  'bs.Position = bs.Length
+		  'bs.Write(s)
+		  'bs.Close
 		  LinkLabel1.Text = LinkLabel1.Text + FinalFolder.AbsolutePath
 		End Sub
 	#tag EndEvent
@@ -763,8 +729,14 @@ End
 #tag EndEvents
 #tag Events LinkLabel2
 	#tag Event
+		Sub Open()
+		  Me.Text = "Boredom Software"
+		  '"Copyright " + Chr(169) + 
+		End Sub
+	#tag EndEvent
+	#tag Event
 		Sub Action()
-		  ShowURL("http://www.boredomsoft.org/a-thousand-words.bs#metadatacollection")
+		  ShowURL("http://www.boredomsoft.org/a-thousand-words.bs")
 		End Sub
 	#tag EndEvent
 #tag EndEvents

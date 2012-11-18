@@ -21,7 +21,7 @@ Begin Window ScaleWindow
    MinWidth        =   64
    Placement       =   1
    Resizeable      =   False
-   Title           =   "Scale Image - BROKEN!"
+   Title           =   "Scale Image"
    Visible         =   True
    Width           =   321
    Begin Slider widthslider
@@ -102,7 +102,6 @@ Begin Window ScaleWindow
       Selectable      =   False
       TabIndex        =   2
       TabPanelIndex   =   0
-      TabStop         =   True
       Text            =   "Width"
       TextAlign       =   0
       TextColor       =   0
@@ -137,7 +136,6 @@ Begin Window ScaleWindow
       Selectable      =   False
       TabIndex        =   3
       TabPanelIndex   =   0
-      TabStop         =   True
       Text            =   "Height"
       TextAlign       =   0
       TextColor       =   0
@@ -328,36 +326,17 @@ Begin Window ScaleWindow
       Visible         =   True
       Width           =   80
    End
-   Begin PopupMenu pmRescale
-      AutoDeactivate  =   True
-      Bold            =   ""
-      DataField       =   ""
-      DataSource      =   ""
-      Enabled         =   True
-      Height          =   20
-      HelpTag         =   ""
+   Begin Timer Timer1
+      Height          =   32
       Index           =   -2147483648
-      InitialParent   =   ""
-      InitialValue    =   "Box\r\nBicubic\r\nBilinear\r\nBSpline\r\nCatmulRom\r\nLanczos3"
-      Italic          =   ""
-      Left            =   366
-      ListIndex       =   0
-      LockBottom      =   ""
+      Left            =   381
       LockedInPosition=   False
-      LockLeft        =   ""
-      LockRight       =   ""
-      LockTop         =   ""
+      Mode            =   2
+      Period          =   100
       Scope           =   0
-      TabIndex        =   9
       TabPanelIndex   =   0
-      TabStop         =   True
-      TextFont        =   "System"
-      TextSize        =   0
-      TextUnit        =   0
-      Top             =   -53
-      Underline       =   ""
-      Visible         =   True
-      Width           =   80
+      Top             =   -33
+      Width           =   32
    End
 End
 #tag EndWindow
@@ -390,6 +369,10 @@ End
 		Locked As Boolean
 	#tag EndProperty
 
+	#tag Property, Flags = &h21
+		Private mDown As Boolean
+	#tag EndProperty
+
 	#tag Property, Flags = &h0
 		NewDims As Pair
 	#tag EndProperty
@@ -401,36 +384,6 @@ End
 
 #tag EndWindowCode
 
-#tag Events widthslider
-	#tag Event
-		Sub ValueChanged()
-		  Dim otherval As Integer = Me.Value * 100 / Me.Maximum
-		  Static stoprecursing As Boolean
-		  widthtext.Text = Str(Me.Value)
-		  If lockratio.Value And Not stoprecursing Then
-		    stoprecursing = True
-		    heightslider.Value = otherval * heightslider.Maximum / 100
-		  Else
-		    stoprecursing = False
-		  End If
-		End Sub
-	#tag EndEvent
-#tag EndEvents
-#tag Events heightslider
-	#tag Event
-		Sub ValueChanged()
-		  Dim otherval As Integer = Me.Value * 100 / Me.Maximum
-		  Static stoprecursing As Boolean
-		  heighttext.Text = Str(Me.Value)
-		  If lockratio.Value And Not stoprecursing Then
-		    stoprecursing = True
-		    widthslider.Value = otherval * widthslider.Maximum / 100
-		  Else
-		    stoprecursing = False
-		  End If
-		End Sub
-	#tag EndEvent
-#tag EndEvents
 #tag Events lockratio
 	#tag Event
 		Sub Action()
@@ -454,28 +407,27 @@ End
 		End Sub
 	#tag EndEvent
 #tag EndEvents
-#tag Events pmRescale
+#tag Events Timer1
 	#tag Event
-		Sub Change()
-		  'select case me.Text
-		  'case "Drago"
-		  'stToneMap1.Text = "Gamma:"
-		  'stToneMap2.Text = "Exposure:"
-		  'efToneMap1.Text = "2.2"
-		  'efToneMap2.Text = "0"
-		  'Case "Reinhard"
-		  'stToneMap1.Text = "Intensity:"
-		  'stToneMap2.Text = "Contrast:"
-		  'efToneMap1.Text = "0"
-		  'efToneMap2.Text = "0"
-		  '
-		  'case "Fattal"
-		  'stToneMap1.Text = "Saturation:"
-		  'stToneMap2.Text = "Attenuation:"
-		  'efToneMap1.Text = "0.5"
-		  'efToneMap2.Text = "0.85"
-		  'End Select
+		Sub Action()
+		  Static oldheight, oldWidth As Integer
+		  Dim WidthVal, HeightVal As Integer
+		  WidthVal = widthslider.Value * 100 / widthslider.Maximum
+		  HeightVal = Heightslider.Value * 100 / Heightslider.Maximum
+		  widthtext.Text = Str(widthslider.Value)
+		  heighttext.Text = Str(Heightslider.Value)
 		  
+		  If lockratio.Value Then
+		    If oldheight <> widthslider.Value Then
+		      heightslider.Value = WidthVal * heightslider.Maximum / 100
+		    End If
+		    If oldheight <> heightslider.Value Then
+		      widthslider.Value = WidthVal * widthslider.Maximum / 100
+		    End If
+		  End If
+		  
+		  oldheight = heightslider.Value
+		  oldWidth = widthslider.Value
 		End Sub
 	#tag EndEvent
 #tag EndEvents

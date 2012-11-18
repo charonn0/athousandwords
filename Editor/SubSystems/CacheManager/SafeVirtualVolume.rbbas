@@ -35,7 +35,7 @@ Protected Class SafeVirtualVolume
 		  bsIN.Close
 		  bsOUT.Close
 		  
-		  If Not Verify(Hash) Then 
+		  If Not Verify(Hash) Then
 		    Raise New ResourceException(ResourceException.Error_Corrupt_Resource_File, f.AbsolutePath)
 		  Else
 		    VirtVolume = tmp.OpenAsVirtualVolume

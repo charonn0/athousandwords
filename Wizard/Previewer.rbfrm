@@ -88,14 +88,40 @@ End
 #tag WindowCode
 	#tag Event
 		Sub Resized()
-		  'Canvas1.Refresh(False)
+		  If Pic.Width <> Me.Width Or Pic.Height <> Me.Height Then
+		    Dim ratio As Double
+		    If TruePic.Width > TruePic.Height Then
+		      If TruePic.Width < Me.Width Then
+		        ratio = Truepic.Width / Me.Width
+		      Else
+		        ratio = Me.Width / Truepic.Width
+		      End If
+		    Else
+		      If TruePic.Height < Me.Height Then
+		        ratio = Truepic.Height / Me.Height
+		      Else
+		        ratio = Me.Height / Truepic.Height
+		      End If
+		    End If
+		    
+		    pic = Scale(TruePic, ratio)
+		    Canvas1.Invalidate(True)
+		  End If
 		End Sub
 	#tag EndEvent
 
 
 	#tag Method, Flags = &h0
 		Sub ShowModal(p As Picture)
-		  Pic = p
+		  TruePic = New Picture(p.Width, p.Height, p.Depth)
+		  TruePic.Graphics.DrawPicture(p, 0, 0)
+		  If p.Width > Me.Width Or p.Height > Me.Height Then
+		    Pic = Scale(p, 0.5)
+		    Self.Width = Pic.Width
+		    Self.Height = Pic.Height
+		  Else
+		    Pic = p
+		  End If
 		  Me.ShowModal()
 		End Sub
 	#tag EndMethod
@@ -105,34 +131,18 @@ End
 		Private Pic As Picture
 	#tag EndProperty
 
+	#tag Property, Flags = &h0
+		TruePic As Picture
+	#tag EndProperty
+
 
 #tag EndWindowCode
 
 #tag Events Canvas1
 	#tag Event
 		Sub Paint(g As Graphics)
-		  If Pic <> Nil Then 
-		    Static p As Picture
-		    If p = Nil Then p = New Picture(1, 1, 32)
-		    Dim ratio As Double = 1.0
-		    If p.Width <> g.Width Or p.Height <> g.Height Then
-		      If Pic.Width > Pic.Height Then
-		        If Pic.Width < g.Width Then
-		          ratio = pic.Width / g.Width
-		        Else
-		          ratio = g.Width / pic.Width
-		        End If
-		      Else
-		        If Pic.Height < g.Height Then
-		          ratio = pic.Height / g.Height
-		        Else
-		          ratio = g.Height / pic.Height
-		        End If
-		      End If
-		      
-		      p = Scale(Pic, ratio)
-		      g.DrawPicture(p, 0, 0)
-		    End If
+		  If Pic <> Nil Then
+		    g.DrawPicture(Pic, 0, 0)
 		  End If
 		End Sub
 	#tag EndEvent

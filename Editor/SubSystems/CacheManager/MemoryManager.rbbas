@@ -43,8 +43,8 @@ Protected Module MemoryManager
 		    
 		  Else
 		    f.Delete
-		    Dim lossWin As New ExpectedExceptions
-		    Call lossWin.ShowMe("The canvas was reset but an error occured when reloading the icon resource file.")
+		    'Dim lossWin As New ExpectedExceptions
+		    'Call lossWin.ShowMe("The canvas was reset but an error occured when reloading the icon resource file.")
 		    Quit(1)
 		  End If
 		End Sub
@@ -91,8 +91,8 @@ Protected Module MemoryManager
 		    Loading.Close
 		    Debug("EXCEPTION! " + CurrentMethodName + " : " + Introspection.GetType(err).Name)
 		    If Err IsA ResourceException Then
-		      Dim lossWin As New ExpectedExceptions
-		      Call lossWin.ShowMe(err.Message)
+		      'Dim lossWin As New ExpectedExceptions
+		      Call MsgBox(err.Message, 16, "Editor Error")
 		      Return True
 		    Else
 		      Return False
@@ -220,14 +220,8 @@ Protected Module MemoryManager
 	#tag Method, Flags = &h0
 		Function Iconize(buffer As Picture, size As Integer = 16) As Picture
 		  If buffer.Width <= size Then Return buffer
-		  If Not FreeImageAvailable Then
-		    Dim sc As Double = size / Buffer.Width
-		    Buffer = Images.Scale(Buffer, sc)
-		  Else
-		    Dim fi As FreeImage = FreeImage.LoadFromMemory(buffer.GetData(Picture.FormatPNG, Picture.QualityHigh))
-		    buffer = GetFIPic(fi.Rescale(size, size))
-		    buffer.Transparent = 1
-		  End If
+		  Dim sc As Double = size / Buffer.Width
+		  Buffer = Images.Scale(Buffer, sc)
 		  
 		  Return buffer
 		End Function

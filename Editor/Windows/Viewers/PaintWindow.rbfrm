@@ -182,10 +182,10 @@ End
 		  tos = tos.Create(f)
 		  tos.Write(icons1)
 		  tos.Close
-		  If Not MemoryManager.ExtractIcons(f) Then
-		    Static lossWin As New ExpectedExceptions
-		    Call lossWin.ShowMe("The icons.res file is corrupt. While this error is 'non-fatal' it will make using this program rather difficult.")
-		  End If
+		  Call MemoryManager.ExtractIcons(f) 'Then
+		  'Static lossWin As New ExpectedExceptions
+		  'Call lossWin.ShowMe("The icons.res file is corrupt. While this error is 'non-fatal' it will make using this program rather difficult.")
+		  'End If
 		  f.Delete
 		  
 		  

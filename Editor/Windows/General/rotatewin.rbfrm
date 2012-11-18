@@ -7,9 +7,9 @@ Begin Window rotatewin
    Frame           =   0
    FullScreen      =   False
    HasBackColor    =   False
-   Height          =   66
+   Height          =   25
    ImplicitInstance=   False
-   LiveResize      =   True
+   LiveResize      =   False
    MacProcID       =   0
    MaxHeight       =   32000
    MaximizeButton  =   False
@@ -17,13 +17,13 @@ Begin Window rotatewin
    MenuBar         =   ""
    MenuBarVisible  =   True
    MinHeight       =   64
-   MinimizeButton  =   True
+   MinimizeButton  =   False
    MinWidth        =   64
    Placement       =   0
-   Resizeable      =   True
+   Resizeable      =   False
    Title           =   "Rotate"
    Visible         =   True
-   Width           =   172
+   Width           =   1.4e+2
    Begin ComboBox cbAngle
       AutoComplete    =   False
       AutoDeactivate  =   True
@@ -34,7 +34,7 @@ Begin Window rotatewin
       Height          =   20
       HelpTag         =   ""
       Index           =   -2147483648
-      InitialValue    =   "90\r\n180\r\n270"
+      InitialValue    =   "90°\r\n180°\r\n270°"
       Italic          =   ""
       Left            =   0
       ListIndex       =   0
@@ -69,7 +69,7 @@ Begin Window rotatewin
       Index           =   -2147483648
       InitialParent   =   ""
       Italic          =   ""
-      Left            =   47
+      Left            =   62
       LockBottom      =   ""
       LockedInPosition=   False
       LockLeft        =   ""
@@ -82,42 +82,10 @@ Begin Window rotatewin
       TextFont        =   "System"
       TextSize        =   0
       TextUnit        =   0
-      Top             =   32
+      Top             =   0
       Underline       =   ""
       Visible         =   True
       Width           =   78
-   End
-   Begin CheckBox cbRotateClassic
-      AutoDeactivate  =   True
-      Bold            =   ""
-      Caption         =   "Rotate Classic"
-      DataField       =   ""
-      DataSource      =   ""
-      Enabled         =   True
-      Height          =   20
-      HelpTag         =   ""
-      Index           =   -2147483648
-      InitialParent   =   ""
-      Italic          =   ""
-      Left            =   63
-      LockBottom      =   ""
-      LockedInPosition=   False
-      LockLeft        =   ""
-      LockRight       =   ""
-      LockTop         =   ""
-      Scope           =   0
-      State           =   1
-      TabIndex        =   2
-      TabPanelIndex   =   0
-      TabStop         =   True
-      TextFont        =   "System"
-      TextSize        =   0
-      TextUnit        =   0
-      Top             =   0
-      Underline       =   ""
-      Value           =   True
-      Visible         =   True
-      Width           =   109
    End
    Begin PushButton PushButton1
       AutoDeactivate  =   True
@@ -167,10 +135,10 @@ End
 	#tag Method, Flags = &h0
 		Function ShowMe(key As String) As String
 		  Dim p As Picture = GetFramePicture(key)
-		  TheImage = FreeImage.LoadFromMemory(p.GetData(Picture.FormatPNG, Picture.QualityHigh))
+		  TheImage = p
 		  Me.ShowModal
-		  If RetPic <> Nil Then
-		    Dim sf As New StackFrame(RetPic)
+		  If TheImage <> Nil Then
+		    Dim sf As New StackFrame(TheImage)
 		    AddStackFrame(sf)
 		    Return sf.Key
 		  Else
@@ -181,11 +149,7 @@ End
 
 
 	#tag Property, Flags = &h0
-		RetPic As Picture
-	#tag EndProperty
-
-	#tag Property, Flags = &h0
-		TheImage As FreeImage
+		TheImage As Picture
 	#tag EndProperty
 
 
@@ -196,20 +160,13 @@ End
 		Sub Action()
 		  select case cbAngle.Text.Val
 		  case 90
-		    TheImage = TheImage.Rotate90
+		    TheImage = TheImage.Rotate(90.0)
 		  case 180
-		    TheImage = TheImage.Rotate180
+		    TheImage = TheImage.Rotate(180.0)
 		  case 270
-		    TheImage = TheImage.Rotate270
-		  else
-		    if cbRotateClassic.Value then
-		      TheImage = TheImage.RotateClassic( cbAngle.Text.Val )
-		    else
-		      TheImage = TheImage.RotateEx( cbAngle.Text.Val )
-		    end if
+		    TheImage = TheImage.Rotate(270.0)
 		  end select
 		  
-		  RetPic = GetFIPic(TheImage)
 		  Close
 		End Sub
 	#tag EndEvent
@@ -217,7 +174,7 @@ End
 #tag Events PushButton1
 	#tag Event
 		Sub Action()
-		  RetPic = Nil
+		  TheImage = Nil
 		  Close
 		End Sub
 	#tag EndEvent

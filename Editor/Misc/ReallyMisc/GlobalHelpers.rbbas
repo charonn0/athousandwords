@@ -1,27 +1,6 @@
 #tag Module
 Protected Module GlobalHelpers
 	#tag Method, Flags = &h0
-		Function GetFIPic(In_FI As freeImage) As Picture
-		  if In_FI = nil then return nil
-		  
-		  // Since Mod_FreeImage has no elegant way of getting a Picture object from a FreeImage object, we're going to do a hack job
-		  dim ftmp As FolderItem = GetTemporaryFolderItem
-		  if ftmp <> nil then
-		    // JPEG won't write images that have been passed through dither or threshold. We could convert back to 24 or 36 bits, but
-		    // it's just as easy to save to BMP instead.
-		    'if In_FI.Save( ftmp, FI_Format.JPEG, FI_Flag.JPEG_QUALITYSUPERB ) then
-		    if In_FI.Save( ftmp, FI_Format.BMP ) then
-		      dim p As Picture = Picture.Open(ftmp)
-		      ftmp.Delete
-		      'RaiseEvent LeakPreview(p)
-		      return p
-		    end if
-		    
-		  end if
-		End Function
-	#tag EndMethod
-
-	#tag Method, Flags = &h0
 		Function LoadPicFile(f As FolderItem) As String
 		  Debug("Load file: " + f.AbsolutePath)
 		  Dim p As Picture
@@ -47,12 +26,75 @@ Protected Module GlobalHelpers
 
 	#tag Method, Flags = &h0
 		Function NotifyDataLoss(Message As String) As Boolean
-		  Debug("Whoops!")
-		  Static lossWin As New ExpectedExceptions
-		  Dim b As Boolean = lossWin.ShowMe(Message)
-		  MainWindow.Error = True
-		  'Supervisor.Intercede()
-		  Return b
+		  'Debug("Whoops!")
+		  'Static lossWin As New ExpectedExceptions
+		  'Dim b As Boolean = lossWin.ShowMe(Message)
+		  'MainWindow.Error = True
+		  ''Supervisor.Intercede()
+		  'Return b
+		  Call MsgBox(Message, 16, "Editor Error")
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Function Shorten(Extends data As String, maxLength As Integer = 45) As String
+		  //Replaces characters from the middle of a string with a single ellipsis ("...") until data.Len is less than the specified length.
+		  //Useful for showing long paths by omitting the middle part of the data, though not limited to this use.
+		  
+		  If data.Len <= maxLength then
+		    Return data
+		  Else
+		    Dim shortdata, snip As String
+		    Dim start As Integer
+		    shortdata = data
+		    
+		    While shortdata.len > maxLength
+		      start = shortdata.Len / 3
+		      snip = mid(shortdata, start, 5)
+		      shortdata = Replace(shortdata, snip, "...")
+		    Wend
+		    Return shortdata
+		  End If
+		  
+		Exception err
+		  If err IsA EndException Or Err IsA ThreadEndException Then Raise Err
+		  Return data
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Function Tokenize(Input As String) As String()
+		  //Returns a String array containing the space-delimited members of the Input string.
+		  //Like `Split` but honoring quotes; good for command line arguments and other parsing.
+		  //For example, this string:
+		  '                     MyApp.exe --foo "C:\My Dir\"
+		  //Would become:
+		  '                     s(0) = MyApp.exe
+		  '                     s(1) = --foo
+		  '                     s(2) = "C:\My Dir\"
+		  
+		  
+		  #If TargetWin32 Then
+		    Declare Function PathGetArgsW Lib "Shlwapi" (path As WString) As WString
+		    Dim ret() As String
+		    Dim cmdLine As String = Input
+		    While cmdLine.Len > 0
+		      Dim tmp As String
+		      Dim args As String = PathGetArgsW(cmdLine)
+		      If Len(args) = 0 Then
+		        tmp = ReplaceAll(cmdLine.Trim, Chr(34), "")
+		        ret.Append(tmp)
+		        Exit While
+		      Else
+		        tmp = Left(cmdLine, cmdLine.Len - args.Len).Trim
+		        tmp = ReplaceAll(tmp, Chr(34), "")
+		        ret.Append(tmp)
+		        cmdLine = args
+		      End If
+		    Wend
+		    Return ret
+		  #endif
+		  
 		End Function
 	#tag EndMethod
 

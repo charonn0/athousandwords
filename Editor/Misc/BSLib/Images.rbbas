@@ -151,6 +151,25 @@ Protected Module Images
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
+		Function Rotate(Extends Pic As Picture, Degrees As Double, Mask As Picture = Nil) As Picture
+		  //Rotates the passed Picture counter-clockwise the number of degrees specified around its center.
+		  //Optionally, pass a mask which will also be rotated and then applied to the returned Picture object.
+		  
+		  Dim px As New PixmapShape(Pic)
+		  px.X = (Pic.Width * 0.5) - 2
+		  px.Y = (Pic.Height * 0.5) - 2
+		  px.Rotation = Degrees / 57.2958 //Degrees to radians
+		  Dim p As New Picture(px.SourceWidth, Px.SourceHeight, Pic.Depth)
+		  p.Graphics.DrawObject(px)
+		  
+		  //Rotate and apply the mask if it exists
+		  If Mask <> Nil Then p.ApplyMask(Mask.Rotate(Degrees))
+		  
+		  Return p
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
 		Function Scale(Source As Picture, Ratio As Double = 1.0) As Picture
 		  //Returns a scaled version of the passed Picture object.
 		  //A ratio of 1.0 is 100% (no change,) 0.5 is 50% (half size) and so forth.
