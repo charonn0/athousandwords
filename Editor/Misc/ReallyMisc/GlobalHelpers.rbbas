@@ -6,13 +6,11 @@ Protected Module GlobalHelpers
 		  Dim p As Picture
 		  Debug("Reading...")
 		  If f.Length > 1048576 Then //1MB
-		    Loading.ShowMe("Loading file", f.Name)
 		    Try
 		      p = Picture.Open(f)
 		    Catch
 		      Debug("Not a picture file!")
 		    End Try
-		    Loading.Close
 		  Else
 		    p = Picture.Open(f)
 		  End If
@@ -164,22 +162,6 @@ Protected Module GlobalHelpers
 		End Function
 	#tag EndMethod
 
-
-	#tag ComputedProperty, Flags = &h0
-		#tag Getter
-			Get
-			  Dim func As String
-			  #if TargetWin32
-			    func = "_FreeImage_GetVersion@0"
-			  #else
-			    func = "FreeImage_GetVersion"
-			  #endif
-			  
-			  Return System.IsFunctionAvailable( func, "FreeImage" )
-			End Get
-		#tag EndGetter
-		FreeImageAvailable As Boolean
-	#tag EndComputedProperty
 
 	#tag ComputedProperty, Flags = &h0
 		#tag Getter

@@ -108,13 +108,26 @@ Begin Window PaintWindow
    Begin Timer capturetimer
       Height          =   32
       Index           =   -2147483648
-      Left            =   1088
+      Left            =   862
       LockedInPosition=   False
       Mode            =   0
       Period          =   1000
       Scope           =   0
       TabPanelIndex   =   0
-      Top             =   552
+      Top             =   60
+      Width           =   32
+   End
+   Begin Timer toolbartimer
+      Height          =   32
+      Index           =   -2147483648
+      InitialParent   =   ""
+      Left            =   862
+      LockedInPosition=   False
+      Mode            =   1
+      Period          =   500
+      Scope           =   0
+      TabPanelIndex   =   0
+      Top             =   22
       Width           =   32
    End
 End
@@ -148,6 +161,7 @@ End
 	#tag Event
 		Sub Close()
 		  Call MemoryManager.CleanUp
+		  TheToolsWin.Close
 		  WizWindow.Visible = True
 		End Sub
 	#tag EndEvent
@@ -155,19 +169,21 @@ End
 	#tag Event
 		Sub EnableMenuItems()
 		  //File Menu
-		  'Self.MenuBar.Item(0).Item(0).Icon = GetFrameThumbnail("document-new.png")  //New
-		  'Self.MenuBar.Item(0).Item(1).Icon = GetFrameThumbnail("folder_open_document.png")  //Open
-		  'Self.MenuBar.Item(0).Item(2).Icon = GetFrameThumbnail("save-document.png")  //Save
-		  'Self.MenuBar.Item(0).Item(3).Icon = GetFrameThumbnail("quitIcon.png")  //Exit
+		  Self.MenuBar.Item(0).Item(0).Icon = GetFrameThumbnail("save-document.png")  //Save
+		  Self.MenuBar.Item(0).Item(1).Icon = GetFrameThumbnail("quitIcon.png")  //Exit
 		  
 		  //Edit Menu
 		  Self.MenuBar.Item(1).Item(0).Icon = GetFrameThumbnail("Undo.png")  //Undo
 		  Self.MenuBar.Item(1).Item(1).Icon = GetFrameThumbnail("Redo.png")  //Redo
 		  Self.MenuBar.Item(1).Item(2).Icon = GetFrameThumbnail("edit-clear.png")  //Clear
+		  Self.MenuBar.Item(1).Item(3).Icon = GetFrameThumbnail("rotate.png")  //Rotate
 		  
 		  //Tools Menu
 		  Self.MenuBar.Item(2).Item(0).Icon = GetFrameThumbnail("image_resize.png")  //scale
 		  Self.MenuBar.Item(2).Item(1).Icon = GetFrameThumbnail("magnifying_glass.png")  //magnifyer
+		  Self.MenuBar.Item(2).Item(2).Icon = GetFrameThumbnail("camera.png")  //Capture
+		  Self.MenuBar.Item(2).Item(3).Icon = GetFrameThumbnail("palette.png")  //Change Color
+		  Self.MenuBar.Item(2).Item(4).Icon = GetFrameThumbnail("changesize.png")  //Change pen size
 		  
 		  
 		End Sub
@@ -189,10 +205,7 @@ End
 		  f.Delete
 		  
 		  
-		  If TheToolsWin = Nil Then
-		    TheToolsWin = New ToolsWin
-		  End If
-		  TheToolsWin.Show
+		  
 		End Sub
 	#tag EndEvent
 
@@ -248,6 +261,7 @@ End
 			'Self.Visible = False
 			OldY = Self.Top
 			Self.Top = Self.Top * -10000
+			TheToolsWin.Top = TheToolsWin.Top * -10000
 			
 			capturetimer.Mode = Timer.ModeSingle
 			Return True
@@ -256,10 +270,14 @@ End
 	#tag EndMenuHandler
 
 	#tag MenuHandler
-		Function RedoMeni() As Boolean Handles RedoMeni.Action
+		Function RedoMenu() As Boolean Handles RedoMenu.Action
 			If PaintTarget1.ReDo() Then
 			PaintTarget1.Taint = False
+			If PaintTarget1.FileName .Trim <> "" Then
 			Self.Title = "Your Screen Capture - " + PaintTarget1.FileName + " *"
+			Else
+			Self.Title = "Your Screen Capture"
+			End If
 			TheToolsWin.LineSize.ListIndex = PaintTarget1.LineWidth
 			End If
 			Return True
@@ -296,7 +314,12 @@ End
 		Function UndoItem() As Boolean Handles UndoItem.Action
 			If Not PaintTarget1.UnDo() Then
 			PaintTarget1.Taint = False
-			Self.Title = "Your Screen Capture - " + PaintTarget1.FileName
+			If PaintTarget1.FileName .Trim <> "" Then
+			Self.Title = "Your Screen Capture - " + PaintTarget1.FileName + " *"
+			Else
+			Self.Title = "Your Screen Capture"
+			End If
+			
 			End If
 			TheToolsWin.LineSize.ListIndex = PaintTarget1.LineWidth
 			Return True
@@ -381,7 +404,8 @@ End
 	#tag EndEvent
 	#tag Event
 		Sub SetTitle(NewTitle As String)
-		  Self.Title = "Your Screen Capture - " + NewTitle
+		  If NewTitle.Trim <> "" Then NewTitle = " - " + NewTitle
+		  Self.Title = "Your Screen Capture" + NewTitle.Trim
 		End Sub
 	#tag EndEvent
 	#tag Event
@@ -417,7 +441,20 @@ End
 		  
 		  Dim p As Picture = Platform.GetPartialScreenShot(l, t, w, h)
 		  PaintTarget1.Open(p)
+		  PaintTarget1.Taint = True
 		  Self.Top = OldY
+		  TheToolsWin.Top = Self.Top + 190
+		  
+		End Sub
+	#tag EndEvent
+#tag EndEvents
+#tag Events toolbartimer
+	#tag Event
+		Sub Action()
+		  If TheToolsWin = Nil Then
+		    TheToolsWin = New ToolsWin
+		  End If
+		  TheToolsWin.ShowWithin(Self)
 		End Sub
 	#tag EndEvent
 #tag EndEvents

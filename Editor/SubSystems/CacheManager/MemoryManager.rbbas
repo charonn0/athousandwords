@@ -54,7 +54,6 @@ Protected Module MemoryManager
 		Protected Function ExtractIcons(resourcefile As FolderItem) As Boolean
 		  Debug("Create cache")
 		  Icons = New Dictionary
-		  Loading.ShowMe("Initialiazing...")
 		  Dim f As FolderItem = SpecialFolder.Temporary.Child("A Thousand Words")
 		  f.CreateAsFolder()
 		  If resourcefile = Nil Then resourcefile = App.ExecutableFile.Parent.Child("icons.res")
@@ -77,10 +76,8 @@ Protected Module MemoryManager
 		    TrimTimer.Period = 10000
 		    AddHandler TrimTimer.Action, AddressOf TrimCache
 		    TrimTimer.Mode = Timer.ModeMultiple
-		    Loading.Close
 		    Return True
 		  Else
-		    Loading.Close
 		    Debug("The icons file could not be located at: " + resourcefile.AbsolutePath)
 		    Raise New ResourceException(ResourceException.Error_No_File, f.AbsolutePath)
 		  End If
@@ -88,7 +85,6 @@ Protected Module MemoryManager
 		Exception Err
 		  If err IsA EndException Or Err IsA ThreadEndException Then Raise Err
 		  If Not Dumped Then
-		    Loading.Close
 		    Debug("EXCEPTION! " + CurrentMethodName + " : " + Introspection.GetType(err).Name)
 		    If Err IsA ResourceException Then
 		      'Dim lossWin As New ExpectedExceptions
@@ -276,36 +272,36 @@ Protected Module MemoryManager
 		Protected Sub TrimCache(Sender As Timer)
 		  //Sends pageable StackFrames to disk according to their last-access time (oldest first)
 		  Return
-		  Dim availSpace, usedSpace As Integer
-		  availSpace = Platform.AvailableProcessAddressSpace
-		  usedSpace = Platform.TotalProcessAddressSpace - availSpace
+		  'Dim availSpace, usedSpace As Integer
+		  'availSpace = Platform.AvailableProcessAddressSpace
+		  'usedSpace = Platform.TotalProcessAddressSpace - availSpace
+		  '
+		  'If usedSpace > MaxMem Then
+		  Dim u As UInt64 = Microseconds
+		  Debug("The cache trimmer has started.")
+		  #pragma Unused Sender
+		  Dim c As Integer = Icons.Count
+		  For i As Integer = 0 To c - 1
+		    Dim d As New Date
+		    Dim n As String = Icons.Key(i)
+		    Dim sf As StackFrame = Icons.Value(n)
+		    If sf.Paged Then Continue
+		    If d.TotalSeconds - sf.TimeStamp < 25000 Then//25 seconds for testing
+		      Dim f As FolderItem = SpecialFolder.Temporary.Child("A Thousand Words").Child(n)
+		      Try
+		        #pragma BreakOnExceptions Off
+		        GetFramePicture(n).Save(f, Picture.SaveAsPNG)
+		        #pragma BreakOnExceptions On
+		        sf.Paged = True
+		      Catch
+		        Debug("The stack frame: " + n + " has already been trimmed.")
+		      End Try
+		    End If
+		  Next
+		  Dim x As UInt64 = Microseconds
+		  Debug("The cache trimmer has finished: " + Str(x - u) + " microseconds")
 		  
-		  If usedSpace > MaxMem Then
-		    Dim u As UInt64 = Microseconds
-		    Debug("The cache trimmer has started.")
-		    #pragma Unused Sender
-		    Dim c As Integer = Icons.Count
-		    For i As Integer = 0 To c - 1
-		      Dim d As New Date
-		      Dim n As String = Icons.Key(i)
-		      Dim sf As StackFrame = Icons.Value(n)
-		      If sf.Paged Then Continue
-		      If d.TotalSeconds - sf.TimeStamp < 25000 Then//25 seconds for testing
-		        Dim f As FolderItem = SpecialFolder.Temporary.Child("A Thousand Words").Child(n)
-		        Try
-		          #pragma BreakOnExceptions Off
-		          GetFramePicture(n).Save(f, Picture.SaveAsPNG)
-		          #pragma BreakOnExceptions On
-		          sf.Paged = True
-		        Catch
-		          Debug("The stack frame: " + n + " has already been trimmed.")
-		        End Try
-		      End If
-		    Next
-		    Dim x As UInt64 = Microseconds
-		    Debug("The cache trimmer has finished: " + Str(x - u) + " microseconds")
-		    
-		  End If
+		  'End If
 		End Sub
 	#tag EndMethod
 

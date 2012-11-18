@@ -19,7 +19,7 @@ Begin Window rotatewin
    MinHeight       =   64
    MinimizeButton  =   False
    MinWidth        =   64
-   Placement       =   0
+   Placement       =   1
    Resizeable      =   False
    Title           =   "Rotate"
    Visible         =   True
@@ -122,16 +122,6 @@ End
 #tag EndWindow
 
 #tag WindowCode
-	#tag Event
-		Sub Open()
-		  If Not FreeImageAvailable Then
-		    MsgBox("This feature requires the FreeImage library.")
-		    Close
-		  End If
-		End Sub
-	#tag EndEvent
-
-
 	#tag Method, Flags = &h0
 		Function ShowPensize(CurrentSize As Integer) As Integer
 		  Me.Title = "Set Pen Size"
@@ -142,7 +132,7 @@ End
 		  For i As Integer = 1 To 9
 		    cbAngle.AddRow(Str(i))
 		  Next
-		  cbAngle.ListIndex = CurrentSize
+		  cbAngle.ListIndex = CurrentSize - 1
 		  TheSize = CurrentSize
 		  Me.ShowModal
 		  Return TheSize

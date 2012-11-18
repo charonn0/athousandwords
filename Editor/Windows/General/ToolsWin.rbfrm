@@ -23,7 +23,7 @@ Begin Window ToolsWin
    Resizeable      =   False
    Title           =   "Tools"
    Visible         =   True
-   Width           =   1.33e+2
+   Width           =   1.06e+2
    Begin ComboBox LineSize
       AutoComplete    =   False
       AutoDeactivate  =   True
@@ -309,7 +309,7 @@ Begin Window ToolsWin
       invertTextColor =   ""
       isSticky        =   True
       italic          =   0
-      Left            =   108
+      Left            =   81
       LockBottom      =   False
       LockedInPosition=   False
       LockLeft        =   False
@@ -342,7 +342,7 @@ Begin Window ToolsWin
       hasIcon         =   True
       Height          =   25
       HelpTag         =   "Pencil"
-      Icon            =   "pencil.png"
+      Icon            =   "compositor.png"
       Index           =   4
       InitialParent   =   ""
       invertTextColor =   ""
@@ -381,13 +381,13 @@ Begin Window ToolsWin
       hasIcon         =   True
       Height          =   25
       HelpTag         =   "Color Picker"
-      Icon            =   ""
+      Icon            =   "Paint-icon.png"
       Index           =   8
       InitialParent   =   ""
       invertTextColor =   ""
       isSticky        =   False
       italic          =   0
-      Left            =   81
+      Left            =   138
       LockBottom      =   False
       LockedInPosition=   False
       LockLeft        =   False
@@ -400,7 +400,7 @@ Begin Window ToolsWin
       textColor       =   0
       textFont        =   "System"
       textSize        =   0
-      Top             =   0
+      Top             =   -54
       underline       =   0
       UseFocusRing    =   True
       value           =   False
@@ -415,6 +415,28 @@ End
 		Sub Open()
 		  Me.Top = Me.Top + 190
 		  Me.Left = Me.Left + 250
+		  'Const GWL_EXSTYLE = -20
+		  'Const GWL_STYLE = -16
+		  'Const WS_BORDER = &h00800000
+		  'Const WS_EX_NOACTIVATE = &h08000000
+		  'Const WS_EX_TOOLWINDOW = &h00000080
+		  'Const WS_EX_TOPMOST = &h00000008
+		  '#If Target64Bit And Not TargetWin32 Then
+		  '#pragma Error "Holy crap, REALsoftware got their act together! Change these declares for x64"
+		  '#ElseIf Not TargetWin32 Then
+		  '#pragma Error "This application makes use of Win32-specific declares."
+		  '#endif
+		  ''Declare Function SetWindowLongW  Lib "User32" (HWND As Integer, Index As Integer, NewValue As Integer) As Integer
+		  ''Declare Function GetWindowLongW Lib "User32" (HWND As Integer, Index As Integer) As Integer
+		  ''Declare Function SetWindowPos Lib "User32" (HWND As Integer, hWndInstertAfter As Integer, x As Integer, y As Integer, cx As Integer, _
+		  ''cy As Integer, flags As Integer) As Integer
+		  ''
+		  ''Dim hwndflags As Integer = GetWindowLongW(Me.Handle, GWL_EXSTYLE)
+		  ''hwndflags = hwndflags Or WS_EX_TOOLWINDOW Or WS_BORDER Or WS_EX_NOACTIVATE Or WS_EX_TOPMOST
+		  ''Call SetWindowLongW(Me.Handle, GWL_EXSTYLE, hwndflags)
+		  '
+		  'Declare Function BringWindowToTop Lib "User32" (HWND As Integer) As Boolean
+		  'Call BringWindowToTop(Me.Handle)
 		End Sub
 	#tag EndEvent
 
@@ -440,14 +462,14 @@ End
 		Sub Open(index as Integer)
 		  Debug("Simple Plaint: Tools window button " + Str(index) + " loaded")
 		  ModeButton(PreviousButton).setValue(True)
-		  If Me.Index = 8 Then
-		    Dim p As New Picture(Me.Width, Me.Height, 32)
-		    p.Graphics.ForeColor = MainWindow.PaintTarget1.CurrentColor
-		    p.Graphics.FillRect(1, 1, p.Width - 1, p.Height - 1)
-		    Dim sf As New StackFrame(p)
-		    AddStackFrame(sf)
-		    Me.setIcon(sf.Key)
-		  End If
+		  'If Me.Index = 8 Then
+		  'Dim p As New Picture(Me.Width, Me.Height, 32)
+		  'p.Graphics.ForeColor = MainWindow.PaintTarget1.CurrentColor
+		  'p.Graphics.FillRect(1, 1, p.Width - 1, p.Height - 1)
+		  'Dim sf As New StackFrame(p)
+		  'AddStackFrame(sf)
+		  'Me.setIcon(sf.Key)
+		  'End If
 		End Sub
 	#tag EndEvent
 	#tag Event

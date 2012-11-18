@@ -43,7 +43,7 @@ Begin Window WizWindow
       TabIndex        =   0
       TabPanelIndex   =   0
       Top             =   0
-      Value           =   0
+      Value           =   3
       Visible         =   True
       Width           =   626
       Begin Label Label1
@@ -616,37 +616,6 @@ Begin Window WizWindow
          Visible         =   True
          Width           =   80
       End
-      Begin PushButton PushButton9
-         AutoDeactivate  =   True
-         Bold            =   ""
-         ButtonStyle     =   0
-         Cancel          =   ""
-         Caption         =   "&Start Over"
-         Default         =   ""
-         Enabled         =   True
-         Height          =   22
-         HelpTag         =   ""
-         Index           =   -2147483648
-         InitialParent   =   "PagePanel1"
-         Italic          =   ""
-         Left            =   439
-         LockBottom      =   True
-         LockedInPosition=   False
-         LockLeft        =   False
-         LockRight       =   True
-         LockTop         =   False
-         Scope           =   0
-         TabIndex        =   3
-         TabPanelIndex   =   2
-         TabStop         =   True
-         TextFont        =   "System"
-         TextSize        =   0
-         TextUnit        =   0
-         Top             =   131
-         Underline       =   ""
-         Visible         =   True
-         Width           =   80
-      End
       Begin PushButton PushButton10
          AutoDeactivate  =   True
          Bold            =   ""
@@ -827,13 +796,6 @@ End
 	#tag EndEvent
 #tag EndEvents
 #tag Events PushButton8
-	#tag Event
-		Sub Action()
-		  PagePanel1.Value = 0
-		End Sub
-	#tag EndEvent
-#tag EndEvents
-#tag Events PushButton9
 	#tag Event
 		Sub Action()
 		  PagePanel1.Value = 0

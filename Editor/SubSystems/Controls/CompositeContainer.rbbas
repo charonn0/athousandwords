@@ -905,7 +905,7 @@ Inherits Canvas
 		  If RaiseEvent CancelOpen Then Return
 		  Buffer = p
 		  TheMask = p.Mask(False)
-		  If FileName <> "Slideshow" Then FileName = "New Picture"
+		  'If FileName <> "Slideshow" Then FileName = "New Picture"
 		  Overlay = Nil
 		  Tainted(True)
 		  Invalidate(False)
@@ -1512,7 +1512,7 @@ Inherits Canvas
 	#tag EndProperty
 
 	#tag Property, Flags = &h21
-		Private mFileName As String = "New Picture"
+		Private mFileName As String
 	#tag EndProperty
 
 	#tag Property, Flags = &h21

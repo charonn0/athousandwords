@@ -46,6 +46,7 @@ Begin Window errorHandler
       Selectable      =   False
       TabIndex        =   0
       TabPanelIndex   =   0
+      TabStop         =   True
       Text            =   "Fatal exception!"
       TextAlign       =   0
       TextColor       =   0
@@ -256,7 +257,7 @@ End
 #tag Events PushButton3
 	#tag Event
 		Sub Action()
-		  ShowURL("http://www.boredomsoft.org/index.php?page=Bug+Reports")
+		  ShowURL("http://www.boredomsoft.org/contactus.bs")
 		End Sub
 	#tag EndEvent
 #tag EndEvents

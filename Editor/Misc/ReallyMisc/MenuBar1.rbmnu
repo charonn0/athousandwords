@@ -33,7 +33,7 @@ Begin Menu MenuBar1
          Icon = 1110892543
          AutoEnable = True
       End
-      Begin MenuItem RedoMeni
+      Begin MenuItem RedoMenu
          SpecialMenu = 0
          Text = "&Redo"
          Index = -2147483648
