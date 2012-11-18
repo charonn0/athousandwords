@@ -191,8 +191,6 @@ Inherits Canvas
 		  'next
 		  ''End If
 		  '
-		  
-		  
 	#tag EndNote
 
 

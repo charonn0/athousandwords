@@ -37,7 +37,6 @@ Protected Class StackFrame
 
 	#tag Note, Name = Notes
 		This class implements a single "stack frame" used by the StackFrame manager.
-		
 	#tag EndNote
 
 

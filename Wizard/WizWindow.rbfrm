@@ -43,7 +43,7 @@ Begin Window WizWindow
       TabIndex        =   0
       TabPanelIndex   =   0
       Top             =   0
-      Value           =   3
+      Value           =   0
       Visible         =   True
       Width           =   626
       Begin Label Label1
@@ -119,7 +119,7 @@ Begin Window WizWindow
          Bold            =   ""
          ButtonStyle     =   0
          Cancel          =   ""
-         Caption         =   "Next ->"
+         Caption         =   "&Next ->"
          Default         =   ""
          Enabled         =   True
          Height          =   22
@@ -150,7 +150,7 @@ Begin Window WizWindow
          Bold            =   ""
          ButtonStyle     =   0
          Cancel          =   ""
-         Caption         =   "Next ->"
+         Caption         =   "&Next ->"
          Default         =   ""
          Enabled         =   True
          Height          =   22
@@ -178,7 +178,7 @@ Begin Window WizWindow
       End
       Begin Label Label3
          AutoDeactivate  =   True
-         Bold            =   ""
+         Bold            =   False
          DataField       =   ""
          DataSource      =   ""
          Enabled         =   True
@@ -277,7 +277,7 @@ Begin Window WizWindow
          Bold            =   ""
          ButtonStyle     =   0
          Cancel          =   ""
-         Caption         =   "Next ->"
+         Caption         =   "&Next ->"
          Default         =   ""
          Enabled         =   True
          Height          =   22
@@ -308,7 +308,7 @@ Begin Window WizWindow
          Bold            =   ""
          ButtonStyle     =   0
          Cancel          =   ""
-         Caption         =   "Finish"
+         Caption         =   "&Finish"
          Default         =   ""
          Enabled         =   True
          Height          =   22
@@ -554,6 +554,130 @@ Begin Window WizWindow
          Visible         =   True
          Width           =   215
       End
+      Begin PushButton PushButton7
+         AutoDeactivate  =   True
+         Bold            =   ""
+         ButtonStyle     =   0
+         Cancel          =   ""
+         Caption         =   "&Start Over"
+         Default         =   ""
+         Enabled         =   True
+         Height          =   22
+         HelpTag         =   ""
+         Index           =   -2147483648
+         InitialParent   =   "PagePanel1"
+         Italic          =   ""
+         Left            =   439
+         LockBottom      =   True
+         LockedInPosition=   False
+         LockLeft        =   False
+         LockRight       =   True
+         LockTop         =   False
+         Scope           =   0
+         TabIndex        =   8
+         TabPanelIndex   =   4
+         TabStop         =   True
+         TextFont        =   "System"
+         TextSize        =   0
+         TextUnit        =   0
+         Top             =   131
+         Underline       =   ""
+         Visible         =   True
+         Width           =   80
+      End
+      Begin PushButton PushButton8
+         AutoDeactivate  =   True
+         Bold            =   ""
+         ButtonStyle     =   0
+         Cancel          =   ""
+         Caption         =   "&Start Over"
+         Default         =   ""
+         Enabled         =   True
+         Height          =   22
+         HelpTag         =   ""
+         Index           =   -2147483648
+         InitialParent   =   "PagePanel1"
+         Italic          =   ""
+         Left            =   268
+         LockBottom      =   True
+         LockedInPosition=   False
+         LockLeft        =   False
+         LockRight       =   True
+         LockTop         =   False
+         Scope           =   0
+         TabIndex        =   5
+         TabPanelIndex   =   3
+         TabStop         =   True
+         TextFont        =   "System"
+         TextSize        =   0
+         TextUnit        =   0
+         Top             =   131
+         Underline       =   ""
+         Visible         =   True
+         Width           =   80
+      End
+      Begin PushButton PushButton9
+         AutoDeactivate  =   True
+         Bold            =   ""
+         ButtonStyle     =   0
+         Cancel          =   ""
+         Caption         =   "&Start Over"
+         Default         =   ""
+         Enabled         =   True
+         Height          =   22
+         HelpTag         =   ""
+         Index           =   -2147483648
+         InitialParent   =   "PagePanel1"
+         Italic          =   ""
+         Left            =   439
+         LockBottom      =   True
+         LockedInPosition=   False
+         LockLeft        =   False
+         LockRight       =   True
+         LockTop         =   False
+         Scope           =   0
+         TabIndex        =   3
+         TabPanelIndex   =   2
+         TabStop         =   True
+         TextFont        =   "System"
+         TextSize        =   0
+         TextUnit        =   0
+         Top             =   131
+         Underline       =   ""
+         Visible         =   True
+         Width           =   80
+      End
+      Begin PushButton PushButton10
+         AutoDeactivate  =   True
+         Bold            =   ""
+         ButtonStyle     =   0
+         Cancel          =   ""
+         Caption         =   "Crash"
+         Default         =   ""
+         Enabled         =   False
+         Height          =   22
+         HelpTag         =   ""
+         Index           =   -2147483648
+         InitialParent   =   "PagePanel1"
+         Italic          =   ""
+         Left            =   439
+         LockBottom      =   ""
+         LockedInPosition=   False
+         LockLeft        =   True
+         LockRight       =   ""
+         LockTop         =   True
+         Scope           =   0
+         TabIndex        =   3
+         TabPanelIndex   =   1
+         TabStop         =   True
+         TextFont        =   "System"
+         TextSize        =   0
+         TextUnit        =   0
+         Top             =   131
+         Underline       =   ""
+         Visible         =   False
+         Width           =   80
+      End
    End
    Begin Timer Timer1
       Height          =   32
@@ -566,51 +690,6 @@ Begin Window WizWindow
       TabPanelIndex   =   0
       Top             =   -14
       Width           =   32
-   End
-   Begin HintTextField URL
-      AcceptTabs      =   ""
-      Alignment       =   0
-      AutoDeactivate  =   True
-      AutomaticallyCheckSpelling=   True
-      BackColor       =   16777215
-      Bold            =   ""
-      Border          =   True
-      CueText         =   ""
-      DataField       =   ""
-      DataSource      =   ""
-      Enabled         =   True
-      Format          =   ""
-      HasText         =   ""
-      Height          =   22
-      HelpTag         =   ""
-      HintText        =   "proto://upload.example.net:8080/upload.php"
-      Index           =   -2147483648
-      InitialParent   =   ""
-      Italic          =   ""
-      Left            =   -181
-      LimitText       =   0
-      LockBottom      =   ""
-      LockedInPosition=   False
-      LockLeft        =   True
-      LockRight       =   True
-      LockTop         =   True
-      Mask            =   ""
-      Password        =   ""
-      ReadOnly        =   ""
-      Scope           =   0
-      TabIndex        =   2
-      TabPanelIndex   =   0
-      TabStop         =   True
-      Text            =   ""
-      TextColor       =   0
-      TextFont        =   "System"
-      TextSize        =   0
-      TextUnit        =   0
-      Top             =   -167
-      Underline       =   ""
-      UseFocusRing    =   True
-      Visible         =   True
-      Width           =   611
    End
 End
 #tag EndWindow
@@ -731,12 +810,49 @@ End
 	#tag Event
 		Sub Open()
 		  Me.Text = "Boredom Software"
-		  '"Copyright " + Chr(169) + 
+		  '"Copyright " + Chr(169) +
 		End Sub
 	#tag EndEvent
 	#tag Event
 		Sub Action()
 		  ShowURL("http://www.boredomsoft.org/a-thousand-words.bs")
+		End Sub
+	#tag EndEvent
+#tag EndEvents
+#tag Events PushButton7
+	#tag Event
+		Sub Action()
+		  PagePanel1.Value = 0
+		End Sub
+	#tag EndEvent
+#tag EndEvents
+#tag Events PushButton8
+	#tag Event
+		Sub Action()
+		  PagePanel1.Value = 0
+		End Sub
+	#tag EndEvent
+#tag EndEvents
+#tag Events PushButton9
+	#tag Event
+		Sub Action()
+		  PagePanel1.Value = 0
+		End Sub
+	#tag EndEvent
+#tag EndEvents
+#tag Events PushButton10
+	#tag Event
+		Sub Action()
+		  #pragma BreakOnExceptions Off
+		  Raise New RuntimeException
+		End Sub
+	#tag EndEvent
+	#tag Event
+		Sub Open()
+		  #If DebugBuild Then
+		    Me.Enabled = True
+		    Me.Visible = True
+		  #endif
 		End Sub
 	#tag EndEvent
 #tag EndEvents
@@ -746,28 +862,6 @@ End
 		  FinalPic = Platform.CaptureScreen
 		  Self.Top = OldY
 		  PagePanel1.Value = PagePanel1.Value + 1
-		End Sub
-	#tag EndEvent
-#tag EndEvents
-#tag Events URL
-	#tag Event
-		Sub TextChange()
-		  'If Me.HasText Then
-		  'Dim url As New URI(Me.Text)
-		  'Listbox1.DeleteAllRows
-		  'If URL.Protocol <> "" Then Listbox1.AddRow("Protocol", URL.Protocol)
-		  'If URL.Protocol = "HTTP" Or URL.Protocol = "HTTPS" Then
-		  'Listbox1.AddRow("Method", "POST")
-		  'End If
-		  'If URL.FQDN <> "" Then Listbox1.AddRow("Domain", URL.FQDN)
-		  'If URL.ServerFile <> "" Then Listbox1.AddRow("Server File", URL.ServerFile)
-		  'If Join(URL.Arguments, "&") <> "" Then Listbox1.AddRow("Arguments", Join(URL.Arguments, "&"))
-		  'If URL.Fragment <> "" Then Listbox1.AddRow("Fragment", URL.Fragment)
-		  'If URL.Username <> "" Then Listbox1.AddRow("Username", URL.Username)
-		  'If URL.Password <> "" Then Listbox1.AddRow("Password", URL.Password)
-		  'If URL.Port <> 0 Then Listbox1.AddRow("Port", Format(URL.Port, "######"))
-		  'If URL <> "" Then Listbox1.AddRow("Convert Back", URL)
-		  'End If
 		End Sub
 	#tag EndEvent
 #tag EndEvents

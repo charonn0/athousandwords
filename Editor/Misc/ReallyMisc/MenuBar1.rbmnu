@@ -13,7 +13,7 @@ Begin Menu MenuBar1
       End
       Begin MenuItem discard
          SpecialMenu = 0
-         Text = "Discard changes and finish"
+         Text = "&Discard changes and finish"
          Index = -2147483648
          AutoEnable = True
       End
@@ -25,7 +25,7 @@ Begin Menu MenuBar1
       AutoEnable = True
       Begin MenuItem UndoItem
          SpecialMenu = 0
-         Text = "Undo"
+         Text = "&Undo"
          Index = -2147483648
          ShortcutKey = "Z"
          Shortcut = "Cmd+Z"
@@ -35,7 +35,7 @@ Begin Menu MenuBar1
       End
       Begin MenuItem RedoMeni
          SpecialMenu = 0
-         Text = "Redo"
+         Text = "&Redo"
          Index = -2147483648
          ShortcutKey = "Y"
          Shortcut = "Cmd+Y"
@@ -45,7 +45,7 @@ Begin Menu MenuBar1
       End
       Begin MenuItem clearTool
          SpecialMenu = 0
-         Text = "Clear"
+         Text = "&Clear"
          Index = -2147483648
          ShortcutKey = "X"
          Shortcut = "Cmd+Shift+X"
@@ -56,7 +56,7 @@ Begin Menu MenuBar1
       End
       Begin MenuItem RotateMenu
          SpecialMenu = 0
-         Text = "Rotate..."
+         Text = "R&otate..."
          Index = -2147483648
          AutoEnable = True
       End
@@ -68,21 +68,33 @@ Begin Menu MenuBar1
       AutoEnable = True
       Begin MenuItem ScaleMenu
          SpecialMenu = 0
-         Text = "Resize..."
+         Text = "&Resize..."
          Index = -2147483648
          Icon = 2086045695
          AutoEnable = True
       End
       Begin MenuItem MagMenu
          SpecialMenu = 0
-         Text = "Magnifier"
+         Text = "&Magnifier"
          Index = -2147483648
          Icon = 744163327
          AutoEnable = True
       End
       Begin MenuItem MakeTrans
          SpecialMenu = 0
-         Text = "Capture"
+         Text = "C&apture"
+         Index = -2147483648
+         AutoEnable = True
+      End
+      Begin MenuItem ChangeColor
+         SpecialMenu = 0
+         Text = "&Change Drawing Color..."
+         Index = -2147483648
+         AutoEnable = True
+      End
+      Begin MenuItem ChangePen
+         SpecialMenu = 0
+         Text = "Change &Pencil Size..."
          Index = -2147483648
          AutoEnable = True
       End

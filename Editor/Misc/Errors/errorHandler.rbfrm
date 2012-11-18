@@ -46,7 +46,6 @@ Begin Window errorHandler
       Selectable      =   False
       TabIndex        =   0
       TabPanelIndex   =   0
-      TabStop         =   True
       Text            =   "Fatal exception!"
       TextAlign       =   0
       TextColor       =   0
@@ -109,7 +108,7 @@ Begin Window errorHandler
       Bold            =   ""
       ButtonStyle     =   0
       Cancel          =   ""
-      Caption         =   "Quit"
+      Caption         =   "&Quit"
       Default         =   ""
       Enabled         =   True
       Height          =   22
@@ -140,7 +139,7 @@ Begin Window errorHandler
       Bold            =   ""
       ButtonStyle     =   0
       Cancel          =   ""
-      Caption         =   "Copy Error"
+      Caption         =   "&Copy Error"
       Default         =   ""
       Enabled         =   True
       Height          =   22
@@ -171,7 +170,7 @@ Begin Window errorHandler
       Bold            =   ""
       ButtonStyle     =   0
       Cancel          =   ""
-      Caption         =   "Send Error"
+      Caption         =   "&Send Error"
       Default         =   ""
       Enabled         =   True
       Height          =   22
@@ -224,37 +223,6 @@ Begin Window errorHandler
       Visible         =   True
       Width           =   58
    End
-   Begin PushButton PushButton4
-      AutoDeactivate  =   True
-      Bold            =   ""
-      ButtonStyle     =   0
-      Cancel          =   ""
-      Caption         =   "Ignore(!)"
-      Default         =   ""
-      Enabled         =   True
-      Height          =   22
-      HelpTag         =   ""
-      Index           =   -2147483648
-      InitialParent   =   ""
-      Italic          =   ""
-      Left            =   220
-      LockBottom      =   True
-      LockedInPosition=   False
-      LockLeft        =   True
-      LockRight       =   ""
-      LockTop         =   False
-      Scope           =   0
-      TabIndex        =   6
-      TabPanelIndex   =   0
-      TabStop         =   True
-      TextFont        =   "System"
-      TextSize        =   0
-      TextUnit        =   0
-      Top             =   -66
-      Underline       =   ""
-      Visible         =   True
-      Width           =   83
-   End
 End
 #tag EndWindow
 
@@ -281,6 +249,7 @@ End
 		Sub Action()
 		  Dim cb As New Clipboard
 		  cb.Text = errorStack.Text
+		  Me.Caption = "Copied!"
 		End Sub
 	#tag EndEvent
 #tag EndEvents
@@ -295,16 +264,6 @@ End
 	#tag Event
 		Sub Paint(g As Graphics)
 		  g.DrawStopIcon(5, 5)
-		End Sub
-	#tag EndEvent
-#tag EndEvents
-#tag Events PushButton4
-	#tag Event
-		Sub Action()
-		  If MsgBox("Are you sure? Continuing May Result In Unexpected Behavior.", 52, "Please Confirm") = 6 Then
-		    Debug("Unhandled exception has been ignored by the user. Here be dragons!" + EndOfLine)
-		    Self.Close
-		  End If
 		End Sub
 	#tag EndEvent
 #tag EndEvents

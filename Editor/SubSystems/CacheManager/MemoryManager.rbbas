@@ -60,7 +60,7 @@ Protected Module MemoryManager
 		  If resourcefile = Nil Then resourcefile = App.ExecutableFile.Parent.Child("icons.res")
 		  If resourcefile.Exists Then
 		    Debug("Found the icons file at: " + resourcefile.AbsolutePath)
-		    Dim vv As New SafeVirtualVolume(resourcefile)
+		    Dim vv As VirtualVolume = resourcefile.OpenAsVirtualVolume
 		    For i As Integer = 1 To vv.Root.Count
 		      Dim g As FolderItem = SpecialFolder.Temporary.Child("A Thousand Words").Child(vv.Root.Item(i).Name)
 		      vv.Root.Item(i).CopyFileTo(g)

@@ -1098,7 +1098,7 @@ Inherits Canvas
 		  SaveUndo()
 		  Dim key As String = Undos(Undos.Ubound)
 		  Dim rtw As New rotatewin
-		  Dim key1 As String = rtw.ShowMe(Key)
+		  Dim key1 As String = rtw.ShowRotate(Key)
 		  DeleteUndo(Undos.Ubound)
 		  If Key1 <> Key Then
 		    SaveUndo(True)

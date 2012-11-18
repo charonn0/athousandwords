@@ -198,6 +198,27 @@ End
 
 
 	#tag MenuHandler
+		Function ChangeColor() As Boolean Handles ChangeColor.Action
+			Dim c As Color
+			If SelectColor(c, "New Drawing Color") Then
+			PaintTarget1.CurrentColor = c
+			End If
+			
+			Return True
+			
+		End Function
+	#tag EndMenuHandler
+
+	#tag MenuHandler
+		Function ChangePen() As Boolean Handles ChangePen.Action
+			Dim rot As New rotatewin
+			PaintTarget1.LineWidth = rot.ShowPensize(PaintTarget1.LineWidth)
+			Return True
+			
+		End Function
+	#tag EndMenuHandler
+
+	#tag MenuHandler
 		Function clearTool() As Boolean Handles clearTool.Action
 			PaintTarget1.Clear
 			Return True
@@ -315,6 +336,10 @@ End
 
 	#tag Property, Flags = &h0
 		Error As Boolean
+	#tag EndProperty
+
+	#tag Property, Flags = &h21
+		Private mCurrentColor As Color
 	#tag EndProperty
 
 	#tag Property, Flags = &h1

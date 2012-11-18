@@ -133,7 +133,35 @@ End
 
 
 	#tag Method, Flags = &h0
-		Function ShowMe(key As String) As String
+		Function ShowPensize(CurrentSize As Integer) As Integer
+		  Me.Title = "Set Pen Size"
+		  pbRotate.Caption = "Set"
+		  For i As Integer = cbAngle.ListCount - 1 DownTo 0
+		    cbAngle.RemoveRow(i)
+		  Next
+		  For i As Integer = 1 To 9
+		    cbAngle.AddRow(Str(i))
+		  Next
+		  cbAngle.ListIndex = CurrentSize
+		  TheSize = CurrentSize
+		  Me.ShowModal
+		  Return TheSize
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Function ShowRotate(key As String) As String
+		  Me.Title = "Rotate"
+		  pbRotate.Caption = "Rotate"
+		  
+		  For i As Integer = cbAngle.ListCount - 1 DownTo 0
+		    cbAngle.RemoveRow(i)
+		  Next
+		  For i As Integer = 90 To 270 Step 90
+		    cbAngle.AddRow(Str(i) + "°")
+		  Next
+		  
+		  
 		  Dim p As Picture = GetFramePicture(key)
 		  TheImage = p
 		  Me.ShowModal
@@ -152,9 +180,20 @@ End
 		TheImage As Picture
 	#tag EndProperty
 
+	#tag Property, Flags = &h0
+		TheSize As Integer
+	#tag EndProperty
+
 
 #tag EndWindowCode
 
+#tag Events cbAngle
+	#tag Event
+		Sub Change()
+		  TheSize = Me.ListIndex
+		End Sub
+	#tag EndEvent
+#tag EndEvents
 #tag Events pbRotate
 	#tag Event
 		Sub Action()

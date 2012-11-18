@@ -7,7 +7,7 @@ Begin Window ToolsWin
    Frame           =   3
    FullScreen      =   False
    HasBackColor    =   False
-   Height          =   25
+   Height          =   2.5e+1
    ImplicitInstance=   False
    LiveResize      =   True
    MacProcID       =   0
@@ -23,7 +23,7 @@ Begin Window ToolsWin
    Resizeable      =   False
    Title           =   "Tools"
    Visible         =   True
-   Width           =   79
+   Width           =   1.33e+2
    Begin ComboBox LineSize
       AutoComplete    =   False
       AutoDeactivate  =   True
@@ -309,7 +309,7 @@ Begin Window ToolsWin
       invertTextColor =   ""
       isSticky        =   True
       italic          =   0
-      Left            =   161
+      Left            =   108
       LockBottom      =   False
       LockedInPosition=   False
       LockLeft        =   False
@@ -322,7 +322,7 @@ Begin Window ToolsWin
       textColor       =   0
       textFont        =   "System"
       textSize        =   0
-      Top             =   -54
+      Top             =   0
       underline       =   0
       UseFocusRing    =   True
       value           =   False
@@ -387,7 +387,7 @@ Begin Window ToolsWin
       invertTextColor =   ""
       isSticky        =   False
       italic          =   0
-      Left            =   -37
+      Left            =   81
       LockBottom      =   False
       LockedInPosition=   False
       LockLeft        =   False
@@ -400,7 +400,7 @@ Begin Window ToolsWin
       textColor       =   0
       textFont        =   "System"
       textSize        =   0
-      Top             =   -54
+      Top             =   0
       underline       =   0
       UseFocusRing    =   True
       value           =   False
