@@ -114,7 +114,7 @@ Begin Window PaintWindow
       Period          =   1000
       Scope           =   0
       TabPanelIndex   =   0
-      Top             =   60
+      Top             =   49
       Width           =   32
    End
    Begin Timer toolbartimer
@@ -127,7 +127,19 @@ Begin Window PaintWindow
       Period          =   500
       Scope           =   0
       TabPanelIndex   =   0
-      Top             =   22
+      Top             =   14
+      Width           =   32
+   End
+   Begin Timer UndoredomenuTimer
+      Height          =   32
+      Index           =   -2147483648
+      Left            =   862
+      LockedInPosition=   False
+      Mode            =   2
+      Period          =   200
+      Scope           =   0
+      TabPanelIndex   =   0
+      Top             =   -20
       Width           =   32
    End
 End
@@ -455,6 +467,14 @@ End
 		    TheToolsWin = New ToolsWin
 		  End If
 		  TheToolsWin.ShowWithin(Self)
+		End Sub
+	#tag EndEvent
+#tag EndEvents
+#tag Events UndoredomenuTimer
+	#tag Event
+		Sub Action()
+		  Self.MenuBar.Item(1).Item(0).Enabled = UBound(PaintTarget1.Undos) > -1
+		  Self.MenuBar.Item(1).Item(1).Enabled = UBound(PaintTarget1.Redos) > -1
 		End Sub
 	#tag EndEvent
 #tag EndEvents

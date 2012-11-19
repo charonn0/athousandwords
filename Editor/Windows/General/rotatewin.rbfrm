@@ -129,7 +129,7 @@ End
 		  For i As Integer = cbAngle.ListCount - 1 DownTo 0
 		    cbAngle.RemoveRow(i)
 		  Next
-		  For i As Integer = 1 To 9
+		  For i As Integer = 1 To 14
 		    cbAngle.AddRow(Str(i))
 		  Next
 		  cbAngle.ListIndex = CurrentSize - 1
@@ -180,7 +180,7 @@ End
 #tag Events cbAngle
 	#tag Event
 		Sub Change()
-		  TheSize = Me.ListIndex
+		  TheSize = Me.ListIndex + 1
 		End Sub
 	#tag EndEvent
 #tag EndEvents

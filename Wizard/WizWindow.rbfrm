@@ -43,7 +43,7 @@ Begin Window WizWindow
       TabIndex        =   0
       TabPanelIndex   =   0
       Top             =   0
-      Value           =   3
+      Value           =   2
       Visible         =   True
       Width           =   626
       Begin Label Label1
@@ -509,11 +509,11 @@ Begin Window WizWindow
          TextFont        =   "System"
          TextSize        =   0
          TextUnit        =   0
-         Top             =   110
+         Top             =   82
          Transparent     =   True
          Underline       =   ""
          Visible         =   True
-         Width           =   332
+         Width           =   471
       End
       Begin LinkLabel LinkLabel2
          ActiveColor     =   "&cFF0000"
@@ -729,7 +729,7 @@ End
 		  'bs.Position = bs.Length
 		  'bs.Write(s)
 		  'bs.Close
-		  LinkLabel1.Text = LinkLabel1.Text + FinalFolder.AbsolutePath
+		  LinkLabel1.Text = "Saved To: " + FinalFolder.AbsolutePath
 		End Sub
 	#tag EndEvent
 #tag EndEvents

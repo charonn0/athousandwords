@@ -172,7 +172,7 @@ Inherits Canvas
 		          t = t + 1
 		        End If
 		      Case Mode_DrawLine
-		        PreviewLine(X, Y) //NOT USED YET
+		        PreviewLine(DragStartX, DragStartY, X, Y)
 		      Case Mode_Draw_Circle
 		        PreviewOval(DragStartX, DragStartY, X - DragStartX, Y - DragStartY)
 		      Case Mode_Draw_Rect
@@ -228,6 +228,8 @@ Inherits Canvas
 		  If Not CheckMode(Master_Mode_Display) Then
 		    'If Mode = Select_Mode_Wait Then Return
 		    Select Case Mode
+		    Case Mode_DrawLine
+		      DrawLine(DragStartX, DragStartY, X, Y)
 		    Case Mode_Draw_Circle
 		      DrawOval(DragStartX, DragStartY, X - DragStartX, Y - DragStartY)
 		    Case Mode_Draw_Rect
@@ -283,8 +285,8 @@ Inherits Canvas
 		    If lastWidth <> g.Width Or lastHeight <> g.Height Then  //The Canvas has been resized so we must resize the buffer too.
 		      buffer = NewBuffer(g.Width, g.Height, 32)
 		    End If
-		    Arrange()
-		    update(buffer)
+		    'Arrange()
+		    'update(buffer)
 		    
 		    If Override Then
 		      buffer = NewBuffer(g.Width, g.Height, 24)
@@ -544,94 +546,34 @@ Inherits Canvas
 		Exception err As KeyNotFoundException
 		  helptext = Nil
 		  Invalidate(False)
-		  
-		  
-		  ''#If DebugBuild Then Debug(CurrentMethodName)
-		  'Dim i As Integer = hitpointToObject(X, Y)
-		  'If i > -1 Then
-		  'If HelpText = Nil Then helptext = NewBuffer(10, 10, 32)
-		  'Dim s As String
-		  ''s = "Item " + Str(Objects(i).Properties.Value("Index") + 1) + " of " + Str(UBound(Objects) + 1)
-		  '
-		  'For z As Integer = 0 To Objects(i).Properties.Count - 1
-		  'Dim k, v As String
-		  'k = Objects(i).Properties.Key(z)
-		  'v = Objects(i).Properties.Value(Objects(i).Properties.Key(z)).StringValue
-		  's = s + k +": " + v + EndOfLine
-		  'Next
-		  '
-		  'helptext.Graphics.TextFont = "System"
-		  'helptext.Graphics.TextSize = 11
-		  'Dim strWidth, strHeight As Integer
-		  'If Instr(s, EndOfLine) > 0 Then //Multi-line only
-		  'Dim drvs() As String = s.Split(EndOfLine)
-		  'Dim requiredHeight, requiredWidth As Integer
-		  'For z As Integer = 0 To UBound(drvs)
-		  'Dim drv As String = drvs(z).Trim
-		  '
-		  'Dim a, b As Integer
-		  'a = helptext.Graphics.StringWidth(drv)
-		  'b = helptext.Graphics.StringHeight(drv, a)
-		  'If requiredWidth < a Then requiredWidth = a
-		  'requiredHeight = requiredHeight + b
-		  'Next
-		  'strWidth = requiredWidth
-		  'strHeight = requiredHeight
-		  'helptext = NewBuffer(strWidth + 15, strHeight + 15, 32)
-		  'helptext.Graphics.ForeColor = &cFFFF80
-		  'helptext.Graphics.FillRect(0, 0, helptext.Width, helptext.Height)
-		  'helptext.Graphics.ForeColor = &c000000
-		  'helptext.Graphics.DrawString(s, 2, 15)
-		  'Buffer.Graphics.DrawPicture(helptext, X + 10, Y + 10)
-		  '
-		  '
-		  '
-		  '
-		  '
-		  'Else
-		  '
-		  '
-		  '
-		  '
-		  'strWidth = helptext.Graphics.StringWidth(s) + 10
-		  'strHeight = helptext.Graphics.StringHeight(s, strWidth + 5)
-		  'helptext = NewBuffer(strWidth + 4, strHeight + 4, 32)
-		  'helptext.Graphics.ForeColor = &cFFFF80
-		  'helptext.Graphics.FillRect(0, 0, helptext.Width, helptext.Height)
-		  'helptext.Graphics.ForeColor = &c000000
-		  'helptext.Graphics.DrawString(s, 2, ((helptext.Height/2) + (strHeight/4)))
-		  'End If
-		  'helptext.Graphics.ForeColor = &c363636
-		  'helptext.Graphics.DrawRect(0, 0, helptext.Width, helptext.Height)
-		  'update()
-		  'Else
-		  'If helptext <> Nil Then
-		  'helptext = Nil
-		  'update()
-		  'End If
-		  'End If
-		  'Exception
-		  'Return
 		End Sub
 	#tag EndMethod
 
 	#tag Method, Flags = &h21
-		Private Sub DrawLine(X As Integer, Y As Integer)
-		  
-		  If X <= Buffer.Width And X > 0 And Y <= Buffer.Height And Y > 0 Then
-		    //NOT USED YET
-		    If CancelDraw Then
-		      CancelDraw = False
-		      Invalidate(False)
-		      Return
-		    End If
-		    SaveUndo()
-		    Buffer.Graphics.DrawLine(DragStartX, DragStartY, TrueX(X), TrueY(Y))
-		    DragStartX = X
-		    DragStartY = Y
-		    Taint = True
+		Private Sub DrawLine(X1 As Integer, Y1 As Integer, X2 As Integer, Y2 As Integer)
+		  If CancelDraw Then
+		    CancelDraw = False
 		    Invalidate(False)
+		    Return
 		  End If
+		  SaveUndo()
+		  
+		  If X2 < 0 Then
+		    X2 = Abs(X2)
+		    X1 = X1 - X2
+		  End If
+		  If Y2 < 0 Then
+		    Y2 = Abs(Y2)
+		    Y1 = Y1 - Y2
+		  End If
+		  
+		  'Buffer.Graphics.PenWidth = 10
+		  'Buffer.Graphics.PenHeight = 10
+		  'Buffer.Graphics.ForeColor = &c00FF59
+		  Buffer.Graphics.DrawLine(X1, Y1, X2, Y2)
+		  Taint = True
+		  Invalidate(False)
+		  
 		End Sub
 	#tag EndMethod
 
@@ -942,18 +884,21 @@ Inherits Canvas
 	#tag EndMethod
 
 	#tag Method, Flags = &h21
-		Private Sub PreviewLine(X As Integer, Y As Integer)
-		  //NOT USED YET
-		  Overlay.Graphics.DrawLine(DragStartX, DragStartY, X, Y)
-		  DragStartX = X
-		  DragStartY = Y
-		  Overlay.Graphics.PenWidth = 1
-		  Overlay.Graphics.PenHeight = 1
-		  Overlay.Graphics.ForeColor = &c00FF59
-		  Overlay.Graphics.DrawLine(X - 1, Y - 1, Width + 2, Height + 2)
-		  Overlay.Graphics.ForeColor = &c00FF59
-		  Overlay.Graphics.DrawLine(X + 1, Y + 1, Width - 2, Height - 2)
-		  Invalidate(False)
+		Private Sub PreviewLine(X1 As Integer, Y1 As Integer, X2 As Integer, Y2 As Integer)
+		  If X2 < 0 Then
+		    X2 = Abs(X2)
+		    X1 = X1 - X2
+		  End If
+		  If Y2 < 0 Then
+		    Y2 = Abs(Y2)
+		    Y1 = Y1 - Y2
+		  End If
+		  
+		  'Overlay.Graphics.PenWidth = 1
+		  'Overlay.Graphics.PenHeight = 1
+		  'Overlay.Graphics.ForeColor = &c00FF59
+		  Overlay.Graphics.DrawLine(X1, Y1, X2, Y2)
+		  Refresh(False)
 		End Sub
 	#tag EndMethod
 

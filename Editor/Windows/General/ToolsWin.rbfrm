@@ -23,7 +23,7 @@ Begin Window ToolsWin
    Resizeable      =   False
    Title           =   "Tools"
    Visible         =   True
-   Width           =   1.06e+2
+   Width           =   1.33e+2
    Begin ComboBox LineSize
       AutoComplete    =   False
       AutoDeactivate  =   True
@@ -263,14 +263,14 @@ Begin Window ToolsWin
       EraseBackground =   ""
       hasIcon         =   True
       Height          =   25
-      HelpTag         =   "Filled Oval"
-      Icon            =   "filledcircle.png"
+      HelpTag         =   "Straight Line"
+      Icon            =   "Draw-Line.png"
       Index           =   6
       InitialParent   =   ""
       invertTextColor =   ""
       isSticky        =   True
       italic          =   0
-      Left            =   27
+      Left            =   108
       LockBottom      =   False
       LockedInPosition=   False
       LockLeft        =   False
@@ -283,7 +283,7 @@ Begin Window ToolsWin
       textColor       =   0
       textFont        =   "System"
       textSize        =   0
-      Top             =   -54
+      Top             =   0
       underline       =   0
       UseFocusRing    =   True
       value           =   False
@@ -479,8 +479,8 @@ End
 		    MainWindow.PaintTarget1.Mode =MainWindow.PaintTarget1.Mode_Fill
 		  Case 1  //Circle
 		    MainWindow.PaintTarget1.Mode =MainWindow.PaintTarget1.Mode_Draw_Circle
-		  Case 6  //Filled circle
-		    MainWindow.PaintTarget1.Mode =MainWindow.PaintTarget1.Mode_Draw_Filled_Circle
+		  Case 6  //Line
+		    MainWindow.PaintTarget1.Mode =MainWindow.PaintTarget1.Mode_DrawLine
 		  Case 2  //Rect
 		    MainWindow.PaintTarget1.Mode =MainWindow.PaintTarget1.Mode_Draw_Rect
 		  Case 5  //Filled rect
