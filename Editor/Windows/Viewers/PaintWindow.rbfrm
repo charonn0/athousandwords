@@ -142,6 +142,62 @@ Begin Window PaintWindow
       Top             =   -20
       Width           =   32
    End
+   Begin ScrollBar UpDown
+      AcceptFocus     =   true
+      AutoDeactivate  =   True
+      Enabled         =   True
+      Height          =   600
+      HelpTag         =   ""
+      Index           =   -2147483648
+      InitialParent   =   ""
+      Left            =   812
+      LineStep        =   1
+      LiveScroll      =   ""
+      LockBottom      =   True
+      LockedInPosition=   False
+      LockLeft        =   False
+      LockRight       =   True
+      LockTop         =   True
+      Maximum         =   100
+      Minimum         =   0
+      PageStep        =   20
+      Scope           =   0
+      TabIndex        =   16
+      TabPanelIndex   =   0
+      TabStop         =   True
+      Top             =   0
+      Value           =   0
+      Visible         =   True
+      Width           =   16
+   End
+   Begin ScrollBar LeftRight
+      AcceptFocus     =   true
+      AutoDeactivate  =   True
+      Enabled         =   True
+      Height          =   16
+      HelpTag         =   ""
+      Index           =   -2147483648
+      InitialParent   =   ""
+      Left            =   0
+      LineStep        =   1
+      LiveScroll      =   ""
+      LockBottom      =   True
+      LockedInPosition=   False
+      LockLeft        =   True
+      LockRight       =   True
+      LockTop         =   False
+      Maximum         =   100
+      Minimum         =   0
+      PageStep        =   20
+      Scope           =   0
+      TabIndex        =   17
+      TabPanelIndex   =   0
+      TabStop         =   True
+      Top             =   608
+      Value           =   0
+      Visible         =   True
+      Width           =   800
+   End
 End
 #tag EndWindow
 
@@ -475,6 +531,38 @@ End
 		Sub Action()
 		  Self.MenuBar.Item(1).Item(0).Enabled = UBound(PaintTarget1.Undos) > -1
 		  Self.MenuBar.Item(1).Item(1).Enabled = UBound(PaintTarget1.Redos) > -1
+		  If PaintTarget1.Buffer.Width > PaintTarget1.Width Then
+		    LeftRight.Top = Self.Height - LeftRight.Height
+		    PaintTarget1.Height = LeftRight.Top - 1
+		    LeftRight.Maximum = 100
+		  Else
+		    LeftRight.Top = Self.Height + (LeftRight.Height * 2)
+		    PaintTarget1.Height = Self.Height
+		  End If
+		  
+		  If PaintTarget1.buffer.Height > PaintTarget1.Height Then
+		    UpDown.Left = Self.Width - UpDown.Width
+		    PaintTarget1.Width = Self.Width - UpDown.Width - 1
+		    UpDown.Maximum = 100
+		  Else
+		    UpDown.Left = Self.Width + (UpDown.Height * 2)
+		    PaintTarget1.Width = Self.Width
+		  End If
+		End Sub
+	#tag EndEvent
+#tag EndEvents
+#tag Events UpDown
+	#tag Event
+		Sub ValueChanged()
+		  PaintTarget1.ScrollY(Me.Value)
+		End Sub
+	#tag EndEvent
+#tag EndEvents
+#tag Events LeftRight
+	#tag Event
+		Sub ValueChanged()
+		  PaintTarget1.ScrollX(Me.Value)
+		  
 		End Sub
 	#tag EndEvent
 #tag EndEvents

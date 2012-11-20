@@ -8,7 +8,11 @@ Copyright ©2012 Boredom Software, All Rights Reserved
 5. Contact
 
 1. Purpose
-Simple screen capture tool.
+Simple screen capture tool. The built-in simple image editor allows users to block out private information or mark up areas
+of the screen. 
+
+In addition, the editor can take new screenshots of only the area of the screen under the editor window; resize 
+amd reposition the editor window over the area of interest and select the Capture item from the Tools menu.
 
 2. Installing
 No install.

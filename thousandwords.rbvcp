@@ -51,6 +51,7 @@ Class=StackFrame;Editor/SubSystems/CacheManager/StackFrame.rbbas;&h18FAD7FF;&h29
 Picture=missingimage;../../../OLG_G/RB Scratch/Old/Paint/missingimage.png;&h73FCFFFF;&h29D087FF;false;0;&h0
 Module=MemoryManager;Editor/SubSystems/CacheManager/MemoryManager.rbbas;&h69EE3FFF;&h29D087FF;false
 RawData=icons1;icons.res;&h63128FFF;&h0;false
+Class=HintTextField;Editor/SubSystems/Controls/HintTextField.rbbas;&h388C07FF;&h62858FFF;false
 DefaultWindow=WizWindow
 AppMenuBar=MenuBar1
 MajorVersion=1

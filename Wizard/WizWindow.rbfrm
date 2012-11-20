@@ -43,7 +43,7 @@ Begin Window WizWindow
       TabIndex        =   0
       TabPanelIndex   =   0
       Top             =   0
-      Value           =   2
+      Value           =   4
       Visible         =   True
       Width           =   626
       Begin Label Label1
@@ -647,6 +647,294 @@ Begin Window WizWindow
          Visible         =   False
          Width           =   80
       End
+      Begin Canvas Canvas7
+         AcceptFocus     =   ""
+         AcceptTabs      =   ""
+         AutoDeactivate  =   True
+         Backdrop        =   2605055
+         DoubleBuffer    =   False
+         Enabled         =   True
+         EraseBackground =   True
+         Height          =   128
+         HelpTag         =   ""
+         Index           =   -2147483648
+         InitialParent   =   "PagePanel1"
+         Left            =   7
+         LockBottom      =   ""
+         LockedInPosition=   False
+         LockLeft        =   True
+         LockRight       =   ""
+         LockTop         =   True
+         Scope           =   0
+         TabIndex        =   0
+         TabPanelIndex   =   5
+         TabStop         =   True
+         Top             =   7
+         UseFocusRing    =   True
+         Visible         =   True
+         Width           =   128
+      End
+      Begin PushButton PushButton12
+         AutoDeactivate  =   True
+         Bold            =   ""
+         ButtonStyle     =   0
+         Cancel          =   ""
+         Caption         =   "&Start Over"
+         Default         =   ""
+         Enabled         =   True
+         Height          =   22
+         HelpTag         =   ""
+         Index           =   -2147483648
+         InitialParent   =   "PagePanel1"
+         Italic          =   ""
+         Left            =   439
+         LockBottom      =   True
+         LockedInPosition=   False
+         LockLeft        =   False
+         LockRight       =   True
+         LockTop         =   False
+         Scope           =   0
+         TabIndex        =   1
+         TabPanelIndex   =   5
+         TabStop         =   True
+         TextFont        =   "System"
+         TextSize        =   0
+         TextUnit        =   0
+         Top             =   131
+         Underline       =   ""
+         Visible         =   True
+         Width           =   80
+      End
+      Begin PushButton PushButton11
+         AutoDeactivate  =   True
+         Bold            =   ""
+         ButtonStyle     =   0
+         Cancel          =   ""
+         Caption         =   "&Next ->"
+         Default         =   ""
+         Enabled         =   True
+         Height          =   22
+         HelpTag         =   ""
+         Index           =   -2147483648
+         InitialParent   =   "PagePanel1"
+         Italic          =   ""
+         Left            =   524
+         LockBottom      =   True
+         LockedInPosition=   False
+         LockLeft        =   False
+         LockRight       =   True
+         LockTop         =   False
+         Scope           =   0
+         TabIndex        =   2
+         TabPanelIndex   =   5
+         TabStop         =   True
+         TextFont        =   "System"
+         TextSize        =   0
+         TextUnit        =   0
+         Top             =   131
+         Underline       =   ""
+         Visible         =   True
+         Width           =   80
+      End
+      Begin PushButton PushButton13
+         AutoDeactivate  =   True
+         Bold            =   ""
+         ButtonStyle     =   0
+         Cancel          =   ""
+         Caption         =   "&Advanced"
+         Default         =   ""
+         Enabled         =   True
+         Height          =   22
+         HelpTag         =   ""
+         Index           =   -2147483648
+         InitialParent   =   "PagePanel1"
+         Italic          =   ""
+         Left            =   439
+         LockBottom      =   ""
+         LockedInPosition=   False
+         LockLeft        =   True
+         LockRight       =   ""
+         LockTop         =   True
+         Scope           =   0
+         TabIndex        =   3
+         TabPanelIndex   =   2
+         TabStop         =   True
+         TextFont        =   "System"
+         TextSize        =   0
+         TextUnit        =   0
+         Top             =   131
+         Underline       =   ""
+         Visible         =   True
+         Width           =   80
+      End
+      Begin GroupBox GroupBox2
+         AutoDeactivate  =   True
+         Bold            =   ""
+         Caption         =   "Save Options"
+         Enabled         =   True
+         Height          =   91
+         HelpTag         =   ""
+         Index           =   -2147483648
+         InitialParent   =   "PagePanel1"
+         Italic          =   ""
+         Left            =   141
+         LockBottom      =   ""
+         LockedInPosition=   False
+         LockLeft        =   True
+         LockRight       =   ""
+         LockTop         =   True
+         Scope           =   0
+         TabIndex        =   14
+         TabPanelIndex   =   5
+         TextFont        =   "System"
+         TextSize        =   0
+         TextUnit        =   0
+         Top             =   16
+         Underline       =   ""
+         Visible         =   True
+         Width           =   473
+         Begin HintTextField HintTextField1
+            AcceptTabs      =   ""
+            Alignment       =   0
+            AutoDeactivate  =   True
+            AutomaticallyCheckSpelling=   False
+            BackColor       =   &hFFFFFF
+            Bold            =   ""
+            Border          =   True
+            CueText         =   ""
+            DataField       =   ""
+            DataSource      =   ""
+            Enabled         =   True
+            Format          =   ""
+            HasText         =   ""
+            Height          =   22
+            HelpTag         =   ""
+            HintText        =   "Default Save Folder"
+            Index           =   -2147483648
+            InitialParent   =   "GroupBox2"
+            Italic          =   ""
+            Left            =   149
+            LimitText       =   0
+            LockBottom      =   ""
+            LockedInPosition=   False
+            LockLeft        =   True
+            LockRight       =   ""
+            LockTop         =   True
+            Mask            =   ""
+            Password        =   ""
+            ReadOnly        =   ""
+            Scope           =   0
+            TabIndex        =   0
+            TabPanelIndex   =   5
+            TabStop         =   True
+            Text            =   ""
+            TextColor       =   &h000000
+            TextFont        =   "System"
+            TextSize        =   0
+            TextUnit        =   0
+            Top             =   34
+            Underline       =   ""
+            UseFocusRing    =   True
+            Visible         =   True
+            Width           =   385
+         End
+         Begin PushButton PushButton15
+            AutoDeactivate  =   True
+            Bold            =   ""
+            ButtonStyle     =   0
+            Cancel          =   ""
+            Caption         =   "Browse..."
+            Default         =   ""
+            Enabled         =   True
+            Height          =   22
+            HelpTag         =   ""
+            Index           =   -2147483648
+            InitialParent   =   "GroupBox2"
+            Italic          =   ""
+            Left            =   541
+            LockBottom      =   ""
+            LockedInPosition=   False
+            LockLeft        =   True
+            LockRight       =   ""
+            LockTop         =   True
+            Scope           =   0
+            TabIndex        =   1
+            TabPanelIndex   =   5
+            TabStop         =   True
+            TextFont        =   "System"
+            TextSize        =   0
+            TextUnit        =   0
+            Top             =   34
+            Underline       =   ""
+            Visible         =   True
+            Width           =   63
+         End
+         Begin ComboBox ComboBox1
+            AutoComplete    =   False
+            AutoDeactivate  =   True
+            Bold            =   ""
+            DataField       =   ""
+            DataSource      =   ""
+            Enabled         =   True
+            Height          =   20
+            HelpTag         =   ""
+            Index           =   -2147483648
+            InitialParent   =   "GroupBox2"
+            InitialValue    =   "Save As JPEG\r\nSave As PNG\r\nSave As BMP"
+            Italic          =   ""
+            Left            =   149
+            ListIndex       =   0
+            LockBottom      =   ""
+            LockedInPosition=   False
+            LockLeft        =   True
+            LockRight       =   ""
+            LockTop         =   True
+            Scope           =   0
+            TabIndex        =   2
+            TabPanelIndex   =   5
+            TabStop         =   True
+            TextFont        =   "System"
+            TextSize        =   0
+            TextUnit        =   0
+            Top             =   68
+            Underline       =   ""
+            UseFocusRing    =   True
+            Visible         =   True
+            Width           =   121
+         End
+         Begin CheckBox ScreenZero
+            AutoDeactivate  =   True
+            Bold            =   ""
+            Caption         =   "Only capture the main screen"
+            DataField       =   ""
+            DataSource      =   ""
+            Enabled         =   True
+            Height          =   20
+            HelpTag         =   ""
+            Index           =   -2147483648
+            InitialParent   =   "GroupBox2"
+            Italic          =   ""
+            Left            =   364
+            LockBottom      =   ""
+            LockedInPosition=   False
+            LockLeft        =   True
+            LockRight       =   ""
+            LockTop         =   True
+            Scope           =   0
+            State           =   0
+            TabIndex        =   3
+            TabPanelIndex   =   5
+            TabStop         =   True
+            TextFont        =   "System"
+            TextSize        =   0
+            TextUnit        =   0
+            Top             =   77
+            Underline       =   ""
+            Value           =   False
+            Visible         =   True
+            Width           =   240
+         End
+      End
    End
    Begin Timer Timer1
       Height          =   32
@@ -659,6 +947,225 @@ Begin Window WizWindow
       TabPanelIndex   =   0
       Top             =   -14
       Width           =   32
+   End
+   Begin CheckBox ScreenSelect
+      AutoDeactivate  =   True
+      Bold            =   ""
+      Caption         =   "All"
+      DataField       =   ""
+      DataSource      =   ""
+      Enabled         =   True
+      Height          =   20
+      HelpTag         =   ""
+      Index           =   3
+      InitialParent   =   ""
+      Italic          =   ""
+      Left            =   546
+      LockBottom      =   ""
+      LockedInPosition=   False
+      LockLeft        =   True
+      LockRight       =   ""
+      LockTop         =   True
+      Scope           =   0
+      State           =   0
+      TabIndex        =   1
+      TabPanelIndex   =   0
+      TabStop         =   True
+      TextFont        =   "System"
+      TextSize        =   0
+      TextUnit        =   0
+      Top             =   -113
+      Underline       =   ""
+      Value           =   False
+      Visible         =   True
+      Width           =   59
+   End
+   Begin CheckBox ScreenSelect
+      AutoDeactivate  =   True
+      Bold            =   ""
+      Caption         =   "All"
+      DataField       =   ""
+      DataSource      =   ""
+      Enabled         =   True
+      Height          =   20
+      HelpTag         =   ""
+      Index           =   4
+      InitialParent   =   ""
+      Italic          =   ""
+      Left            =   546
+      LockBottom      =   ""
+      LockedInPosition=   False
+      LockLeft        =   True
+      LockRight       =   ""
+      LockTop         =   True
+      Scope           =   0
+      State           =   0
+      TabIndex        =   2
+      TabPanelIndex   =   0
+      TabStop         =   True
+      TextFont        =   "System"
+      TextSize        =   0
+      TextUnit        =   0
+      Top             =   -91
+      Underline       =   ""
+      Value           =   False
+      Visible         =   True
+      Width           =   59
+   End
+   Begin GroupBox GroupBox1
+      AutoDeactivate  =   True
+      Bold            =   ""
+      Caption         =   "Screens"
+      Enabled         =   True
+      Height          =   91
+      HelpTag         =   ""
+      Index           =   -2147483648
+      InitialParent   =   ""
+      Italic          =   ""
+      Left            =   468
+      LockBottom      =   ""
+      LockedInPosition=   False
+      LockLeft        =   True
+      LockRight       =   ""
+      LockTop         =   True
+      Scope           =   0
+      TabIndex        =   3
+      TabPanelIndex   =   0
+      TextFont        =   "System"
+      TextSize        =   0
+      TextUnit        =   0
+      Top             =   -131
+      Underline       =   ""
+      Visible         =   True
+      Width           =   152
+      Begin CheckBox ScreenSelect
+         AutoDeactivate  =   True
+         Bold            =   ""
+         Caption         =   "All"
+         DataField       =   ""
+         DataSource      =   ""
+         Enabled         =   True
+         Height          =   20
+         HelpTag         =   ""
+         Index           =   1
+         InitialParent   =   "GroupBox1"
+         Italic          =   ""
+         Left            =   477
+         LockBottom      =   ""
+         LockedInPosition=   False
+         LockLeft        =   True
+         LockRight       =   ""
+         LockTop         =   True
+         Scope           =   0
+         State           =   0
+         TabIndex        =   1
+         TabPanelIndex   =   0
+         TabStop         =   True
+         TextFont        =   "System"
+         TextSize        =   0
+         TextUnit        =   0
+         Top             =   -91
+         Underline       =   ""
+         Value           =   False
+         Visible         =   True
+         Width           =   59
+      End
+      Begin CheckBox ScreenSelect
+         AutoDeactivate  =   True
+         Bold            =   ""
+         Caption         =   "All"
+         DataField       =   ""
+         DataSource      =   ""
+         Enabled         =   True
+         Height          =   20
+         HelpTag         =   ""
+         Index           =   2
+         InitialParent   =   "GroupBox1"
+         Italic          =   ""
+         Left            =   477
+         LockBottom      =   ""
+         LockedInPosition=   False
+         LockLeft        =   True
+         LockRight       =   ""
+         LockTop         =   True
+         Scope           =   0
+         State           =   0
+         TabIndex        =   2
+         TabPanelIndex   =   0
+         TabStop         =   True
+         TextFont        =   "System"
+         TextSize        =   0
+         TextUnit        =   0
+         Top             =   -69
+         Underline       =   ""
+         Value           =   False
+         Visible         =   True
+         Width           =   59
+      End
+      Begin CheckBox ScreenSelect
+         AutoDeactivate  =   True
+         Bold            =   ""
+         Caption         =   "All"
+         DataField       =   ""
+         DataSource      =   ""
+         Enabled         =   True
+         Height          =   20
+         HelpTag         =   ""
+         Index           =   0
+         InitialParent   =   "GroupBox1"
+         Italic          =   ""
+         Left            =   477
+         LockBottom      =   ""
+         LockedInPosition=   False
+         LockLeft        =   True
+         LockRight       =   ""
+         LockTop         =   True
+         Scope           =   0
+         State           =   0
+         TabIndex        =   3
+         TabPanelIndex   =   0
+         TabStop         =   True
+         TextFont        =   "System"
+         TextSize        =   0
+         TextUnit        =   0
+         Top             =   -113
+         Underline       =   ""
+         Value           =   False
+         Visible         =   True
+         Width           =   59
+      End
+      Begin CheckBox ScreenSelect
+         AutoDeactivate  =   True
+         Bold            =   ""
+         Caption         =   "All"
+         DataField       =   ""
+         DataSource      =   ""
+         Enabled         =   True
+         Height          =   20
+         HelpTag         =   ""
+         Index           =   5
+         InitialParent   =   "GroupBox1"
+         Italic          =   ""
+         Left            =   546
+         LockBottom      =   ""
+         LockedInPosition=   False
+         LockLeft        =   True
+         LockRight       =   ""
+         LockTop         =   True
+         Scope           =   0
+         State           =   0
+         TabIndex        =   4
+         TabPanelIndex   =   0
+         TabStop         =   True
+         TextFont        =   "System"
+         TextSize        =   0
+         TextUnit        =   0
+         Top             =   -69
+         Underline       =   ""
+         Value           =   False
+         Visible         =   True
+         Width           =   59
+      End
    End
 End
 #tag EndWindow
@@ -684,9 +1191,18 @@ End
 	#tag Method, Flags = &h0
 		Function SavePic(p As Picture) As FolderItem
 		  Dim d As New Date
-		  Dim filename As String = Platform.CurrentUser + "_" + Format(d.TotalSeconds, "##############################") + ".jpg"
+		  Dim ext As String
+		  Select Case SaveType
+		  Case Picture.SaveAsJPEG
+		    ext = ".jpg"
+		  Case Picture.SaveAsPNG
+		    ext = ".png"
+		  Case Picture.SaveAsWindowsBMP
+		    ext = ".bmp"
+		  End Select
+		  Dim filename As String = Platform.CurrentUser + "_" + Format(d.TotalSeconds, "##############################") + ext
 		  Dim f As FolderItem = SpecialFolder.Temporary.Child(filename)
-		  p.Save(f, Picture.SaveAsJPEG, Picture.QualityHigh)
+		  p.Save(f, SaveType, Picture.QualityHigh)
 		  App.DoEvents(500)
 		  Return f
 		  
@@ -702,8 +1218,37 @@ End
 		FinalPic As Picture
 	#tag EndProperty
 
+	#tag Property, Flags = &h21
+		Private mSaveToFolder As FolderItem
+	#tag EndProperty
+
 	#tag Property, Flags = &h0
 		OldY As Integer
+	#tag EndProperty
+
+	#tag ComputedProperty, Flags = &h0
+		#tag Getter
+			Get
+			  If mSaveToFolder = Nil Then
+			    mSaveToFolder = SpecialFolder.Desktop
+			  End If
+			  
+			  If Not mSaveToFolder.Exists Then
+			    mSaveToFolder = SpecialFolder.Desktop
+			  End If
+			  return mSaveToFolder
+			End Get
+		#tag EndGetter
+		#tag Setter
+			Set
+			  mSaveToFolder = value
+			End Set
+		#tag EndSetter
+		SaveToFolder As FolderItem
+	#tag EndComputedProperty
+
+	#tag Property, Flags = &h0
+		SaveType As Integer = 151
 	#tag EndProperty
 
 
@@ -720,15 +1265,9 @@ End
 	#tag Event
 		Sub Action()
 		  FinalFolder = SavePic(FinalPic)
-		  FinalFolder.MoveFileTo(SpecialFolder.Desktop)
-		  FinalFolder = SpecialFolder.Desktop.Child(FinalFolder.Name)
+		  FinalFolder.MoveFileTo(SaveToFolder)
+		  FinalFolder = SaveToFolder.Child(FinalFolder.Name)
 		  PagePanel1.Value = PagePanel1.Value + 1
-		  'Self.Resizeable = True
-		  'Dim s As String = Metadata.GetMetadata()
-		  'Dim bs As BinaryStream = BinaryStream.Open(FinalFolder, True)
-		  'bs.Position = bs.Length
-		  'bs.Write(s)
-		  'bs.Close
 		  LinkLabel1.Text = "Saved To: " + FinalFolder.AbsolutePath
 		End Sub
 	#tag EndEvent
@@ -818,12 +1357,83 @@ End
 		End Sub
 	#tag EndEvent
 #tag EndEvents
+#tag Events PushButton12
+	#tag Event
+		Sub Action()
+		  PagePanel1.Value = 0
+		End Sub
+	#tag EndEvent
+#tag EndEvents
+#tag Events PushButton11
+	#tag Event
+		Sub Action()
+		  If HintTextField1.HasText Then
+		    SaveToFolder = GetFolderItem(HintTextField1.Text)
+		  Else
+		    SaveToFolder = Nil
+		  End If
+		  PagePanel1.Value = 1
+		End Sub
+	#tag EndEvent
+#tag EndEvents
+#tag Events PushButton13
+	#tag Event
+		Sub Action()
+		  PagePanel1.Value = 4
+		End Sub
+	#tag EndEvent
+#tag EndEvents
+#tag Events PushButton15
+	#tag Event
+		Sub Action()
+		  Dim f As FolderItem = SelectFolder()
+		  If f <> Nil Then
+		    HintTextField1.Text = f.AbsolutePath
+		  End If
+		End Sub
+	#tag EndEvent
+#tag EndEvents
+#tag Events ComboBox1
+	#tag Event
+		Sub Change()
+		  Select Case Me.Text
+		  Case "Save As JPEG"
+		    SaveType = Picture.SaveAsJPEG
+		  Case "Save As PNG"
+		    SaveType = Picture.SaveAsPNG
+		  Case "Save As BMP"
+		    SaveType = Picture.SaveAsWindowsBMP
+		  End Select
+		End Sub
+	#tag EndEvent
+#tag EndEvents
+#tag Events ScreenZero
+	#tag Event
+		Sub Open()
+		  Me.Enabled = ScreenCount > 1
+		End Sub
+	#tag EndEvent
+#tag EndEvents
 #tag Events Timer1
 	#tag Event
 		Sub Action()
-		  FinalPic = Platform.CaptureScreen
+		  If Not ScreenZero.Value Then
+		    FinalPic = Platform.CaptureScreen
+		  Else
+		    FinalPic = Platform.GetPartialScreenShot(0, 0, Screen(0).Width, Screen(0).Height)
+		  End If
 		  Self.Top = OldY
 		  PagePanel1.Value = PagePanel1.Value + 1
+		End Sub
+	#tag EndEvent
+#tag EndEvents
+#tag Events ScreenSelect
+	#tag Event
+		Sub Open(index as Integer)
+		  Me.Caption = "Screen " + Str(index + 1)
+		  Me.Value = index <= ScreenCount - 1
+		  Me.Enabled = index <= ScreenCount - 1
+		  
 		End Sub
 	#tag EndEvent
 #tag EndEvents

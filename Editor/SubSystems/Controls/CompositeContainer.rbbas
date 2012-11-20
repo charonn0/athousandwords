@@ -88,7 +88,7 @@ Inherits Canvas
 		    End If
 		    
 		    Dim ret As Boolean
-		    If X >= Buffer.Width And X <= Buffer.Width + 5 And Y >= Buffer.Height And Y <= Buffer.Height + 5 Then
+		    If X >= Buffer.Width + ViewX And X <= Buffer.Width + ViewX + 5 And Y >= Buffer.Height + ViewY And Y <= Buffer.Height + ViewY + 5 Then
 		      Resizing = True
 		      Return True
 		      If IsContextualClick Then
@@ -251,7 +251,7 @@ Inherits Canvas
 		      SaveUndo(True)
 		      'Me.mousecursor = MainWindow.CurrentCursor
 		      Resizing = False
-		      Dim tmp As Picture = NewBuffer(X, Y, 32)
+		      Dim tmp As Picture = NewBuffer(X - ViewX, Y - ViewY, 32)
 		      'tmp.Transparent = Me.IsTransparent
 		      tmp.Graphics.DrawPicture(Buffer, 0, 0)
 		      tmp.Graphics.ForeColor = CurrentColor
@@ -309,7 +309,7 @@ Inherits Canvas
 		    
 		    tmp.Graphics.DrawPicture(Overlay, 0, 0)
 		    tmp.Graphics.ForeColor = &c494949
-		    tmp.Graphics.FillRect(Buffer.Width, Buffer.Height, 5, 5)  //Resize thumb
+		    tmp.Graphics.FillRect(Buffer.Width + ViewX, Buffer.Height + ViewY, 5, 5)  //Resize thumb
 		    If Mode <> Mode_Draw_Freeform Then Overlay = Nil
 		    
 		    If Resizing Then
@@ -1155,21 +1155,18 @@ Inherits Canvas
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		Sub Scroll(X As Integer, Y As Integer)
-		  Const scrollAmount = 10
+		Sub ScrollX(X As Integer)
+		  ViewX = -(X * Me.ActualSize.Left \ 100)
 		  
-		  If Sign(X) = 1 Then
-		    ViewX = (X * scrollAmount) + ViewX
-		  ElseIf Sign(x) = -1 Then
-		    ViewX = ViewX - (X * scrollAmount)
-		  End If
 		  
-		  If Sign(Y) = -1 Then
-		    ViewY = (Y * scrollAmount) + ViewY
-		  ElseIf Sign(Y) = 1 Then
-		    ViewY = ViewY - (Y * scrollAmount)
-		  End If
-		  
+		  'If Y <> -1 Then ViewY = Y + ViewY
+		  Invalidate(False)
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Sub ScrollY(Y As Integer)
+		  ViewY = -(Y * Me.ActualSize.Right \ 100)
 		  
 		  'If Y <> -1 Then ViewY = Y + ViewY
 		  Invalidate(False)
