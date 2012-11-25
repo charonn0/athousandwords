@@ -369,6 +369,16 @@ Protected Class ForeignWindow
 			Type="Single"
 		#tag EndViewProperty
 		#tag ViewProperty
+			Name="BorderSizeX"
+			Group="Behavior"
+			Type="Integer"
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="BorderSizeY"
+			Group="Behavior"
+			Type="Integer"
+		#tag EndViewProperty
+		#tag ViewProperty
 			Name="Caption"
 			Group="Behavior"
 			Type="String"

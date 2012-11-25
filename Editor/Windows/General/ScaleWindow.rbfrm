@@ -7,7 +7,7 @@ Begin Window ScaleWindow
    Frame           =   1
    FullScreen      =   False
    HasBackColor    =   False
-   Height          =   125
+   Height          =   9.7e+1
    ImplicitInstance=   False
    LiveResize      =   True
    MacProcID       =   0
@@ -23,7 +23,7 @@ Begin Window ScaleWindow
    Resizeable      =   False
    Title           =   "Scale Image"
    Visible         =   True
-   Width           =   321
+   Width           =   3.21e+2
    Begin Slider widthslider
       AutoDeactivate  =   True
       Enabled         =   True
@@ -47,7 +47,7 @@ Begin Window ScaleWindow
       TabPanelIndex   =   0
       TabStop         =   True
       TickStyle       =   0
-      Top             =   14
+      Top             =   26
       Value           =   0
       Visible         =   True
       Width           =   192
@@ -59,7 +59,7 @@ Begin Window ScaleWindow
       HelpTag         =   ""
       Index           =   -2147483648
       InitialParent   =   ""
-      Left            =   14
+      Left            =   103
       LineStep        =   1
       LiveScroll      =   ""
       LockBottom      =   ""
@@ -75,7 +75,7 @@ Begin Window ScaleWindow
       TabPanelIndex   =   0
       TabStop         =   True
       TickStyle       =   0
-      Top             =   43
+      Top             =   -60
       Value           =   0
       Visible         =   True
       Width           =   192
@@ -160,7 +160,7 @@ Begin Window ScaleWindow
       Index           =   -2147483648
       InitialParent   =   ""
       Italic          =   ""
-      Left            =   7
+      Left            =   14
       LockBottom      =   ""
       LockedInPosition=   False
       LockLeft        =   True
@@ -174,7 +174,7 @@ Begin Window ScaleWindow
       TextFont        =   "System"
       TextSize        =   0
       TextUnit        =   0
-      Top             =   75
+      Top             =   -57
       Underline       =   ""
       Value           =   True
       Visible         =   True
@@ -277,7 +277,7 @@ Begin Window ScaleWindow
       Index           =   -2147483648
       InitialParent   =   ""
       Italic          =   ""
-      Left            =   74
+      Left            =   76
       LockBottom      =   ""
       LockedInPosition=   False
       LockLeft        =   True
@@ -290,7 +290,7 @@ Begin Window ScaleWindow
       TextFont        =   "System"
       TextSize        =   0
       TextUnit        =   0
-      Top             =   97
+      Top             =   68
       Underline       =   ""
       Visible         =   True
       Width           =   80
@@ -308,7 +308,7 @@ Begin Window ScaleWindow
       Index           =   -2147483648
       InitialParent   =   ""
       Italic          =   ""
-      Left            =   166
+      Left            =   168
       LockBottom      =   ""
       LockedInPosition=   False
       LockLeft        =   True
@@ -321,7 +321,7 @@ Begin Window ScaleWindow
       TextFont        =   "System"
       TextSize        =   0
       TextUnit        =   0
-      Top             =   97
+      Top             =   68
       Underline       =   ""
       Visible         =   True
       Width           =   80
@@ -418,7 +418,7 @@ End
 		  heighttext.Text = Str(Heightslider.Value)
 		  
 		  If lockratio.Value Then
-		    If oldheight <> widthslider.Value Then
+		    If oldwidth <> widthslider.Value Then
 		      heightslider.Value = WidthVal * heightslider.Maximum / 100
 		    End If
 		    If oldheight <> heightslider.Value Then

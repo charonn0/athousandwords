@@ -1488,7 +1488,8 @@ End
 		Sub Action()
 		  If Me.Value Then
 		    TheCaptureType = CaptureType.SpecificScreen
-		    CaptureReference = WindowPicker.GetScreenNumber()
+		    Dim picker As New WindowPicker
+		    CaptureReference = Picker.GetScreenNumber()
 		  Else
 		    TheCaptureType = CaptureType.All
 		  End If
@@ -1499,13 +1500,10 @@ End
 #tag Events WindowSelect
 	#tag Event
 		Sub Action()
-		  If Me.Value Then
-		    TheCaptureType = CaptureType.SpecificWindow
-		    CaptureReference = WindowPicker.GetWindowHandle()
-		  Else
-		    TheCaptureType = CaptureType.All
-		  End If
-		  
+		  TheCaptureType = CaptureType.SpecificWindow
+		  Dim picker As New WindowPicker
+		  Dim i As Integer = Picker.GetWindowHandle()
+		  CaptureReference = i
 		End Sub
 	#tag EndEvent
 #tag EndEvents

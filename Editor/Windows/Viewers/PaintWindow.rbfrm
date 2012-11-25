@@ -413,8 +413,8 @@ End
 	#tag EndMethod
 
 
-	#tag Property, Flags = &h0
-		CurrentCursor As MouseCursor
+	#tag Property, Flags = &h21
+		Private CurrentCursor As MouseCursor
 	#tag EndProperty
 
 	#tag Property, Flags = &h0
@@ -503,6 +503,25 @@ End
 		  If ScrollableX Then LeftRight.Value = LeftRight.Value + deltaX
 		End Function
 	#tag EndEvent
+	#tag Event
+		Sub MouseMove(X As Integer, Y As Integer)
+		  If DropperMode Then
+		    Self.CurrentCursor = New MouseCursor(GetFrameThumbnail("Eyedropper-icon.png"), 1, 13)
+		  Else
+		    Select Case PaintTarget1.Mode
+		    Case PaintTarget1.Mode_DrawLine, PaintTarget1.Mode_Draw_Circle, PaintTarget1.Mode_Draw_Rect, PaintTarget1.Mode_Draw_Freeform, _
+		      PaintTarget1.Mode_Select_Rect, PaintTarget1.Mode_Draw_Filled_Rect, PaintTarget1.Mode_Draw_Filled_Circle
+		      Self.CurrentCursor = New MouseCursor(GetFrameThumbnail("compositor.png"), 0, 15)
+		    Case PaintTarget1.Mode_Draw_Point
+		      Self.CurrentCursor = System.Cursors.StandardPointer
+		    Case PaintTarget1.Mode_Fill
+		      'Self.CurrentCursor = 'New MouseCursor(
+		    Else
+		      Self.CurrentCursor = System.Cursors.StandardPointer
+		    End Select
+		  End If
+		End Sub
+	#tag EndEvent
 #tag EndEvents
 #tag Events PushButton1
 	#tag Event
@@ -566,6 +585,8 @@ End
 		    PaintTarget1.Width = Self.Width
 		    ScrollableY = False
 		  End If
+		  If CurrentCursor = Nil Then CurrentCursor = System.Cursors.StandardPointer
+		  PaintTarget1.MouseCursor = CurrentCursor
 		End Sub
 	#tag EndEvent
 #tag EndEvents

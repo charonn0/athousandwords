@@ -4,11 +4,11 @@ Begin Window WindowPicker
    Backdrop        =   ""
    CloseButton     =   False
    Composite       =   False
-   Frame           =   0
+   Frame           =   1
    FullScreen      =   False
    HasBackColor    =   False
    Height          =   2.45e+2
-   ImplicitInstance=   True
+   ImplicitInstance=   False
    LiveResize      =   True
    MacProcID       =   0
    MaxHeight       =   32000
@@ -80,7 +80,7 @@ Begin Window WindowPicker
       Cancel          =   ""
       Caption         =   "OK"
       Default         =   True
-      Enabled         =   False
+      Enabled         =   True
       Height          =   22
       HelpTag         =   ""
       Index           =   -2147483648
@@ -135,24 +135,13 @@ Begin Window WindowPicker
       Visible         =   True
       Width           =   80
    End
-   Begin Timer Timer1
-      Height          =   32
-      Index           =   -2147483648
-      Left            =   407
-      LockedInPosition=   False
-      Mode            =   2
-      Period          =   250
-      Scope           =   0
-      TabPanelIndex   =   0
-      Top             =   -27
-      Width           =   32
-   End
 End
 #tag EndWindow
 
 #tag WindowCode
 	#tag Method, Flags = &h0
 		Function GetScreenNumber() As Integer
+		  Me.Mode = Me.Mode_Screen
 		  Me.Title = "Choose a screen to capture"
 		  Listbox1.DeleteAllRows()
 		  For i As Integer = 0 To ScreenCount - 1
@@ -165,6 +154,7 @@ End
 
 	#tag Method, Flags = &h0
 		Function GetWindowHandle() As Integer
+		  Me.Mode = Me.Mode_Window
 		  Me.Title = "Choose a window to capture"
 		  Listbox1.DeleteAllRows()
 		  Dim list() As ForeignWindows.ForeignWindow = ForeignWindows.ListWindows()
@@ -178,9 +168,20 @@ End
 	#tag EndMethod
 
 
+	#tag Property, Flags = &h0
+		Mode As Integer
+	#tag EndProperty
+
 	#tag Property, Flags = &h21
 		Private SelectedWindow As Integer
 	#tag EndProperty
+
+
+	#tag Constant, Name = Mode_Screen, Type = Double, Dynamic = False, Default = \"0", Scope = Public
+	#tag EndConstant
+
+	#tag Constant, Name = Mode_Window, Type = Double, Dynamic = False, Default = \"1", Scope = Public
+	#tag EndConstant
 
 
 #tag EndWindowCode
@@ -190,23 +191,25 @@ End
 		Function ConstructContextualMenu(base as MenuItem, x as Integer, y as Integer) As Boolean
 		  #pragma Unused X
 		  #pragma Unused Y
-		  If Me.ListIndex = -1 Then Return False
-		  'Dim alph As New MenuItem("Increase Alpha By 10%")
-		  'Dim alph1 As New MenuItem("Decrease Alpha By 10%")
-		  'Dim alph2 As New MenuItem("Reset Alpha")
-		  'Dim alph3 As New MenuItem("Alpha")
-		  'Dim max As New MenuItem("Maximize")
-		  'Dim min As New MenuItem("Minimize")
-		  'Dim res As New MenuItem("Restore")
-		  Dim ID As New MenuItem("Identify")
-		  'alph3.Append(alph)
-		  'alph3.Append(alph1)
-		  'alph3.Append(alph2)
-		  'base.Append(alph3)
-		  'base.Append(max)
-		  'base.Append(min)
-		  'base.Append(res)
-		  base.Append(ID)
+		  If Self.Mode = Self.Mode_Window Then
+		    If Me.ListIndex = -1 Then Return False
+		    'Dim alph As New MenuItem("Increase Alpha By 10%")
+		    'Dim alph1 As New MenuItem("Decrease Alpha By 10%")
+		    'Dim alph2 As New MenuItem("Reset Alpha")
+		    'Dim alph3 As New MenuItem("Alpha")
+		    'Dim max As New MenuItem("Maximize")
+		    'Dim min As New MenuItem("Minimize")
+		    'Dim res As New MenuItem("Restore")
+		    Dim ID As New MenuItem("Identify")
+		    'alph3.Append(alph)
+		    'alph3.Append(alph1)
+		    'alph3.Append(alph2)
+		    'base.Append(alph3)
+		    'base.Append(max)
+		    'base.Append(min)
+		    'base.Append(res)
+		    base.Append(ID)
+		  End If
 		End Function
 	#tag EndEvent
 	#tag Event
@@ -263,9 +266,9 @@ End
 		End Function
 	#tag EndEvent
 	#tag Event
-		Function MouseDown(x As Integer, y As Integer) As Boolean
-		  If Me.RowTag(Me.RowFromXY(X, Y)) <> Nil Then
-		    Dim win As ForeignWindows.ForeignWindow = Me.RowTag(Me.RowFromXY(X, Y))
+		Sub Change()
+		  If Self.Mode = Self.Mode_Window Then
+		    Dim win As ForeignWindows.ForeignWindow = Me.RowTag(Me.ListIndex)
 		    SelectedWindow = win.Handle
 		    win.BringToFront
 		  Else
@@ -274,7 +277,7 @@ End
 		Exception
 		  SelectedWindow = -1
 		  
-		End Function
+		End Sub
 	#tag EndEvent
 #tag EndEvents
 #tag Events PushButton1
@@ -289,13 +292,6 @@ End
 		Sub Action()
 		  SelectedWindow = -1
 		  Self.Close
-		End Sub
-	#tag EndEvent
-#tag EndEvents
-#tag Events Timer1
-	#tag Event
-		Sub Action()
-		  PushButton1.Enabled = SelectedWindow > -1
 		End Sub
 	#tag EndEvent
 #tag EndEvents
