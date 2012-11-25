@@ -441,6 +441,14 @@ End
 		RetPic As Picture
 	#tag EndProperty
 
+	#tag Property, Flags = &h21
+		Private ScrollableX As Boolean
+	#tag EndProperty
+
+	#tag Property, Flags = &h21
+		Private ScrollableY As Boolean
+	#tag EndProperty
+
 	#tag Property, Flags = &h0
 		Slides() As Picture
 	#tag EndProperty
@@ -489,6 +497,12 @@ End
 		  
 		End Function
 	#tag EndEvent
+	#tag Event
+		Function MouseWheel(X As Integer, Y As Integer, deltaX as Integer, deltaY as Integer) As Boolean
+		  If ScrollableY Then UpDown.Value = UpDown.Value + deltaY
+		  If ScrollableX Then LeftRight.Value = LeftRight.Value + deltaX
+		End Function
+	#tag EndEvent
 #tag EndEvents
 #tag Events PushButton1
 	#tag Event
@@ -534,19 +548,23 @@ End
 		  If PaintTarget1.Buffer.Width > PaintTarget1.Width Then
 		    LeftRight.Top = Self.Height - LeftRight.Height
 		    PaintTarget1.Height = LeftRight.Top - 1
-		    LeftRight.Maximum = 100
+		    LeftRight.Maximum = 110
+		    ScrollableX = True
 		  Else
 		    LeftRight.Top = Self.Height + (LeftRight.Height * 2)
 		    PaintTarget1.Height = Self.Height
+		    ScrollableX = False
 		  End If
 		  
 		  If PaintTarget1.buffer.Height > PaintTarget1.Height Then
 		    UpDown.Left = Self.Width - UpDown.Width
 		    PaintTarget1.Width = Self.Width - UpDown.Width - 1
-		    UpDown.Maximum = 100
+		    UpDown.Maximum = 110
+		    ScrollableY = True
 		  Else
 		    UpDown.Left = Self.Width + (UpDown.Height * 2)
 		    PaintTarget1.Width = Self.Width
+		    ScrollableY = False
 		  End If
 		End Sub
 	#tag EndEvent
@@ -554,14 +572,14 @@ End
 #tag Events UpDown
 	#tag Event
 		Sub ValueChanged()
-		  PaintTarget1.ScrollY(Me.Value)
+		  PaintTarget1.ScrollY(Me.Value \ 2)
 		End Sub
 	#tag EndEvent
 #tag EndEvents
 #tag Events LeftRight
 	#tag Event
 		Sub ValueChanged()
-		  PaintTarget1.ScrollX(Me.Value)
+		  PaintTarget1.ScrollX(Me.Value \ 2)
 		  
 		End Sub
 	#tag EndEvent

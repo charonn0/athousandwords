@@ -772,7 +772,7 @@ Begin Window WizWindow
          Bold            =   ""
          Caption         =   "Save Options"
          Enabled         =   True
-         Height          =   91
+         Height          =   103
          HelpTag         =   ""
          Index           =   -2147483648
          InitialParent   =   "PagePanel1"
@@ -902,12 +902,10 @@ Begin Window WizWindow
             Visible         =   True
             Width           =   121
          End
-         Begin CheckBox ScreenZero
+         Begin RadioButton ScreenZero
             AutoDeactivate  =   True
             Bold            =   ""
-            Caption         =   "Only capture the main screen"
-            DataField       =   ""
-            DataSource      =   ""
+            Caption         =   "Only capture a specific screen..."
             Enabled         =   True
             Height          =   20
             HelpTag         =   ""
@@ -921,16 +919,73 @@ Begin Window WizWindow
             LockRight       =   ""
             LockTop         =   True
             Scope           =   0
-            State           =   0
             TabIndex        =   3
             TabPanelIndex   =   5
             TabStop         =   True
             TextFont        =   "System"
             TextSize        =   0
             TextUnit        =   0
-            Top             =   77
+            Top             =   61
             Underline       =   ""
             Value           =   False
+            Visible         =   True
+            Width           =   240
+         End
+         Begin RadioButton WindowSelect
+            AutoDeactivate  =   True
+            Bold            =   ""
+            Caption         =   "Only capture a specific window..."
+            Enabled         =   True
+            Height          =   20
+            HelpTag         =   ""
+            Index           =   -2147483648
+            InitialParent   =   "GroupBox2"
+            Italic          =   ""
+            Left            =   364
+            LockBottom      =   ""
+            LockedInPosition=   False
+            LockLeft        =   True
+            LockRight       =   ""
+            LockTop         =   True
+            Scope           =   0
+            TabIndex        =   4
+            TabPanelIndex   =   5
+            TabStop         =   True
+            TextFont        =   "System"
+            TextSize        =   0
+            TextUnit        =   0
+            Top             =   80
+            Underline       =   ""
+            Value           =   False
+            Visible         =   True
+            Width           =   240
+         End
+         Begin RadioButton CaptureEverything
+            AutoDeactivate  =   True
+            Bold            =   ""
+            Caption         =   "Capture Everything"
+            Enabled         =   True
+            Height          =   20
+            HelpTag         =   ""
+            Index           =   -2147483648
+            InitialParent   =   "GroupBox2"
+            Italic          =   ""
+            Left            =   364
+            LockBottom      =   ""
+            LockedInPosition=   False
+            LockLeft        =   True
+            LockRight       =   ""
+            LockTop         =   True
+            Scope           =   0
+            TabIndex        =   5
+            TabPanelIndex   =   5
+            TabStop         =   True
+            TextFont        =   "System"
+            TextSize        =   0
+            TextUnit        =   0
+            Top             =   99
+            Underline       =   ""
+            Value           =   True
             Visible         =   True
             Width           =   240
          End
@@ -1210,6 +1265,10 @@ End
 	#tag EndMethod
 
 
+	#tag Property, Flags = &h21
+		Private CaptureReference As Integer = -1
+	#tag EndProperty
+
 	#tag Property, Flags = &h0
 		FinalFolder As FolderItem
 	#tag EndProperty
@@ -1250,6 +1309,17 @@ End
 	#tag Property, Flags = &h0
 		SaveType As Integer = 151
 	#tag EndProperty
+
+	#tag Property, Flags = &h21
+		Private TheCaptureType As CaptureType
+	#tag EndProperty
+
+
+	#tag Enum, Name = CaptureType, Type = Integer, Flags = &h0
+		All
+		  SpecificWindow
+		SpecificScreen
+	#tag EndEnum
 
 
 #tag EndWindowCode
@@ -1411,17 +1481,57 @@ End
 	#tag Event
 		Sub Open()
 		  Me.Enabled = ScreenCount > 1
+		  
+		End Sub
+	#tag EndEvent
+	#tag Event
+		Sub Action()
+		  If Me.Value Then
+		    TheCaptureType = CaptureType.SpecificScreen
+		    CaptureReference = WindowPicker.GetScreenNumber()
+		  Else
+		    TheCaptureType = CaptureType.All
+		  End If
+		  
+		End Sub
+	#tag EndEvent
+#tag EndEvents
+#tag Events WindowSelect
+	#tag Event
+		Sub Action()
+		  If Me.Value Then
+		    TheCaptureType = CaptureType.SpecificWindow
+		    CaptureReference = WindowPicker.GetWindowHandle()
+		  Else
+		    TheCaptureType = CaptureType.All
+		  End If
+		  
+		End Sub
+	#tag EndEvent
+#tag EndEvents
+#tag Events CaptureEverything
+	#tag Event
+		Sub Action()
+		  TheCaptureType = CaptureType.All
 		End Sub
 	#tag EndEvent
 #tag EndEvents
 #tag Events Timer1
 	#tag Event
 		Sub Action()
-		  If Not ScreenZero.Value Then
+		  Select Case TheCaptureType
+		  Case CaptureType.All
 		    FinalPic = Platform.CaptureScreen
+		    
+		  Case CaptureType.SpecificScreen
+		    FinalPic = Platform.GetPartialScreenShot(Screen(CaptureReference).Left, Screen(CaptureReference).Top, _
+		    Screen(CaptureReference).Width, Screen(CaptureReference).Height)
+		    
 		  Else
-		    FinalPic = Platform.GetPartialScreenShot(0, 0, Screen(0).Width, Screen(0).Height)
-		  End If
+		    Dim win As New ForeignWindows.ForeignWindow(CaptureReference)
+		    FinalPic = win.Capture()
+		  End Select
+		  
 		  Self.Top = OldY
 		  PagePanel1.Value = PagePanel1.Value + 1
 		End Sub

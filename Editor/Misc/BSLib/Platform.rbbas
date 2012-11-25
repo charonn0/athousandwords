@@ -9,6 +9,33 @@ Protected Module Platform
 	#tag EndMethod
 
 	#tag Method, Flags = &h1
+		Protected Function CaptureWindow(Win As ForeignWindows.ForeignWindow) As Picture
+		  
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h1
+		Protected Function CaptureWindow1(Win As ForeignWindows.ForeignWindow) As Picture
+		  Declare Function GetDC Lib "User32" (HWND As Integer) As Integer
+		  Declare Function BitBlt Lib "GDI32" (DCdest As Integer, xDest As Integer, yDest As Integer, nWidth As Integer, nHeight As Integer, _
+		  DCdource As Integer, xSource As Integer, ySource As Integer, rasterOp As Integer) As Boolean
+		  Declare Function ReleaseDC Lib "User32" (HWND As Integer, DC As Integer) As Integer
+		  win.Visible = True
+		  Dim l, t, w, h As Integer
+		  l = win.Left
+		  t = win.Top
+		  w = win.Width
+		  h = win.height
+		  Dim screenCap As New Picture(w, h, 24)
+		  Dim WinHDC As Integer = GetDC(Win.Handle)
+		  Call BitBlt(screenCap.Graphics.Handle(Graphics.HandleTypeHDC), 0, 0, w, h, WinHDC, 0, 0, SRCCOPY)' Or CAPTUREBLT)
+		  Call ReleaseDC(Win.Handle, WinHDC)
+		  
+		  Return screenCap
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h1
 		Protected Function CurrentUser() As String
 		  //Returns the username of the account under which the application is running.
 		  //On Error, returns an empty string
