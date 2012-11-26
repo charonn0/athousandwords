@@ -1,20 +1,30 @@
 #tag Module
 Protected Module GlobalHelpers
 	#tag Method, Flags = &h0
+		Function IntToColor(extends c as Integer) As Color
+		  //From WFS, converts an Integer to a Color
+		  
+		  Dim mb as new MemoryBlock(4)
+		  mb.Long(0) = c
+		  Return RGB(mb.Byte(0), mb.Byte(1), mb.Byte(2))
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
 		Function LoadPicFile(f As FolderItem) As String
-		  Debug("Load file: " + f.AbsolutePath)
+		  'Debug("Load file: " + f.AbsolutePath)
 		  Dim p As Picture
-		  Debug("Reading...")
+		  'Debug("Reading...")
 		  If f.Length > 1048576 Then //1MB
 		    Try
 		      p = Picture.Open(f)
 		    Catch
-		      Debug("Not a picture file!")
+		      'Debug("Not a picture file!")
 		    End Try
 		  Else
 		    p = Picture.Open(f)
 		  End If
-		  Debug("Nothing broke, so it must be a picture file.")
+		  'Debug("Nothing broke, so it must be a picture file.")
 		  Dim sf As New StackFrame(p)
 		  sf.Key = f.Name
 		  Icons.Value(sf.Key) = sf
@@ -31,6 +41,44 @@ Protected Module GlobalHelpers
 		  ''Supervisor.Intercede()
 		  'Return b
 		  Call MsgBox(Message, 16, "Editor Error")
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Function Rotate(Extends Pic As Picture, Degrees As Double, Mask As Picture = Nil) As Picture
+		  //Rotates the passed Picture counter-clockwise the number of degrees specified around its center.
+		  //Optionally, pass a mask which will also be rotated and then applied to the returned Picture object.
+		  
+		  Dim px As New PixmapShape(Pic)
+		  px.X = (Pic.Width * 0.5) - 2
+		  px.Y = (Pic.Height * 0.5) - 2
+		  px.Rotation = Degrees / 57.2958 //Degrees to radians
+		  Dim p As New Picture(px.SourceWidth, Px.SourceHeight, Pic.Depth)
+		  p.Graphics.DrawObject(px)
+		  
+		  //Rotate and apply the mask if it exists
+		  If Mask <> Nil Then p.ApplyMask(Mask.Rotate(Degrees))
+		  
+		  Return p
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Function Scale(Source As Picture, Ratio As Double = 1.0) As Picture
+		  //Returns a scaled version of the passed Picture object.
+		  //A ratio of 1.0 is 100% (no change,) 0.5 is 50% (half size) and so forth.
+		  //This function should be cross-platform safe.
+		  
+		  Dim wRatio, hRatio As Double
+		  wRatio = (Ratio * Source.width)
+		  hRatio = (Ratio * Source.Height)
+		  If wRatio = Source.Width And hRatio = Source.Height Then Return Source
+		  Dim photo As New Picture(wRatio, hRatio, Source.Depth)
+		  Photo.Graphics.DrawPicture(Source, 0, 0, Photo.Width, Photo.Height, 0, 0, Source.Width, Source.Height)
+		  Return photo
+		  
+		Exception
+		  Return Source
 		End Function
 	#tag EndMethod
 
@@ -144,8 +192,8 @@ Protected Module GlobalHelpers
 		  Declare Function UuidToString Lib "Rpcrt4" Alias "UuidToStringW" (Uuid As Ptr, byref p as ptr) As Integer
 		  
 		  static mb As new MemoryBlock( 16 * 2)
-		  dim status As Integer = UuidCreate( mb ) //can compare to RPC_S_UUID_LOCAL_ONLY and RPC_S_UUID_NO_ADDRESS for more info
-		  Call status.IntToColor
+		  Call UuidCreate( mb ) //can compare to RPC_S_UUID_LOCAL_ONLY and RPC_S_UUID_NO_ADDRESS for more info
+		  
 		  static ptrUUID As new MemoryBlock( 16 * 2)
 		  
 		  dim ppAddr As ptr
@@ -232,11 +280,6 @@ Protected Module GlobalHelpers
 
 
 	#tag ViewBehavior
-		#tag ViewProperty
-			Name="FreeImageAvailable"
-			Group="Behavior"
-			Type="Boolean"
-		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Index"
 			Visible=true

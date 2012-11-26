@@ -88,8 +88,10 @@ Inherits Canvas
 		    End If
 		    
 		    Dim ret As Boolean
+		    'Check if we're dragging the resize thumb
 		    If X >= Buffer.Width + ViewX And X <= Buffer.Width + ViewX + 5 And Y >= Buffer.Height + ViewY And Y <= Buffer.Height + ViewY + 5 Then
 		      Resizing = True
+		      Me.MouseCursor = System.Cursors.ArrowNorthwestSoutheast
 		      Return True
 		      If IsContextualClick Then
 		        Overlay = Nil
@@ -189,6 +191,7 @@ Inherits Canvas
 		    Else
 		      DragStartX = X
 		      DragStartY = Y
+		      
 		      Invalidate(False)
 		    End If
 		    CoordChanged(X, Y)
@@ -203,8 +206,8 @@ Inherits Canvas
 		      drawHelp(X, Y)
 		      'Me.mousecursor = MainWindow.CurrentCursor
 		      If CheckMode(Select_Mode_Wait) Then Return
-		      If X >= Buffer.Width + 1 And X <= Buffer.Width + 3 And Y >= Buffer.Height + 1 And Y <= Buffer.Height + 3 Then
-		        'Me.mousecursor = System.Cursors.ArrowNorthwestSoutheast
+		      If X >= Buffer.Width + ViewX And X <= Buffer.Width + ViewX + 5 And Y >= Buffer.Height + ViewY And Y <= Buffer.Height + ViewY + 5 Then
+		        Me.mousecursor = System.Cursors.ArrowNorthwestSoutheast
 		        If Resizing Then
 		          DragStartX = X
 		          DragStartY = Y
@@ -1135,7 +1138,7 @@ Inherits Canvas
 		  
 		  If locked Then
 		    Dim sc As Double = newSize.Left / Buffer.Width
-		    Buffer = Images.Scale(Buffer, sc)
+		    Buffer = Scale(Buffer, sc)
 		  Else
 		    Dim tmp As Picture = NewBuffer(newSize.Left, newSize.Right, 32)
 		    'tmp.Transparent = Me.IsTransparent

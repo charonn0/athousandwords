@@ -3,7 +3,7 @@ Protected Class Palette
 Inherits Thread
 	#tag Event
 		Sub Run()
-		  Debug("Palettizer thread running: " + Str(Me.ThreadID))
+		  'Debug("Palettizer thread running: " + Str(Me.ThreadID))
 		  Dim cols As New Dictionary
 		  For X As Integer = 0 To Pic.Width
 		    For Y As Integer = 0 To Pic.Height
@@ -31,7 +31,7 @@ Inherits Thread
 		  Dim sf As New StackFrame(Pic)
 		  AddStackFrame(sf)
 		  
-		  Debug("Palettizer thread done: " + Str(Me.ThreadID))
+		  'Debug("Palettizer thread done: " + Str(Me.ThreadID))
 		  If Finish <> Nil Then Finish.Invoke(sf.Key)
 		End Sub
 	#tag EndEvent
@@ -40,7 +40,7 @@ Inherits Thread
 	#tag Method, Flags = &h0
 		Sub Constructor(p As Picture, finisher As FinishHandler)
 		  Super.Constructor
-		  Debug("Created a new palettizer thread: " + Str(Me.ThreadID))
+		  'Debug("Created a new palettizer thread: " + Str(Me.ThreadID))
 		  Pic = p
 		  Finish = finisher
 		  Run()
@@ -49,7 +49,7 @@ Inherits Thread
 
 	#tag Method, Flags = &h21
 		Private Sub Destructor()
-		  Debug("Palettizer thread destroyed: " + Str(Me.ThreadID))
+		  'Debug("Palettizer thread destroyed: " + Str(Me.ThreadID))
 		End Sub
 	#tag EndMethod
 

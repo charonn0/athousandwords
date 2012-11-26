@@ -4,6 +4,14 @@ Protected Module ForeignWindows
 		Protected Declare Function BitBlt Lib "GDI32" (DCdest As Integer, xDest As Integer, yDest As Integer, nWidth As Integer, nHeight As Integer, DCdource As Integer, xSource As Integer, ySource As Integer, rasterOp As Integer) As Boolean
 	#tag EndExternalMethod
 
+	#tag Method, Flags = &h1
+		Protected Function CaptureScreen() As Picture
+		  //Calls GetPartialScreenShot with a rectangle comprising all of the desktop rectangle. Returns a Picture
+		  
+		  #If TargetWin32 Then Return GetPartialScreenShot(0, 0, ScreenVirtualWidth, ScreenVirtualHeight)
+		End Function
+	#tag EndMethod
+
 	#tag ExternalMethod, Flags = &h1
 		Protected Declare Function FindWindow Lib "User32" Alias "FindWindowW" (ClassName As Integer, WindowName As Integer) As Integer
 	#tag EndExternalMethod
@@ -31,8 +39,25 @@ Protected Module ForeignWindows
 	#tag EndExternalMethod
 
 	#tag ExternalMethod, Flags = &h1
+		Protected Declare Function GetDesktopWindow Lib "User32" () As Integer
+	#tag EndExternalMethod
+
+	#tag ExternalMethod, Flags = &h1
 		Protected Declare Function GetLayeredWindowAttributes Lib "User32" (hwnd As Integer, thecolor As Integer, ByRef bAlpha As Integer, flags As Integer) As Boolean
 	#tag EndExternalMethod
+
+	#tag Method, Flags = &h1
+		Protected Function GetPartialScreenShot(X As Integer, Y As Integer, width As Integer, height As Integer) As Picture
+		  Dim screenCap As New Picture(Width, Height, 24)
+		  Dim deskHWND As Integer = GetDesktopWindow()
+		  Dim deskHDC As Integer = GetDC(deskHWND)
+		  Call BitBlt(screenCap.Graphics.Handle(Graphics.HandleTypeHDC), 0, 0, Width, Height, DeskHDC, X, Y, SRCCOPY Or CAPTUREBLT)
+		  Call ReleaseDC(DeskHWND, deskHDC)
+		  
+		  Return screenCap
+		  
+		End Function
+	#tag EndMethod
 
 	#tag ExternalMethod, Flags = &h1
 		Protected Declare Function GetSystemMetrics Lib "User32" (Index As Integer) As Integer
@@ -95,6 +120,20 @@ Protected Module ForeignWindows
 		Protected Declare Function ReleaseDC Lib "User32" (HWND As Integer, DC As Integer) As Integer
 	#tag EndExternalMethod
 
+	#tag Method, Flags = &h1
+		Protected Function ScreenVirtualHeight() As Integer
+		  //Returns the height of the bounding rectangle around all monitors. On single-screen systems this is identical to ScreenHeight
+		  Return GetSystemMetrics(79)
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h1
+		Protected Function ScreenVirtualWidth() As Integer
+		  //Returns the width of the bounding rectangle around all monitors. On single-screen systems this is identical to ScreenWidth
+		  Return GetSystemMetrics(78)
+		End Function
+	#tag EndMethod
+
 	#tag ExternalMethod, Flags = &h1
 		Protected Declare Function SendMessage Lib "User32" Alias "SendMessageW" (HWND As Integer, Msg As Integer, wParam As Ptr, lParam As Ptr) As Ptr
 	#tag EndExternalMethod
@@ -123,6 +162,9 @@ Protected Module ForeignWindows
 		Protected Declare Function WindowFromPoint Lib "User32" (XY As POINT) As Integer
 	#tag EndExternalMethod
 
+
+	#tag Constant, Name = CAPTUREBLT, Type = Double, Dynamic = False, Default = \"&h40000000", Scope = Protected
+	#tag EndConstant
 
 	#tag Constant, Name = GA_PARENT, Type = Double, Dynamic = False, Default = \"1", Scope = Protected
 	#tag EndConstant
@@ -161,6 +203,9 @@ Protected Module ForeignWindows
 	#tag EndConstant
 
 	#tag Constant, Name = SE_PROF_SINGLE_PROCESS_NAME, Type = String, Dynamic = False, Default = \"SeProfileSingleProcessPrivilege", Scope = Protected
+	#tag EndConstant
+
+	#tag Constant, Name = SRCCOPY, Type = Double, Dynamic = False, Default = \"&h00CC0020", Scope = Protected
 	#tag EndConstant
 
 	#tag Constant, Name = SWP_FRAMECHANGED, Type = Double, Dynamic = False, Default = \"&h20", Scope = Protected

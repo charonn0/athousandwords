@@ -499,23 +499,27 @@ End
 	#tag EndEvent
 	#tag Event
 		Function MouseWheel(X As Integer, Y As Integer, deltaX as Integer, deltaY as Integer) As Boolean
+		  #pragma Unused X
+		  #pragma Unused Y
 		  If ScrollableY Then UpDown.Value = UpDown.Value + deltaY
 		  If ScrollableX Then LeftRight.Value = LeftRight.Value + deltaX
 		End Function
 	#tag EndEvent
 	#tag Event
 		Sub MouseMove(X As Integer, Y As Integer)
+		  #pragma Unused X
+		  #pragma Unused Y
 		  If DropperMode Then
 		    Self.CurrentCursor = New MouseCursor(GetFrameThumbnail("Eyedropper-icon.png"), 1, 13)
 		  Else
 		    Select Case PaintTarget1.Mode
 		    Case PaintTarget1.Mode_DrawLine, PaintTarget1.Mode_Draw_Circle, PaintTarget1.Mode_Draw_Rect, PaintTarget1.Mode_Draw_Freeform, _
 		      PaintTarget1.Mode_Select_Rect, PaintTarget1.Mode_Draw_Filled_Rect, PaintTarget1.Mode_Draw_Filled_Circle
-		      Self.CurrentCursor = New MouseCursor(GetFrameThumbnail("compositor.png"), 0, 15)
+		      Self.CurrentCursor = New MouseCursor(GetFrameThumbnail("crosshairs.png"), 7, 7)
 		    Case PaintTarget1.Mode_Draw_Point
 		      Self.CurrentCursor = System.Cursors.StandardPointer
 		    Case PaintTarget1.Mode_Fill
-		      'Self.CurrentCursor = 'New MouseCursor(
+		      Self.CurrentCursor = New MouseCursor(GetFrameThumbnail("floodfill.png"), 1, 13)
 		    Else
 		      Self.CurrentCursor = System.Cursors.StandardPointer
 		    End Select
@@ -540,7 +544,7 @@ End
 		  w = PaintTarget1.Width
 		  h = PaintTarget1.Height
 		  
-		  Dim p As Picture = Platform.GetPartialScreenShot(l, t, w, h)
+		  Dim p As Picture = Win32.GetPartialScreenShot(l, t, w, h)
 		  PaintTarget1.Open(p)
 		  PaintTarget1.Taint = True
 		  Self.Top = OldY

@@ -42,6 +42,7 @@ Begin Window WizWindow
       Scope           =   0
       TabIndex        =   0
       TabPanelIndex   =   0
+      TabStop         =   True
       Top             =   0
       Value           =   4
       Visible         =   True
@@ -68,6 +69,7 @@ Begin Window WizWindow
          Selectable      =   False
          TabIndex        =   0
          TabPanelIndex   =   1
+         TabStop         =   True
          Text            =   "Your computer is showing you something and you don't know what it is. This wizard will step you through the process of taking still image of your screen which you can give to others who can help you.\r\n\r\nTo proceed, click next."
          TextAlign       =   0
          TextColor       =   0
@@ -102,6 +104,7 @@ Begin Window WizWindow
          Selectable      =   False
          TabIndex        =   0
          TabPanelIndex   =   2
+         TabStop         =   True
          Text            =   "Please take any steps needed to bring the error or offending software application into view on your screen. When you are ready, click next."
          TextAlign       =   0
          TextColor       =   0
@@ -198,6 +201,7 @@ Begin Window WizWindow
          Selectable      =   False
          TabIndex        =   1
          TabPanelIndex   =   3
+         TabStop         =   True
          Text            =   "I just snapped a picture of your screen. Take a look at it by clicking the Preview button or edit it by clicking the Edit button. You can use the editor to block out any information you don't want to share with strangers.\r\n\r\nWhen you're ready to share the picture, click next."
          TextAlign       =   0
          TextColor       =   0
@@ -356,6 +360,7 @@ Begin Window WizWindow
          Selectable      =   False
          TabIndex        =   4
          TabPanelIndex   =   4
+         TabStop         =   True
          Text            =   "Finished! A copy of your screen capture has been saved to your desktop. \r\n\r\nClick the Finish button to close this wizard.\r\n"
          TextAlign       =   0
          TextColor       =   0
@@ -503,6 +508,7 @@ Begin Window WizWindow
          Selectable      =   ""
          TabIndex        =   6
          TabPanelIndex   =   4
+         TabStop         =   True
          Text            =   "Saved to : "
          TextAlign       =   0
          TextColor       =   255
@@ -542,6 +548,7 @@ Begin Window WizWindow
          Selectable      =   ""
          TabIndex        =   7
          TabPanelIndex   =   4
+         TabStop         =   True
          Text            =   "Copyright 𹢩 2012 Boredom Software"
          TextAlign       =   0
          TextColor       =   "&c0000FF"
@@ -786,6 +793,7 @@ Begin Window WizWindow
          Scope           =   0
          TabIndex        =   14
          TabPanelIndex   =   5
+         TabStop         =   True
          TextFont        =   "System"
          TextSize        =   0
          TextUnit        =   0
@@ -992,6 +1000,7 @@ Begin Window WizWindow
       End
    End
    Begin Timer Timer1
+      Enabled         =   True
       Height          =   32
       Index           =   -2147483648
       Left            =   720
@@ -999,8 +1008,11 @@ Begin Window WizWindow
       Mode            =   0
       Period          =   250
       Scope           =   0
+      TabIndex        =   1
       TabPanelIndex   =   0
+      TabStop         =   True
       Top             =   -14
+      Visible         =   True
       Width           =   32
    End
    Begin CheckBox ScreenSelect
@@ -1086,6 +1098,7 @@ Begin Window WizWindow
       Scope           =   0
       TabIndex        =   3
       TabPanelIndex   =   0
+      TabStop         =   True
       TextFont        =   "System"
       TextSize        =   0
       TextUnit        =   0
@@ -1255,7 +1268,7 @@ End
 		  Case Picture.SaveAsWindowsBMP
 		    ext = ".bmp"
 		  End Select
-		  Dim filename As String = Platform.CurrentUser + "_" + Format(d.TotalSeconds, "##############################") + ext
+		  Dim filename As String = Win32.CurrentUser + "_" + Format(d.TotalSeconds, "##############################") + ext
 		  Dim f As FolderItem = SpecialFolder.Temporary.Child(filename)
 		  p.Save(f, SaveType, Picture.QualityHigh)
 		  App.DoEvents(500)
@@ -1380,7 +1393,7 @@ End
 #tag Events LinkLabel1
 	#tag Event
 		Sub Action()
-		  FinalFolder.ShowInExplorer
+		  Win32.ShowInExplorer(FinalFolder)
 		End Sub
 	#tag EndEvent
 #tag EndEvents
@@ -1519,10 +1532,10 @@ End
 		Sub Action()
 		  Select Case TheCaptureType
 		  Case CaptureType.All
-		    FinalPic = Platform.CaptureScreen
+		    FinalPic = Win32.CaptureScreen
 		    
 		  Case CaptureType.SpecificScreen
-		    FinalPic = Platform.GetPartialScreenShot(Screen(CaptureReference).Left, Screen(CaptureReference).Top, _
+		    FinalPic = Win32.GetPartialScreenShot(Screen(CaptureReference).Left, Screen(CaptureReference).Top, _
 		    Screen(CaptureReference).Width, Screen(CaptureReference).Height)
 		    
 		  Else

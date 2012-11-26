@@ -13,7 +13,7 @@ Protected Class ForeignWindow
 		  t = Me.Top
 		  w = Me.Width
 		  h = Me.height
-		  Return Platform.GetPartialScreenShot(l, t, w, h)
+		  Return GetPartialScreenShot(l, t, w, h)
 		  
 		  
 		  Dim screenCap As New Picture(w, h, 24)
@@ -24,45 +24,8 @@ Protected Class ForeignWindow
 		  Return screenCap
 		  
 		Exception
-		  Return Platform.CaptureScreen()
+		  Return CaptureScreen()
 		End Function
-	#tag EndMethod
-
-	#tag Method, Flags = &h21
-		Private Sub ChangeWindowStyleEx(flag As Integer, set As Boolean)
-		  #if TargetWin32
-		    Dim oldFlags As Integer
-		    Dim newFlags As Integer
-		    Dim styleFlags As Integer
-		    
-		    Const SWP_NOSIZE = &H1
-		    Const SWP_NOMOVE = &H2
-		    Const SWP_NOZORDER = &H4
-		    Const SWP_FRAMECHANGED = &H20
-		    
-		    Const GWL_EXSTYLE = -20
-		    
-		    Declare Function GetWindowLong Lib "user32" Alias "GetWindowLongA" (hwnd As Integer,  _
-		    nIndex As Integer) As Integer
-		    Declare Function SetWindowLong Lib "user32" Alias "SetWindowLongA" (hwnd As Integer, _
-		    nIndex As Integer, dwNewLong As Integer) As Integer
-		    Declare Function SetWindowPos Lib "user32" (hwnd As Integer, hWndInstertAfter As Integer, _
-		    x As Integer, y As Integer, cx As Integer, cy As Integer, flags As Integer) As Integer
-		    
-		    oldFlags = GetWindowLong(Handle, GWL_EXSTYLE)
-		    
-		    if not set then
-		      newFlags = BitwiseAnd(oldFlags, Bitwise.OnesComplement(flag))
-		    else
-		      newFlags = BitwiseOr(oldFlags, flag)
-		    end
-		    
-		    
-		    styleFlags = SetWindowLong(Handle, GWL_EXSTYLE, newFlags)
-		    styleFlags = SetWindowPos(Handle, 0, 0, 0, 0, 0, SWP_NOMOVE +_
-		    SWP_NOSIZE + SWP_NOZORDER + SWP_FRAMECHANGED)
-		  #endif
-		End Sub
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
@@ -170,6 +133,76 @@ Protected Class ForeignWindow
 	#tag ComputedProperty, Flags = &h0
 		#tag Getter
 			Get
+			  Dim info As WINDOWINFO
+			  info.cbSize = info.Size
+			  If GetWindowInfo(Me.Handle, info) Then
+			    Dim size As RECT = info.ClientArea
+			    Return size.bottom - size.top + (2 * BorderSizeY)
+			  End If
+			End Get
+		#tag EndGetter
+		ClientHeight As Integer
+	#tag EndComputedProperty
+
+	#tag ComputedProperty, Flags = &h0
+		#tag Getter
+			Get
+			  Dim info As WINDOWINFO
+			  info.cbSize = info.Size
+			  If GetWindowInfo(Me.Handle, info) Then
+			    Dim size As RECT = info.ClientArea
+			    Return size.Left - info.cxWindowBorders
+			  End If
+			End Get
+		#tag EndGetter
+		ClientLeft As Integer
+	#tag EndComputedProperty
+
+	#tag ComputedProperty, Flags = &h0
+		#tag Getter
+			Get
+			  Dim info As WINDOWINFO
+			  info.cbSize = info.Size
+			  If GetWindowInfo(Me.Handle, info) Then
+			    Dim size As RECT = info.ClientArea
+			    Return size.right + info.cxWindowBorders
+			  End If
+			End Get
+		#tag EndGetter
+		ClientRight As Integer
+	#tag EndComputedProperty
+
+	#tag ComputedProperty, Flags = &h0
+		#tag Getter
+			Get
+			  Dim info As WINDOWINFO
+			  info.cbSize = info.Size
+			  If GetWindowInfo(Me.Handle, info) Then
+			    Dim size As RECT = info.ClientArea
+			    Return size.top - BorderSizeY
+			  End If
+			End Get
+		#tag EndGetter
+		ClientTop As Integer
+	#tag EndComputedProperty
+
+	#tag ComputedProperty, Flags = &h0
+		#tag Getter
+			Get
+			  Dim info As WINDOWINFO
+			  info.cbSize = info.Size
+			  If GetWindowInfo(Me.Handle, info) Then
+			    Dim size As RECT = info.ClientArea
+			    Return size.Right - size.Left + (2 * BorderSizeX)
+			  End If
+			End Get
+		#tag EndGetter
+		ClientWidth As Integer
+	#tag EndComputedProperty
+
+	#tag ComputedProperty, Flags = &h0
+		#tag Getter
+			Get
 			  return mHandle
 			End Get
 		#tag EndGetter
@@ -243,34 +276,6 @@ Protected Class ForeignWindow
 	#tag ComputedProperty, Flags = &h0
 		#tag Getter
 			Get
-			  Dim info As WINDOWINFO
-			  info.cbSize = info.Size
-			  If GetWindowInfo(Me.Handle, info) Then
-			    Dim size As RECT = info.ClientArea
-			    Return size.bottom - size.top + (2 * BorderSizeY)
-			  End If
-			End Get
-		#tag EndGetter
-		TrueHeight As Integer
-	#tag EndComputedProperty
-
-	#tag ComputedProperty, Flags = &h0
-		#tag Getter
-			Get
-			  Dim info As WINDOWINFO
-			  info.cbSize = info.Size
-			  If GetWindowInfo(Me.Handle, info) Then
-			    Dim size As RECT = info.ClientArea
-			    Return size.Left - info.cxWindowBorders
-			  End If
-			End Get
-		#tag EndGetter
-		TrueLeft As Integer
-	#tag EndComputedProperty
-
-	#tag ComputedProperty, Flags = &h0
-		#tag Getter
-			Get
 			  Return GetAncestor(Me.Handle, GA_ROOTOWNER)
 			End Get
 		#tag EndGetter
@@ -284,48 +289,6 @@ Protected Class ForeignWindow
 			End Get
 		#tag EndGetter
 		TrueParent As Integer
-	#tag EndComputedProperty
-
-	#tag ComputedProperty, Flags = &h0
-		#tag Getter
-			Get
-			  Dim info As WINDOWINFO
-			  info.cbSize = info.Size
-			  If GetWindowInfo(Me.Handle, info) Then
-			    Dim size As RECT = info.ClientArea
-			    Return size.right + info.cxWindowBorders
-			  End If
-			End Get
-		#tag EndGetter
-		TrueRight As Integer
-	#tag EndComputedProperty
-
-	#tag ComputedProperty, Flags = &h0
-		#tag Getter
-			Get
-			  Dim info As WINDOWINFO
-			  info.cbSize = info.Size
-			  If GetWindowInfo(Me.Handle, info) Then
-			    Dim size As RECT = info.ClientArea
-			    Return size.top - BorderSizeY
-			  End If
-			End Get
-		#tag EndGetter
-		TrueTop As Integer
-	#tag EndComputedProperty
-
-	#tag ComputedProperty, Flags = &h0
-		#tag Getter
-			Get
-			  Dim info As WINDOWINFO
-			  info.cbSize = info.Size
-			  If GetWindowInfo(Me.Handle, info) Then
-			    Dim size As RECT = info.ClientArea
-			    Return size.Right - size.Left + (2 * BorderSizeX)
-			  End If
-			End Get
-		#tag EndGetter
-		TrueWidth As Integer
 	#tag EndComputedProperty
 
 	#tag ComputedProperty, Flags = &h0
@@ -385,6 +348,31 @@ Protected Class ForeignWindow
 			EditorType="MultiLineEditor"
 		#tag EndViewProperty
 		#tag ViewProperty
+			Name="ClientHeight"
+			Group="Behavior"
+			Type="Integer"
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="ClientLeft"
+			Group="Behavior"
+			Type="Integer"
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="ClientRight"
+			Group="Behavior"
+			Type="Integer"
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="ClientTop"
+			Group="Behavior"
+			Type="Integer"
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="ClientWidth"
+			Group="Behavior"
+			Type="Integer"
+		#tag EndViewProperty
+		#tag ViewProperty
 			Name="Handle"
 			Group="Behavior"
 			Type="Integer"
@@ -438,37 +426,12 @@ Protected Class ForeignWindow
 			InheritedFrom="Object"
 		#tag EndViewProperty
 		#tag ViewProperty
-			Name="TrueHeight"
-			Group="Behavior"
-			Type="Integer"
-		#tag EndViewProperty
-		#tag ViewProperty
-			Name="TrueLeft"
-			Group="Behavior"
-			Type="Integer"
-		#tag EndViewProperty
-		#tag ViewProperty
 			Name="TrueOwner"
 			Group="Behavior"
 			Type="Integer"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="TrueParent"
-			Group="Behavior"
-			Type="Integer"
-		#tag EndViewProperty
-		#tag ViewProperty
-			Name="TrueRight"
-			Group="Behavior"
-			Type="Integer"
-		#tag EndViewProperty
-		#tag ViewProperty
-			Name="TrueTop"
-			Group="Behavior"
-			Type="Integer"
-		#tag EndViewProperty
-		#tag ViewProperty
-			Name="TrueWidth"
 			Group="Behavior"
 			Type="Integer"
 		#tag EndViewProperty

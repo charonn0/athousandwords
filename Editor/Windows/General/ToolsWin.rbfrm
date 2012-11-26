@@ -460,7 +460,7 @@ End
 #tag Events ModeButton
 	#tag Event
 		Sub Open(index as Integer)
-		  Debug("Simple Plaint: Tools window button " + Str(index) + " loaded")
+		  #pragma Unused index
 		  ModeButton(PreviousButton).setValue(True)
 		  'If Me.Index = 8 Then
 		  'Dim p As New Picture(Me.Width, Me.Height, 32)

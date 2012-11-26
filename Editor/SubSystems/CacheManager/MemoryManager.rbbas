@@ -2,14 +2,14 @@
 Protected Module MemoryManager
 	#tag Method, Flags = &h0
 		Sub AddStackFrame(ByRef sf As StackFrame)
-		  Debug("Add frame: " + sf.Key)
+		  'Debug("Add frame: " + sf.Key)
 		  Icons.Value(sf.Key) = sf
 		End Sub
 	#tag EndMethod
 
 	#tag Method, Flags = &h1
 		Protected Function CleanUp() As Boolean
-		  Debug("Purged cache")
+		  'Debug("Purged cache")
 		  Icons = Nil
 		End Function
 	#tag EndMethod
@@ -17,20 +17,18 @@ Protected Module MemoryManager
 	#tag Method, Flags = &h1
 		Protected Sub DeleteCachedImage(Key As String)
 		  If Icons.HasKey(Key) Then
-		    Debug("Delete cache item: " + key)
+		    'Debug("Delete cache item: " + key)
 		    Icons.Remove(Key)
 		  Else
-		    Debug("Could not delete cache item (" + key + "): The item does not exist.")
+		    'Debug("Could not delete cache item (" + key + "): The item does not exist.")
 		  End If
 		End Sub
 	#tag EndMethod
 
 	#tag Method, Flags = &h1
 		Protected Sub Emergency_DUMP()
-		  Debug("Drop all items in the cache!")
 		  Icons = Nil
 		  Dumped = True
-		  TrimTimer.Mode = Timer.ModeOff
 		  Call MsgBox("The canvas has been reset.", 16, "Error")
 		  Dim f As FolderItem = SpecialFolder.Temporary.Child("bs.icons.cache")
 		  Dim tos As TextOutputStream
@@ -43,8 +41,6 @@ Protected Module MemoryManager
 		    
 		  Else
 		    f.Delete
-		    'Dim lossWin As New ExpectedExceptions
-		    'Call lossWin.ShowMe("The canvas was reset but an error occured when reloading the icon resource file.")
 		    Quit(1)
 		  End If
 		End Sub
@@ -52,13 +48,13 @@ Protected Module MemoryManager
 
 	#tag Method, Flags = &h1
 		Protected Function ExtractIcons(resourcefile As FolderItem) As Boolean
-		  Debug("Create cache")
+		  'Debug("Create cache")
 		  Icons = New Dictionary
 		  Dim f As FolderItem = SpecialFolder.Temporary.Child("A Thousand Words")
 		  f.CreateAsFolder()
 		  If resourcefile = Nil Then resourcefile = App.ExecutableFile.Parent.Child("icons.res")
 		  If resourcefile.Exists Then
-		    Debug("Found the icons file at: " + resourcefile.AbsolutePath)
+		    'Debug("Found the icons file at: " + resourcefile.AbsolutePath)
 		    Dim vv As VirtualVolume = resourcefile.OpenAsVirtualVolume
 		    For i As Integer = 1 To vv.Root.Count
 		      Dim g As FolderItem = SpecialFolder.Temporary.Child("A Thousand Words").Child(vv.Root.Item(i).Name)
@@ -72,20 +68,16 @@ Protected Module MemoryManager
 		      Icons.Value(sf.Key) = sf
 		    Next
 		    
-		    TrimTimer = New Timer
-		    TrimTimer.Period = 10000
-		    AddHandler TrimTimer.Action, AddressOf TrimCache
-		    TrimTimer.Mode = Timer.ModeMultiple
 		    Return True
 		  Else
-		    Debug("The icons file could not be located at: " + resourcefile.AbsolutePath)
+		    'Debug("The icons file could not be located at: " + resourcefile.AbsolutePath)
 		    Raise New ResourceException(ResourceException.Error_No_File, f.AbsolutePath)
 		  End If
 		  
 		Exception Err
 		  If err IsA EndException Or Err IsA ThreadEndException Then Raise Err
 		  If Not Dumped Then
-		    Debug("EXCEPTION! " + CurrentMethodName + " : " + Introspection.GetType(err).Name)
+		    'Debug("EXCEPTION! " + CurrentMethodName + " : " + Introspection.GetType(err).Name)
 		    If Err IsA ResourceException Then
 		      'Dim lossWin As New ExpectedExceptions
 		      Call MsgBox(err.Message, 16, "Editor Error")
@@ -103,7 +95,7 @@ Protected Module MemoryManager
 		Protected Function FlushCache() As Boolean
 		  //Sends ALL pageable StackFrames to disk
 		  
-		  Debug("Trim all items in the cache.")
+		  'Debug("Trim all items in the cache.")
 		  Dim c As Integer = Icons.Count
 		  For i As Integer = 0 To c - 1
 		    Dim n As String = Icons.Key(i)
@@ -116,9 +108,9 @@ Protected Module MemoryManager
 		      GetFramePicture(n).Save(f, Picture.SaveAsPNG)
 		      #pragma BreakOnExceptions On
 		      sf.Paged = True
-		      Debug("Trimmed: " + sf.Key)
+		      'Debug("Trimmed: " + sf.Key)
 		    Catch
-		      Debug("The stack frame has already been trimmed.")
+		      'Debug("The stack frame has already been trimmed.")
 		    End Try
 		  Next
 		  
@@ -133,11 +125,8 @@ Protected Module MemoryManager
 		  //Forces the specified StackFrame to be sent to disk regardless of its last-access time
 		  //AND regardless of whether its marked as pageable.
 		  
-		  Dim u As UInt64 = Microseconds
-		  Debug("Forcing frame " + Key + " to be trimmed")
 		  Dim sf As StackFrame = Icons.Value(Key)
 		  If sf.Paged Then
-		    Debug("The stack frame: " + key + " has already been trimmed.")
 		    Return True
 		  End If
 		  Dim f As FolderItem = SpecialFolder.Temporary.Child("A Thousand Words").Child(Key)
@@ -147,10 +136,9 @@ Protected Module MemoryManager
 		    #pragma BreakOnExceptions On
 		    sf.Paged = True
 		  Catch
-		    Debug("The stack frame: " + key + " has already been trimmed.")
+		    
 		  End Try
-		  Dim x As UInt64 = Microseconds
-		  Debug("The cache trimmer has finished: " + Str(x - u) + " microseconds")
+		  
 		  Return True
 		  
 		Exception
@@ -161,10 +149,10 @@ Protected Module MemoryManager
 	#tag Method, Flags = &h0
 		Function GetFramePicture(Name As String) As Picture
 		  If Dumped Then
-		    Debug("Cache was dumped!!")
+		    'Debug("Cache was dumped!!")
 		    Return missingimage
 		  End If
-		  Debug("Cache request: " + Name)
+		  'Debug("Cache request: " + Name)
 		  #pragma BreakOnExceptions Off
 		  If Icons = Nil Then Icons = New Dictionary
 		  If Icons.HasKey(Name) Then
@@ -176,12 +164,12 @@ Protected Module MemoryManager
 		      Return missingimage
 		    End If
 		  Else
-		    Debug("Cache miss!")
+		    'Debug("Cache miss!")
 		    Return missingimage
 		  End If
 		  
 		Exception
-		  Debug("Something bad happened. Returned default image.")
+		  'Debug("Something bad happened. Returned default image.")
 		  Return missingimage
 		End Function
 	#tag EndMethod
@@ -189,10 +177,10 @@ Protected Module MemoryManager
 	#tag Method, Flags = &h0
 		Function GetFrameThumbnail(Name As String) As Picture
 		  If Dumped Then
-		    Debug("Cache was dumped!!")
+		    'Debug("Cache was dumped!!")
 		    Return Iconize(missingimage)
 		  End If
-		  Debug("Cache request: " + Name)
+		  'Debug("Cache request: " + Name)
 		  #pragma BreakOnExceptions Off
 		  If Icons = Nil Then Icons = New Dictionary
 		  If Icons.HasKey(Name) Then
@@ -203,12 +191,12 @@ Protected Module MemoryManager
 		      Return Iconize(missingimage)
 		    End If
 		  Else
-		    Debug("Cache miss!")
+		    'Debug("Cache miss!")
 		    Return Iconize(missingimage)
 		  End If
 		  
 		Exception
-		  Debug("Something bad happened. Returned default image.")
+		  'Debug("Something bad happened. Returned default image.")
 		  Return Iconize(missingimage)
 		End Function
 	#tag EndMethod
@@ -217,7 +205,7 @@ Protected Module MemoryManager
 		Function Iconize(buffer As Picture, size As Integer = 16) As Picture
 		  If buffer.Width <= size Then Return buffer
 		  Dim sc As Double = size / Buffer.Width
-		  Buffer = Images.Scale(Buffer, sc)
+		  Buffer = Scale(Buffer, sc)
 		  
 		  Return buffer
 		End Function
@@ -227,18 +215,18 @@ Protected Module MemoryManager
 		Function QueryCache(Name As String) As Boolean
 		  //Check whether a StackFrame exists
 		  
-		  Debug("Query cache for: " + Name)
+		  'Debug("Query cache for: " + Name)
 		  If Icons.HasKey(Name) Then
-		    Debug("Cache hit!")
+		    'Debug("Cache hit!")
 		    Return True
 		  Else
-		    Debug("Cache miss!")
+		    'Debug("Cache miss!")
 		    Return False
 		  End If
 		  
 		Exception err
 		  If err IsA EndException Or err IsA ThreadEndException Then Raise err
-		  Debug("EXCEPTION! " + CurrentMethodName + " : " + Introspection.GetType(err).Name)
+		  'Debug("EXCEPTION! " + CurrentMethodName + " : " + Introspection.GetType(err).Name)
 		  Return False
 		End Function
 	#tag EndMethod
@@ -247,9 +235,9 @@ Protected Module MemoryManager
 		Function QueryCache(Key As String) As Integer
 		  //Check the trim status of a StackFrame
 		  
-		  Debug("Query trim status for: " + Key)
+		  'Debug("Query trim status for: " + Key)
 		  If Icons.HasKey(Key) Then
-		    Debug("Cache hit!")
+		    'Debug("Cache hit!")
 		    Dim sf As StackFrame = Icons.Value(Key)
 		    If sf.Paged Then
 		      Return Trimmed
@@ -257,52 +245,15 @@ Protected Module MemoryManager
 		      Return NotTrimmed
 		    End If
 		  Else
-		    Debug("Frame not found!")
+		    'Debug("Frame not found!")
 		    Return NotFound
 		  End If
 		  
 		Exception err
 		  If err IsA EndException Or err IsA ThreadEndException Then Raise err
-		  Debug("EXCEPTION! " + CurrentMethodName + " : " + Introspection.GetType(err).Name)
+		  'Debug("EXCEPTION! " + CurrentMethodName + " : " + Introspection.GetType(err).Name)
 		  Return NotFound
 		End Function
-	#tag EndMethod
-
-	#tag Method, Flags = &h1
-		Protected Sub TrimCache(Sender As Timer)
-		  //Sends pageable StackFrames to disk according to their last-access time (oldest first)
-		  Return
-		  'Dim availSpace, usedSpace As Integer
-		  'availSpace = Platform.AvailableProcessAddressSpace
-		  'usedSpace = Platform.TotalProcessAddressSpace - availSpace
-		  '
-		  'If usedSpace > MaxMem Then
-		  Dim u As UInt64 = Microseconds
-		  Debug("The cache trimmer has started.")
-		  #pragma Unused Sender
-		  Dim c As Integer = Icons.Count
-		  For i As Integer = 0 To c - 1
-		    Dim d As New Date
-		    Dim n As String = Icons.Key(i)
-		    Dim sf As StackFrame = Icons.Value(n)
-		    If sf.Paged Then Continue
-		    If d.TotalSeconds - sf.TimeStamp < 25000 Then//25 seconds for testing
-		      Dim f As FolderItem = SpecialFolder.Temporary.Child("A Thousand Words").Child(n)
-		      Try
-		        #pragma BreakOnExceptions Off
-		        GetFramePicture(n).Save(f, Picture.SaveAsPNG)
-		        #pragma BreakOnExceptions On
-		        sf.Paged = True
-		      Catch
-		        Debug("The stack frame: " + n + " has already been trimmed.")
-		      End Try
-		    End If
-		  Next
-		  Dim x As UInt64 = Microseconds
-		  Debug("The cache trimmer has finished: " + Str(x - u) + " microseconds")
-		  
-		  'End If
-		End Sub
 	#tag EndMethod
 
 
@@ -330,10 +281,6 @@ Protected Module MemoryManager
 
 	#tag Property, Flags = &h21
 		Private mMaxMem As Integer = 50
-	#tag EndProperty
-
-	#tag Property, Flags = &h21
-		Private TrimTimer As Timer
 	#tag EndProperty
 
 
