@@ -106,6 +106,7 @@ Begin Window PaintWindow
       Width           =   80
    End
    Begin Timer capturetimer
+      Enabled         =   True
       Height          =   32
       Index           =   -2147483648
       Left            =   862
@@ -113,11 +114,15 @@ Begin Window PaintWindow
       Mode            =   0
       Period          =   1000
       Scope           =   0
+      TabIndex        =   2
       TabPanelIndex   =   0
+      TabStop         =   True
       Top             =   49
+      Visible         =   True
       Width           =   32
    End
    Begin Timer toolbartimer
+      Enabled         =   True
       Height          =   32
       Index           =   -2147483648
       InitialParent   =   ""
@@ -126,11 +131,15 @@ Begin Window PaintWindow
       Mode            =   1
       Period          =   500
       Scope           =   0
+      TabIndex        =   3
       TabPanelIndex   =   0
+      TabStop         =   True
       Top             =   14
+      Visible         =   True
       Width           =   32
    End
    Begin Timer UndoredomenuTimer
+      Enabled         =   True
       Height          =   32
       Index           =   -2147483648
       Left            =   862
@@ -138,8 +147,11 @@ Begin Window PaintWindow
       Mode            =   2
       Period          =   200
       Scope           =   0
+      TabIndex        =   4
       TabPanelIndex   =   0
+      TabStop         =   True
       Top             =   -20
+      Visible         =   True
       Width           =   32
    End
    Begin ScrollBar UpDown
@@ -421,16 +433,73 @@ End
 		CurrentMode As Integer
 	#tag EndProperty
 
+	#tag ComputedProperty, Flags = &h0
+		#tag Getter
+			Get
+			  If mDrawingMouse = Nil Then mDrawingMouse = New MouseCursor(GetFrameThumbnail("crosshairs.png"), 7, 7)
+			  return mDrawingMouse
+			End Get
+		#tag EndGetter
+		#tag Setter
+			Set
+			  mDrawingMouse = value
+			End Set
+		#tag EndSetter
+		DrawingMouse As MouseCursor
+	#tag EndComputedProperty
+
 	#tag Property, Flags = &h0
 		DropperMode As Boolean
 	#tag EndProperty
+
+	#tag ComputedProperty, Flags = &h0
+		#tag Getter
+			Get
+			  If mDropperMouse = Nil Then mDropperMouse = New MouseCursor(GetFrameThumbnail("Eyedropper-icon.png"), 1, 13)
+			  return mDropperMouse
+			End Get
+		#tag EndGetter
+		#tag Setter
+			Set
+			  mDropperMouse = value
+			End Set
+		#tag EndSetter
+		DropperMouse As MouseCursor
+	#tag EndComputedProperty
 
 	#tag Property, Flags = &h0
 		Error As Boolean
 	#tag EndProperty
 
+	#tag ComputedProperty, Flags = &h0
+		#tag Getter
+			Get
+			  If mFloodMouse = Nil Then mFloodMouse = New MouseCursor(GetFrameThumbnail("floodfill.png"), 1, 13)
+			  return mFloodMouse
+			End Get
+		#tag EndGetter
+		#tag Setter
+			Set
+			  mFloodMouse = value
+			End Set
+		#tag EndSetter
+		FloodMouse As MouseCursor
+	#tag EndComputedProperty
+
 	#tag Property, Flags = &h21
 		Private mCurrentColor As Color
+	#tag EndProperty
+
+	#tag Property, Flags = &h21
+		Private mDrawingMouse As MouseCursor
+	#tag EndProperty
+
+	#tag Property, Flags = &h21
+		Private mDropperMouse As MouseCursor
+	#tag EndProperty
+
+	#tag Property, Flags = &h21
+		Private mFloodMouse As MouseCursor
 	#tag EndProperty
 
 	#tag Property, Flags = &h1
@@ -510,16 +579,16 @@ End
 		  #pragma Unused X
 		  #pragma Unused Y
 		  If DropperMode Then
-		    Self.CurrentCursor = New MouseCursor(GetFrameThumbnail("Eyedropper-icon.png"), 1, 13)
+		    Self.CurrentCursor = DropperMouse
 		  Else
 		    Select Case PaintTarget1.Mode
 		    Case PaintTarget1.Mode_DrawLine, PaintTarget1.Mode_Draw_Circle, PaintTarget1.Mode_Draw_Rect, PaintTarget1.Mode_Draw_Freeform, _
 		      PaintTarget1.Mode_Select_Rect, PaintTarget1.Mode_Draw_Filled_Rect, PaintTarget1.Mode_Draw_Filled_Circle
-		      Self.CurrentCursor = New MouseCursor(GetFrameThumbnail("crosshairs.png"), 7, 7)
+		      Self.CurrentCursor = DrawingMouse
 		    Case PaintTarget1.Mode_Draw_Point
 		      Self.CurrentCursor = System.Cursors.StandardPointer
 		    Case PaintTarget1.Mode_Fill
-		      Self.CurrentCursor = New MouseCursor(GetFrameThumbnail("floodfill.png"), 1, 13)
+		      Self.CurrentCursor = FloodMouse
 		    Else
 		      Self.CurrentCursor = System.Cursors.StandardPointer
 		    End Select
