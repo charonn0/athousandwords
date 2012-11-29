@@ -42,7 +42,6 @@ Begin Window WizWindow
       Scope           =   0
       TabIndex        =   0
       TabPanelIndex   =   0
-      TabStop         =   True
       Top             =   0
       Value           =   4
       Visible         =   True
@@ -69,7 +68,6 @@ Begin Window WizWindow
          Selectable      =   False
          TabIndex        =   0
          TabPanelIndex   =   1
-         TabStop         =   True
          Text            =   "Your computer is showing you something and you don't know what it is. This wizard will step you through the process of taking still image of your screen which you can give to others who can help you.\r\n\r\nTo proceed, click next."
          TextAlign       =   0
          TextColor       =   0
@@ -104,7 +102,6 @@ Begin Window WizWindow
          Selectable      =   False
          TabIndex        =   0
          TabPanelIndex   =   2
-         TabStop         =   True
          Text            =   "Please take any steps needed to bring the error or offending software application into view on your screen. When you are ready, click next."
          TextAlign       =   0
          TextColor       =   0
@@ -201,7 +198,6 @@ Begin Window WizWindow
          Selectable      =   False
          TabIndex        =   1
          TabPanelIndex   =   3
-         TabStop         =   True
          Text            =   "I just snapped a picture of your screen. Take a look at it by clicking the Preview button or edit it by clicking the Edit button. You can use the editor to block out any information you don't want to share with strangers.\r\n\r\nWhen you're ready to share the picture, click next."
          TextAlign       =   0
          TextColor       =   0
@@ -360,7 +356,6 @@ Begin Window WizWindow
          Selectable      =   False
          TabIndex        =   4
          TabPanelIndex   =   4
-         TabStop         =   True
          Text            =   "Finished! A copy of your screen capture has been saved to your desktop. \r\n\r\nClick the Finish button to close this wizard.\r\n"
          TextAlign       =   0
          TextColor       =   0
@@ -508,7 +503,6 @@ Begin Window WizWindow
          Selectable      =   ""
          TabIndex        =   6
          TabPanelIndex   =   4
-         TabStop         =   True
          Text            =   "Saved to : "
          TextAlign       =   0
          TextColor       =   255
@@ -548,7 +542,6 @@ Begin Window WizWindow
          Selectable      =   ""
          TabIndex        =   7
          TabPanelIndex   =   4
-         TabStop         =   True
          Text            =   "Copyright 𹢩 2012 Boredom Software"
          TextAlign       =   0
          TextColor       =   "&c0000FF"
@@ -654,33 +647,6 @@ Begin Window WizWindow
          Visible         =   False
          Width           =   80
       End
-      Begin Canvas Canvas7
-         AcceptFocus     =   ""
-         AcceptTabs      =   ""
-         AutoDeactivate  =   True
-         Backdrop        =   2605055
-         DoubleBuffer    =   False
-         Enabled         =   True
-         EraseBackground =   True
-         Height          =   128
-         HelpTag         =   ""
-         Index           =   -2147483648
-         InitialParent   =   "PagePanel1"
-         Left            =   7
-         LockBottom      =   ""
-         LockedInPosition=   False
-         LockLeft        =   True
-         LockRight       =   ""
-         LockTop         =   True
-         Scope           =   0
-         TabIndex        =   0
-         TabPanelIndex   =   5
-         TabStop         =   True
-         Top             =   7
-         UseFocusRing    =   True
-         Visible         =   True
-         Width           =   128
-      End
       Begin PushButton PushButton12
          AutoDeactivate  =   True
          Bold            =   ""
@@ -717,7 +683,7 @@ Begin Window WizWindow
          Bold            =   ""
          ButtonStyle     =   0
          Cancel          =   ""
-         Caption         =   "&Next ->"
+         Caption         =   "&Continue"
          Default         =   ""
          Enabled         =   True
          Height          =   22
@@ -777,9 +743,9 @@ Begin Window WizWindow
       Begin GroupBox GroupBox2
          AutoDeactivate  =   True
          Bold            =   ""
-         Caption         =   "Save Options"
+         Caption         =   "Advanced Options"
          Enabled         =   True
-         Height          =   103
+         Height          =   120
          HelpTag         =   ""
          Index           =   -2147483648
          InitialParent   =   "PagePanel1"
@@ -793,11 +759,10 @@ Begin Window WizWindow
          Scope           =   0
          TabIndex        =   14
          TabPanelIndex   =   5
-         TabStop         =   True
          TextFont        =   "System"
          TextSize        =   0
          TextUnit        =   0
-         Top             =   16
+         Top             =   5
          Underline       =   ""
          Visible         =   True
          Width           =   473
@@ -840,7 +805,7 @@ Begin Window WizWindow
             TextFont        =   "System"
             TextSize        =   0
             TextUnit        =   0
-            Top             =   34
+            Top             =   23
             Underline       =   ""
             UseFocusRing    =   True
             Visible         =   True
@@ -872,7 +837,7 @@ Begin Window WizWindow
             TextFont        =   "System"
             TextSize        =   0
             TextUnit        =   0
-            Top             =   34
+            Top             =   23
             Underline       =   ""
             Visible         =   True
             Width           =   63
@@ -904,7 +869,7 @@ Begin Window WizWindow
             TextFont        =   "System"
             TextSize        =   0
             TextUnit        =   0
-            Top             =   68
+            Top             =   57
             Underline       =   ""
             UseFocusRing    =   True
             Visible         =   True
@@ -933,7 +898,7 @@ Begin Window WizWindow
             TextFont        =   "System"
             TextSize        =   0
             TextUnit        =   0
-            Top             =   61
+            Top             =   50
             Underline       =   ""
             Value           =   False
             Visible         =   True
@@ -962,7 +927,7 @@ Begin Window WizWindow
             TextFont        =   "System"
             TextSize        =   0
             TextUnit        =   0
-            Top             =   80
+            Top             =   69
             Underline       =   ""
             Value           =   False
             Visible         =   True
@@ -991,16 +956,75 @@ Begin Window WizWindow
             TextFont        =   "System"
             TextSize        =   0
             TextUnit        =   0
-            Top             =   99
+            Top             =   88
             Underline       =   ""
             Value           =   True
             Visible         =   True
             Width           =   240
          End
+         Begin ComboBox ComboBox2
+            AutoComplete    =   False
+            AutoDeactivate  =   True
+            Bold            =   ""
+            DataField       =   ""
+            DataSource      =   ""
+            Enabled         =   True
+            Height          =   20
+            HelpTag         =   ""
+            Index           =   -2147483648
+            InitialParent   =   "GroupBox2"
+            InitialValue    =   "No Delay\r\n5 Second Delay\r\n10 Second Delay"
+            Italic          =   ""
+            Left            =   149
+            ListIndex       =   0
+            LockBottom      =   ""
+            LockedInPosition=   False
+            LockLeft        =   True
+            LockRight       =   ""
+            LockTop         =   True
+            Scope           =   0
+            TabIndex        =   6
+            TabPanelIndex   =   5
+            TabStop         =   True
+            TextFont        =   "System"
+            TextSize        =   0
+            TextUnit        =   0
+            Top             =   87
+            Underline       =   ""
+            UseFocusRing    =   True
+            Visible         =   True
+            Width           =   121
+         End
+      End
+      Begin Canvas Canvas7
+         AcceptFocus     =   ""
+         AcceptTabs      =   ""
+         AutoDeactivate  =   True
+         Backdrop        =   2605055
+         DoubleBuffer    =   False
+         Enabled         =   True
+         EraseBackground =   True
+         Height          =   128
+         HelpTag         =   ""
+         Index           =   -2147483648
+         InitialParent   =   "PagePanel1"
+         Left            =   7
+         LockBottom      =   ""
+         LockedInPosition=   False
+         LockLeft        =   True
+         LockRight       =   ""
+         LockTop         =   True
+         Scope           =   0
+         TabIndex        =   0
+         TabPanelIndex   =   5
+         TabStop         =   True
+         Top             =   7
+         UseFocusRing    =   True
+         Visible         =   True
+         Width           =   128
       End
    End
-   Begin Timer Timer1
-      Enabled         =   True
+   Begin Timer CaptureTimer
       Height          =   32
       Index           =   -2147483648
       Left            =   720
@@ -1008,11 +1032,8 @@ Begin Window WizWindow
       Mode            =   0
       Period          =   250
       Scope           =   0
-      TabIndex        =   1
       TabPanelIndex   =   0
-      TabStop         =   True
       Top             =   -14
-      Visible         =   True
       Width           =   32
    End
    Begin CheckBox ScreenSelect
@@ -1079,162 +1100,6 @@ Begin Window WizWindow
       Visible         =   True
       Width           =   59
    End
-   Begin GroupBox GroupBox1
-      AutoDeactivate  =   True
-      Bold            =   ""
-      Caption         =   "Screens"
-      Enabled         =   True
-      Height          =   91
-      HelpTag         =   ""
-      Index           =   -2147483648
-      InitialParent   =   ""
-      Italic          =   ""
-      Left            =   468
-      LockBottom      =   ""
-      LockedInPosition=   False
-      LockLeft        =   True
-      LockRight       =   ""
-      LockTop         =   True
-      Scope           =   0
-      TabIndex        =   3
-      TabPanelIndex   =   0
-      TabStop         =   True
-      TextFont        =   "System"
-      TextSize        =   0
-      TextUnit        =   0
-      Top             =   -131
-      Underline       =   ""
-      Visible         =   True
-      Width           =   152
-      Begin CheckBox ScreenSelect
-         AutoDeactivate  =   True
-         Bold            =   ""
-         Caption         =   "All"
-         DataField       =   ""
-         DataSource      =   ""
-         Enabled         =   True
-         Height          =   20
-         HelpTag         =   ""
-         Index           =   1
-         InitialParent   =   "GroupBox1"
-         Italic          =   ""
-         Left            =   477
-         LockBottom      =   ""
-         LockedInPosition=   False
-         LockLeft        =   True
-         LockRight       =   ""
-         LockTop         =   True
-         Scope           =   0
-         State           =   0
-         TabIndex        =   1
-         TabPanelIndex   =   0
-         TabStop         =   True
-         TextFont        =   "System"
-         TextSize        =   0
-         TextUnit        =   0
-         Top             =   -91
-         Underline       =   ""
-         Value           =   False
-         Visible         =   True
-         Width           =   59
-      End
-      Begin CheckBox ScreenSelect
-         AutoDeactivate  =   True
-         Bold            =   ""
-         Caption         =   "All"
-         DataField       =   ""
-         DataSource      =   ""
-         Enabled         =   True
-         Height          =   20
-         HelpTag         =   ""
-         Index           =   2
-         InitialParent   =   "GroupBox1"
-         Italic          =   ""
-         Left            =   477
-         LockBottom      =   ""
-         LockedInPosition=   False
-         LockLeft        =   True
-         LockRight       =   ""
-         LockTop         =   True
-         Scope           =   0
-         State           =   0
-         TabIndex        =   2
-         TabPanelIndex   =   0
-         TabStop         =   True
-         TextFont        =   "System"
-         TextSize        =   0
-         TextUnit        =   0
-         Top             =   -69
-         Underline       =   ""
-         Value           =   False
-         Visible         =   True
-         Width           =   59
-      End
-      Begin CheckBox ScreenSelect
-         AutoDeactivate  =   True
-         Bold            =   ""
-         Caption         =   "All"
-         DataField       =   ""
-         DataSource      =   ""
-         Enabled         =   True
-         Height          =   20
-         HelpTag         =   ""
-         Index           =   0
-         InitialParent   =   "GroupBox1"
-         Italic          =   ""
-         Left            =   477
-         LockBottom      =   ""
-         LockedInPosition=   False
-         LockLeft        =   True
-         LockRight       =   ""
-         LockTop         =   True
-         Scope           =   0
-         State           =   0
-         TabIndex        =   3
-         TabPanelIndex   =   0
-         TabStop         =   True
-         TextFont        =   "System"
-         TextSize        =   0
-         TextUnit        =   0
-         Top             =   -113
-         Underline       =   ""
-         Value           =   False
-         Visible         =   True
-         Width           =   59
-      End
-      Begin CheckBox ScreenSelect
-         AutoDeactivate  =   True
-         Bold            =   ""
-         Caption         =   "All"
-         DataField       =   ""
-         DataSource      =   ""
-         Enabled         =   True
-         Height          =   20
-         HelpTag         =   ""
-         Index           =   5
-         InitialParent   =   "GroupBox1"
-         Italic          =   ""
-         Left            =   546
-         LockBottom      =   ""
-         LockedInPosition=   False
-         LockLeft        =   True
-         LockRight       =   ""
-         LockTop         =   True
-         Scope           =   0
-         State           =   0
-         TabIndex        =   4
-         TabPanelIndex   =   0
-         TabStop         =   True
-         TextFont        =   "System"
-         TextSize        =   0
-         TextUnit        =   0
-         Top             =   -69
-         Underline       =   ""
-         Value           =   False
-         Visible         =   True
-         Width           =   59
-      End
-   End
 End
 #tag EndWindow
 
@@ -1248,11 +1113,13 @@ End
 
 	#tag Method, Flags = &h0
 		Sub Capture()
-		  'Self.Visible = False
+		  If CaptureTimer.Period > 250 Then
+		    If MsgBox("The wizard will disappear until after the delay period has elapsed.", 65, "Capture Delay") = 2 Then Return
+		  End If
 		  OldY = Self.Top
 		  Self.Top = Self.Top * -10000
 		  
-		  Timer1.Mode = Timer.ModeSingle
+		  CaptureTimer.Mode = Timer.ModeSingle
 		End Sub
 	#tag EndMethod
 
@@ -1308,6 +1175,10 @@ End
 			  If Not mSaveToFolder.Exists Then
 			    mSaveToFolder = SpecialFolder.Desktop
 			  End If
+			  
+			  If Not mSaveToFolder.Directory Then
+			    mSaveToFolder = SpecialFolder.Desktop
+			  End If
 			  return mSaveToFolder
 			End Get
 		#tag EndGetter
@@ -1340,7 +1211,7 @@ End
 #tag Events PushButton2
 	#tag Event
 		Sub Action()
-		  Capture
+		  Capture()
 		End Sub
 	#tag EndEvent
 #tag EndEvents
@@ -1527,7 +1398,21 @@ End
 		End Sub
 	#tag EndEvent
 #tag EndEvents
-#tag Events Timer1
+#tag Events ComboBox2
+	#tag Event
+		Sub Change()
+		  Select Case Me.Text
+		  Case "No Delay"
+		    CaptureTimer.Period = 250
+		  Case "5 Second Delay"
+		    CaptureTimer.Period = 5250
+		  Case "10 Second Delay"
+		    CaptureTimer.Period = 10250
+		  End Select
+		End Sub
+	#tag EndEvent
+#tag EndEvents
+#tag Events CaptureTimer
 	#tag Event
 		Sub Action()
 		  Select Case TheCaptureType
