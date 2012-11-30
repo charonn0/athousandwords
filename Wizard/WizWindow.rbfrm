@@ -196,7 +196,7 @@ Begin Window WizWindow
          Multiline       =   True
          Scope           =   0
          Selectable      =   False
-         TabIndex        =   1
+         TabIndex        =   4
          TabPanelIndex   =   3
          Text            =   "I just snapped a picture of your screen. Take a look at it by clicking the Preview button or edit it by clicking the Edit button. You can use the editor to block out any information you don't want to share with strangers.\r\n\r\nWhen you're ready to share the picture, click next."
          TextAlign       =   0
@@ -230,7 +230,7 @@ Begin Window WizWindow
          LockRight       =   ""
          LockTop         =   True
          Scope           =   0
-         TabIndex        =   2
+         TabIndex        =   3
          TabPanelIndex   =   3
          TabStop         =   True
          TextFont        =   "System"
@@ -261,7 +261,7 @@ Begin Window WizWindow
          LockRight       =   ""
          LockTop         =   True
          Scope           =   0
-         TabIndex        =   3
+         TabIndex        =   2
          TabPanelIndex   =   3
          TabStop         =   True
          TextFont        =   "System"
@@ -372,7 +372,7 @@ Begin Window WizWindow
          AcceptFocus     =   ""
          AcceptTabs      =   ""
          AutoDeactivate  =   True
-         Backdrop        =   2605055
+         Backdrop        =   925700095
          DoubleBuffer    =   False
          Enabled         =   True
          EraseBackground =   True
@@ -399,7 +399,7 @@ Begin Window WizWindow
          AcceptFocus     =   ""
          AcceptTabs      =   ""
          AutoDeactivate  =   True
-         Backdrop        =   2605055
+         Backdrop        =   925700095
          DoubleBuffer    =   False
          Enabled         =   True
          EraseBackground =   True
@@ -426,7 +426,7 @@ Begin Window WizWindow
          AcceptFocus     =   ""
          AcceptTabs      =   ""
          AutoDeactivate  =   True
-         Backdrop        =   2605055
+         Backdrop        =   925700095
          DoubleBuffer    =   False
          Enabled         =   True
          EraseBackground =   True
@@ -441,7 +441,7 @@ Begin Window WizWindow
          LockRight       =   ""
          LockTop         =   True
          Scope           =   0
-         TabIndex        =   4
+         TabIndex        =   5
          TabPanelIndex   =   3
          TabStop         =   True
          Top             =   7
@@ -453,7 +453,7 @@ Begin Window WizWindow
          AcceptFocus     =   ""
          AcceptTabs      =   ""
          AutoDeactivate  =   True
-         Backdrop        =   2605055
+         Backdrop        =   925700095
          DoubleBuffer    =   False
          Enabled         =   True
          EraseBackground =   True
@@ -605,7 +605,7 @@ Begin Window WizWindow
          LockRight       =   True
          LockTop         =   False
          Scope           =   0
-         TabIndex        =   5
+         TabIndex        =   1
          TabPanelIndex   =   3
          TabStop         =   True
          TextFont        =   "System"
@@ -667,7 +667,7 @@ Begin Window WizWindow
          LockRight       =   True
          LockTop         =   False
          Scope           =   0
-         TabIndex        =   1
+         TabIndex        =   2
          TabPanelIndex   =   5
          TabStop         =   True
          TextFont        =   "System"
@@ -698,7 +698,7 @@ Begin Window WizWindow
          LockRight       =   True
          LockTop         =   False
          Scope           =   0
-         TabIndex        =   2
+         TabIndex        =   1
          TabPanelIndex   =   5
          TabStop         =   True
          TextFont        =   "System"
@@ -757,7 +757,7 @@ Begin Window WizWindow
          LockRight       =   ""
          LockTop         =   True
          Scope           =   0
-         TabIndex        =   14
+         TabIndex        =   0
          TabPanelIndex   =   5
          TextFont        =   "System"
          TextSize        =   0
@@ -797,7 +797,7 @@ Begin Window WizWindow
             Password        =   ""
             ReadOnly        =   ""
             Scope           =   0
-            TabIndex        =   0
+            TabIndex        =   6
             TabPanelIndex   =   5
             TabStop         =   True
             Text            =   ""
@@ -831,7 +831,7 @@ Begin Window WizWindow
             LockRight       =   ""
             LockTop         =   True
             Scope           =   0
-            TabIndex        =   1
+            TabIndex        =   0
             TabPanelIndex   =   5
             TabStop         =   True
             TextFont        =   "System"
@@ -863,7 +863,7 @@ Begin Window WizWindow
             LockRight       =   ""
             LockTop         =   True
             Scope           =   0
-            TabIndex        =   2
+            TabIndex        =   1
             TabPanelIndex   =   5
             TabStop         =   True
             TextFont        =   "System"
@@ -983,7 +983,7 @@ Begin Window WizWindow
             LockRight       =   ""
             LockTop         =   True
             Scope           =   0
-            TabIndex        =   6
+            TabIndex        =   2
             TabPanelIndex   =   5
             TabStop         =   True
             TextFont        =   "System"
@@ -1000,7 +1000,7 @@ Begin Window WizWindow
          AcceptFocus     =   ""
          AcceptTabs      =   ""
          AutoDeactivate  =   True
-         Backdrop        =   2605055
+         Backdrop        =   925700095
          DoubleBuffer    =   False
          Enabled         =   True
          EraseBackground =   True
@@ -1015,7 +1015,7 @@ Begin Window WizWindow
          LockRight       =   ""
          LockTop         =   True
          Scope           =   0
-         TabIndex        =   0
+         TabIndex        =   3
          TabPanelIndex   =   5
          TabStop         =   True
          Top             =   7

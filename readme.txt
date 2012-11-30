@@ -6,6 +6,7 @@ Copyright ©2012 Boredom Software, All Rights Reserved
 3. Using
 4. Uninstalling
 5. Contact
+6. Artwork credits
 
 1. Purpose
 Simple screen capture tool. The built-in simple image editor allows users to block out private information or mark up areas
@@ -25,3 +26,7 @@ No uninstall.
 
 5. Contact
 Please send all queries using the form at http://www.boredomsoft.org/contactus.bs to report bugs
+
+6. 
+The palette icon by Wojciech Walczyszyn (http://wwalczyszyn.deviantart.com/), licensed under the Creative Commons Attribution-Noncommercial-No Derivative Works 3.0 License
+The screen & camera icon by Paul Davey (http://mattahan.deviantart.com/), licensed under the Creative Commons Attribution-Noncommercial-Share Alike 3.0 License

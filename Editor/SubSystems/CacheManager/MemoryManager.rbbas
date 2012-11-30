@@ -70,24 +70,9 @@ Protected Module MemoryManager
 		    
 		    Return True
 		  Else
-		    'Debug("The icons file could not be located at: " + resourcefile.AbsolutePath)
-		    Raise New ResourceException(ResourceException.Error_No_File, f.AbsolutePath)
+		    MsgBox("The icons file could not be located at: " + resourcefile.AbsolutePath)
 		  End If
 		  
-		Exception Err
-		  If err IsA EndException Or Err IsA ThreadEndException Then Raise Err
-		  If Not Dumped Then
-		    'Debug("EXCEPTION! " + CurrentMethodName + " : " + Introspection.GetType(err).Name)
-		    If Err IsA ResourceException Then
-		      'Dim lossWin As New ExpectedExceptions
-		      Call MsgBox(err.Message, 16, "Editor Error")
-		      Return True
-		    Else
-		      Return False
-		    End If
-		  Else
-		    Return False
-		  End If
 		End Function
 	#tag EndMethod
 
