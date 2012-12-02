@@ -43,7 +43,7 @@ Begin Window WizWindow
       TabIndex        =   0
       TabPanelIndex   =   0
       Top             =   0
-      Value           =   1
+      Value           =   4
       Visible         =   True
       Width           =   626
       Begin Label Label1

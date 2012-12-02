@@ -8,20 +8,7 @@ Protected Class ForeignWindow
 
 	#tag Method, Flags = &h0
 		Function Capture() As Picture
-		  Dim l, t, w, h As Integer
-		  l = Me.Left
-		  t = Me.Top
-		  w = Me.Width
-		  h = Me.height
-		  Return GetPartialScreenShot(l, t, w, h)
-		  
-		  
-		  Dim screenCap As New Picture(w, h, 24)
-		  Dim WinHDC As Integer = GetDC(Me.Handle)
-		  Call BitBlt(screenCap.Graphics.Handle(Graphics.HandleTypeHDC), 0, 0, w, h, WinHDC, 0, 0, SRCCOPY Or CAPTUREBLT)
-		  Call ReleaseDC(Me.Handle, WinHDC)
-		  
-		  Return screenCap
+		  Return GetPartialScreenShot(Me.Left, Me.Top, Me.Width, Me.height)
 		  
 		Exception
 		  Return CaptureScreen()
