@@ -43,7 +43,7 @@ Begin Window WizWindow
       TabIndex        =   0
       TabPanelIndex   =   0
       Top             =   0
-      Value           =   4
+      Value           =   1
       Visible         =   True
       Width           =   626
       Begin Label Label1
@@ -114,7 +114,7 @@ Begin Window WizWindow
          Visible         =   True
          Width           =   465
       End
-      Begin PushButton PushButton2
+      Begin PushButton P1Next
          AutoDeactivate  =   True
          Bold            =   ""
          ButtonStyle     =   0
@@ -145,7 +145,7 @@ Begin Window WizWindow
          Visible         =   True
          Width           =   80
       End
-      Begin PushButton PushButton3
+      Begin PushButton P2Next
          AutoDeactivate  =   True
          Bold            =   ""
          ButtonStyle     =   0
@@ -210,7 +210,7 @@ Begin Window WizWindow
          Visible         =   True
          Width           =   465
       End
-      Begin PushButton PushButton4
+      Begin PushButton P2Preview
          AutoDeactivate  =   True
          Bold            =   ""
          ButtonStyle     =   0
@@ -241,7 +241,7 @@ Begin Window WizWindow
          Visible         =   True
          Width           =   80
       End
-      Begin PushButton PushButton5
+      Begin PushButton P2Edit
          AutoDeactivate  =   True
          Bold            =   ""
          ButtonStyle     =   0
@@ -272,7 +272,7 @@ Begin Window WizWindow
          Visible         =   True
          Width           =   80
       End
-      Begin PushButton PushButton1
+      Begin PushButton P0Next
          AutoDeactivate  =   True
          Bold            =   ""
          ButtonStyle     =   0
@@ -303,7 +303,7 @@ Begin Window WizWindow
          Visible         =   True
          Width           =   80
       End
-      Begin PushButton PushButton6
+      Begin PushButton P3Finish
          AutoDeactivate  =   True
          Bold            =   ""
          ButtonStyle     =   0
@@ -476,7 +476,7 @@ Begin Window WizWindow
          Visible         =   True
          Width           =   128
       End
-      Begin LinkLabel LinkLabel1
+      Begin LinkLabel SavedToLink
          ActiveColor     =   16711680
          AltText         =   ""
          AutoDeactivate  =   True
@@ -515,7 +515,7 @@ Begin Window WizWindow
          Visible         =   True
          Width           =   471
       End
-      Begin LinkLabel LinkLabel2
+      Begin LinkLabel BSLink
          ActiveColor     =   "&cFF0000"
          AltText         =   ""
          AutoDeactivate  =   True
@@ -554,7 +554,7 @@ Begin Window WizWindow
          Visible         =   True
          Width           =   215
       End
-      Begin PushButton PushButton7
+      Begin PushButton P3StartOver
          AutoDeactivate  =   True
          Bold            =   ""
          ButtonStyle     =   0
@@ -585,7 +585,7 @@ Begin Window WizWindow
          Visible         =   True
          Width           =   80
       End
-      Begin PushButton PushButton8
+      Begin PushButton P2StartOver
          AutoDeactivate  =   True
          Bold            =   ""
          ButtonStyle     =   0
@@ -616,7 +616,7 @@ Begin Window WizWindow
          Visible         =   True
          Width           =   80
       End
-      Begin PushButton PushButton10
+      Begin PushButton P0Crash
          AutoDeactivate  =   True
          Bold            =   ""
          ButtonStyle     =   0
@@ -647,7 +647,7 @@ Begin Window WizWindow
          Visible         =   False
          Width           =   80
       End
-      Begin PushButton PushButton12
+      Begin PushButton P4StartOver
          AutoDeactivate  =   True
          Bold            =   ""
          ButtonStyle     =   0
@@ -678,7 +678,7 @@ Begin Window WizWindow
          Visible         =   True
          Width           =   80
       End
-      Begin PushButton PushButton11
+      Begin PushButton P4Continue
          AutoDeactivate  =   True
          Bold            =   ""
          ButtonStyle     =   0
@@ -709,7 +709,7 @@ Begin Window WizWindow
          Visible         =   True
          Width           =   80
       End
-      Begin PushButton PushButton13
+      Begin PushButton P1Advanced
          AutoDeactivate  =   True
          Bold            =   ""
          ButtonStyle     =   0
@@ -766,7 +766,7 @@ Begin Window WizWindow
          Underline       =   ""
          Visible         =   True
          Width           =   473
-         Begin HintTextField HintTextField1
+         Begin HintTextField SavePath
             AcceptTabs      =   ""
             Alignment       =   0
             AutoDeactivate  =   True
@@ -811,7 +811,7 @@ Begin Window WizWindow
             Visible         =   True
             Width           =   385
          End
-         Begin PushButton PushButton15
+         Begin PushButton P4Browse
             AutoDeactivate  =   True
             Bold            =   ""
             ButtonStyle     =   0
@@ -842,7 +842,7 @@ Begin Window WizWindow
             Visible         =   True
             Width           =   63
          End
-         Begin ComboBox ComboBox1
+         Begin ComboBox PicType
             AutoComplete    =   False
             AutoDeactivate  =   True
             Bold            =   ""
@@ -962,7 +962,7 @@ Begin Window WizWindow
             Visible         =   True
             Width           =   240
          End
-         Begin ComboBox ComboBox2
+         Begin ComboBox DelayPeriod
             AutoComplete    =   False
             AutoDeactivate  =   True
             Bold            =   ""
@@ -1208,32 +1208,32 @@ End
 
 #tag EndWindowCode
 
-#tag Events PushButton2
+#tag Events P1Next
 	#tag Event
 		Sub Action()
 		  Capture()
 		End Sub
 	#tag EndEvent
 #tag EndEvents
-#tag Events PushButton3
+#tag Events P2Next
 	#tag Event
 		Sub Action()
 		  FinalFolder = SavePic(FinalPic)
 		  FinalFolder.MoveFileTo(SaveToFolder)
 		  FinalFolder = SaveToFolder.Child(FinalFolder.Name)
 		  PagePanel1.Value = PagePanel1.Value + 1
-		  LinkLabel1.Text = "Saved To: " + FinalFolder.AbsolutePath
+		  SavedToLink.Text = "Saved To: " + FinalFolder.AbsolutePath
 		End Sub
 	#tag EndEvent
 #tag EndEvents
-#tag Events PushButton4
+#tag Events P2Preview
 	#tag Event
 		Sub Action()
 		  Previewer.ShowModal(FinalPic)
 		End Sub
 	#tag EndEvent
 #tag EndEvents
-#tag Events PushButton5
+#tag Events P2Edit
 	#tag Event
 		Sub Action()
 		  Dim editor As New PaintWindow
@@ -1247,28 +1247,28 @@ End
 		End Sub
 	#tag EndEvent
 #tag EndEvents
-#tag Events PushButton1
+#tag Events P0Next
 	#tag Event
 		Sub Action()
 		  PagePanel1.Value = PagePanel1.Value + 1
 		End Sub
 	#tag EndEvent
 #tag EndEvents
-#tag Events PushButton6
+#tag Events P3Finish
 	#tag Event
 		Sub Action()
 		  Self.Close
 		End Sub
 	#tag EndEvent
 #tag EndEvents
-#tag Events LinkLabel1
+#tag Events SavedToLink
 	#tag Event
 		Sub Action()
 		  Win32.ShowInExplorer(FinalFolder)
 		End Sub
 	#tag EndEvent
 #tag EndEvents
-#tag Events LinkLabel2
+#tag Events BSLink
 	#tag Event
 		Sub Open()
 		  Me.Text = "Boredom Software"
@@ -1281,21 +1281,21 @@ End
 		End Sub
 	#tag EndEvent
 #tag EndEvents
-#tag Events PushButton7
+#tag Events P3StartOver
 	#tag Event
 		Sub Action()
 		  PagePanel1.Value = 0
 		End Sub
 	#tag EndEvent
 #tag EndEvents
-#tag Events PushButton8
+#tag Events P2StartOver
 	#tag Event
 		Sub Action()
 		  PagePanel1.Value = 0
 		End Sub
 	#tag EndEvent
 #tag EndEvents
-#tag Events PushButton10
+#tag Events P0Crash
 	#tag Event
 		Sub Action()
 		  #pragma BreakOnExceptions Off
@@ -1311,18 +1311,18 @@ End
 		End Sub
 	#tag EndEvent
 #tag EndEvents
-#tag Events PushButton12
+#tag Events P4StartOver
 	#tag Event
 		Sub Action()
 		  PagePanel1.Value = 0
 		End Sub
 	#tag EndEvent
 #tag EndEvents
-#tag Events PushButton11
+#tag Events P4Continue
 	#tag Event
 		Sub Action()
-		  If HintTextField1.HasText Then
-		    SaveToFolder = GetFolderItem(HintTextField1.Text)
+		  If SavePath.HasText Then
+		    SaveToFolder = GetFolderItem(SavePath.Text)
 		  Else
 		    SaveToFolder = Nil
 		  End If
@@ -1330,24 +1330,24 @@ End
 		End Sub
 	#tag EndEvent
 #tag EndEvents
-#tag Events PushButton13
+#tag Events P1Advanced
 	#tag Event
 		Sub Action()
 		  PagePanel1.Value = 4
 		End Sub
 	#tag EndEvent
 #tag EndEvents
-#tag Events PushButton15
+#tag Events P4Browse
 	#tag Event
 		Sub Action()
 		  Dim f As FolderItem = SelectFolder()
 		  If f <> Nil Then
-		    HintTextField1.Text = f.AbsolutePath
+		    SavePath.Text = f.AbsolutePath
 		  End If
 		End Sub
 	#tag EndEvent
 #tag EndEvents
-#tag Events ComboBox1
+#tag Events PicType
 	#tag Event
 		Sub Change()
 		  Select Case Me.Text
@@ -1398,7 +1398,7 @@ End
 		End Sub
 	#tag EndEvent
 #tag EndEvents
-#tag Events ComboBox2
+#tag Events DelayPeriod
 	#tag Event
 		Sub Change()
 		  Select Case Me.Text
