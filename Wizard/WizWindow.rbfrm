@@ -43,7 +43,7 @@ Begin Window WizWindow
       TabIndex        =   0
       TabPanelIndex   =   0
       Top             =   0
-      Value           =   4
+      Value           =   3
       Visible         =   True
       Width           =   626
       Begin Label Label1
@@ -478,7 +478,7 @@ Begin Window WizWindow
       End
       Begin LinkLabel SavedToLink
          ActiveColor     =   16711680
-         AltText         =   ""
+         AltText         =   "Open file location"
          AutoDeactivate  =   True
          Bold            =   ""
          DataField       =   ""
@@ -517,7 +517,7 @@ Begin Window WizWindow
       End
       Begin LinkLabel BSLink
          ActiveColor     =   "&cFF0000"
-         AltText         =   ""
+         AltText         =   "Visit Boredom Software"
          AutoDeactivate  =   True
          Bold            =   ""
          DataField       =   ""
