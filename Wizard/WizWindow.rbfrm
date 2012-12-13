@@ -43,7 +43,7 @@ Begin Window WizWindow
       TabIndex        =   0
       TabPanelIndex   =   0
       Top             =   0
-      Value           =   3
+      Value           =   4
       Visible         =   True
       Width           =   626
       Begin Label Label1
@@ -875,35 +875,6 @@ Begin Window WizWindow
             Visible         =   True
             Width           =   121
          End
-         Begin RadioButton ScreenZero
-            AutoDeactivate  =   True
-            Bold            =   ""
-            Caption         =   "Only capture a specific screen..."
-            Enabled         =   True
-            Height          =   20
-            HelpTag         =   ""
-            Index           =   -2147483648
-            InitialParent   =   "GroupBox2"
-            Italic          =   ""
-            Left            =   364
-            LockBottom      =   ""
-            LockedInPosition=   False
-            LockLeft        =   True
-            LockRight       =   ""
-            LockTop         =   True
-            Scope           =   0
-            TabIndex        =   3
-            TabPanelIndex   =   5
-            TabStop         =   True
-            TextFont        =   "System"
-            TextSize        =   0
-            TextUnit        =   0
-            Top             =   50
-            Underline       =   ""
-            Value           =   False
-            Visible         =   True
-            Width           =   240
-         End
          Begin RadioButton WindowSelect
             AutoDeactivate  =   True
             Bold            =   ""
@@ -994,6 +965,35 @@ Begin Window WizWindow
             UseFocusRing    =   True
             Visible         =   True
             Width           =   121
+         End
+         Begin RadioButton ScreenZero
+            AutoDeactivate  =   True
+            Bold            =   ""
+            Caption         =   "Only capture a specific screen..."
+            Enabled         =   True
+            Height          =   20
+            HelpTag         =   ""
+            Index           =   -2147483648
+            InitialParent   =   "GroupBox2"
+            Italic          =   ""
+            Left            =   364
+            LockBottom      =   ""
+            LockedInPosition=   False
+            LockLeft        =   True
+            LockRight       =   ""
+            LockTop         =   True
+            Scope           =   0
+            TabIndex        =   3
+            TabPanelIndex   =   5
+            TabStop         =   True
+            TextFont        =   "System"
+            TextSize        =   0
+            TextUnit        =   0
+            Top             =   50
+            Underline       =   ""
+            Value           =   False
+            Visible         =   True
+            Width           =   240
          End
       End
       Begin Canvas Canvas7
@@ -1361,33 +1361,17 @@ End
 		End Sub
 	#tag EndEvent
 #tag EndEvents
-#tag Events ScreenZero
-	#tag Event
-		Sub Open()
-		  Me.Enabled = ScreenCount > 1
-		  
-		End Sub
-	#tag EndEvent
-	#tag Event
-		Sub Action()
-		  If Me.Value Then
-		    TheCaptureType = CaptureType.SpecificScreen
-		    Dim picker As New WindowPicker
-		    CaptureReference = Picker.GetScreenNumber()
-		  Else
-		    TheCaptureType = CaptureType.All
-		  End If
-		  
-		End Sub
-	#tag EndEvent
-#tag EndEvents
 #tag Events WindowSelect
 	#tag Event
 		Sub Action()
 		  TheCaptureType = CaptureType.SpecificWindow
 		  Dim picker As New WindowPicker
-		  Dim i As Integer = Picker.GetWindowHandle()
-		  CaptureReference = i
+		  CaptureReference = Picker.GetWindowHandle()
+		  If CaptureReference <= 0 Then
+		    CaptureEverything.Value = True
+		  End If
+		  
+		  
 		End Sub
 	#tag EndEvent
 #tag EndEvents
@@ -1409,6 +1393,30 @@ End
 		  Case "10 Second Delay"
 		    CaptureTimer.Period = 10250
 		  End Select
+		End Sub
+	#tag EndEvent
+#tag EndEvents
+#tag Events ScreenZero
+	#tag Event
+		Sub Open()
+		  Me.Enabled = ScreenCount > 1
+		  
+		End Sub
+	#tag EndEvent
+	#tag Event
+		Sub Action()
+		  If Me.Value Then
+		    TheCaptureType = CaptureType.SpecificScreen
+		    Dim picker As New WindowPicker
+		    CaptureReference = Picker.GetScreenNumber()
+		  Else
+		    TheCaptureType = CaptureType.All
+		  End If
+		  
+		  If CaptureReference <= 0 Then
+		    CaptureEverything.Value = True
+		  End If
+		  
 		End Sub
 	#tag EndEvent
 #tag EndEvents
