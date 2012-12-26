@@ -40,7 +40,7 @@ Begin Window PaintWindow
       EraseBackground =   True
       Font            =   "System"
       FontSize        =   11
-      Height          =   600
+      Height          =   584
       HelpTag         =   ""
       Index           =   -2147483648
       InitialParent   =   ""
@@ -72,7 +72,7 @@ Begin Window PaintWindow
       ViewX           =   0
       ViewY           =   0
       Visible         =   True
-      Width           =   800
+      Width           =   784
    End
    Begin PushButton PushButton1
       AutoDeactivate  =   True
@@ -106,7 +106,6 @@ Begin Window PaintWindow
       Width           =   80
    End
    Begin Timer capturetimer
-      Enabled         =   True
       Height          =   32
       Index           =   -2147483648
       Left            =   862
@@ -114,15 +113,11 @@ Begin Window PaintWindow
       Mode            =   0
       Period          =   1000
       Scope           =   0
-      TabIndex        =   2
       TabPanelIndex   =   0
-      TabStop         =   True
       Top             =   49
-      Visible         =   True
       Width           =   32
    End
    Begin Timer toolbartimer
-      Enabled         =   True
       Height          =   32
       Index           =   -2147483648
       InitialParent   =   ""
@@ -131,15 +126,11 @@ Begin Window PaintWindow
       Mode            =   1
       Period          =   500
       Scope           =   0
-      TabIndex        =   3
       TabPanelIndex   =   0
-      TabStop         =   True
       Top             =   14
-      Visible         =   True
       Width           =   32
    End
    Begin Timer UndoredomenuTimer
-      Enabled         =   True
       Height          =   32
       Index           =   -2147483648
       Left            =   862
@@ -147,22 +138,19 @@ Begin Window PaintWindow
       Mode            =   2
       Period          =   200
       Scope           =   0
-      TabIndex        =   4
       TabPanelIndex   =   0
-      TabStop         =   True
       Top             =   -20
-      Visible         =   True
       Width           =   32
    End
    Begin ScrollBar UpDown
       AcceptFocus     =   true
       AutoDeactivate  =   True
       Enabled         =   True
-      Height          =   600
+      Height          =   584
       HelpTag         =   ""
       Index           =   -2147483648
       InitialParent   =   ""
-      Left            =   812
+      Left            =   784
       LineStep        =   1
       LiveScroll      =   ""
       LockBottom      =   True
@@ -205,7 +193,7 @@ Begin Window PaintWindow
       TabIndex        =   17
       TabPanelIndex   =   0
       TabStop         =   True
-      Top             =   608
+      Top             =   584
       Value           =   0
       Visible         =   True
       Width           =   800
@@ -638,24 +626,27 @@ End
 		  Self.MenuBar.Item(1).Item(0).Enabled = UBound(PaintTarget1.Undos) > -1
 		  Self.MenuBar.Item(1).Item(1).Enabled = UBound(PaintTarget1.Redos) > -1
 		  If PaintTarget1.Buffer.Width > PaintTarget1.Width Then
-		    LeftRight.Top = Self.Height - LeftRight.Height
-		    PaintTarget1.Height = LeftRight.Top - 1
+		    'LeftRight.Top = Self.Height - LeftRight.Height
+		    'PaintTarget1.Height = LeftRight.Top - 1
 		    LeftRight.Maximum = 110
 		    ScrollableX = True
 		  Else
-		    LeftRight.Top = Self.Height + (LeftRight.Height * 2)
-		    PaintTarget1.Height = Self.Height
+		    'LeftRight.Top = Self.Height + (LeftRight.Height * 2)
+		    'PaintTarget1.Height = Self.Height
 		    ScrollableX = False
 		  End If
 		  
+		  LeftRight.Enabled = ScrollableX
+		  UpDown.Enabled = ScrollableY
+		  
 		  If PaintTarget1.buffer.Height > PaintTarget1.Height Then
-		    UpDown.Left = Self.Width - UpDown.Width
-		    PaintTarget1.Width = Self.Width - UpDown.Width - 1
+		    'UpDown.Left = Self.Width - UpDown.Width
+		    'PaintTarget1.Width = Self.Width - UpDown.Width - 1
 		    UpDown.Maximum = 110
 		    ScrollableY = True
 		  Else
-		    UpDown.Left = Self.Width + (UpDown.Height * 2)
-		    PaintTarget1.Width = Self.Width
+		    'UpDown.Left = Self.Width + (UpDown.Height * 2)
+		    'PaintTarget1.Width = Self.Width
 		    ScrollableY = False
 		  End If
 		  If CurrentCursor = Nil Then CurrentCursor = System.Cursors.StandardPointer
