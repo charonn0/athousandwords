@@ -1413,7 +1413,7 @@ End
 		    TheCaptureType = CaptureType.All
 		  End If
 		  
-		  If CaptureReference <= 0 Then
+		  If CaptureReference < 0 Then
 		    CaptureEverything.Value = True
 		  End If
 		  
