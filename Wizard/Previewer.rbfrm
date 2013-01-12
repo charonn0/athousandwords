@@ -20,7 +20,7 @@ Begin Window Previewer
    MinimizeButton  =   True
    MinWidth        =   64
    Placement       =   1
-   Resizeable      =   True
+   Resizeable      =   False
    Title           =   "Preview"
    Visible         =   True
    Width           =   988
@@ -88,25 +88,25 @@ End
 #tag WindowCode
 	#tag Event
 		Sub Resized()
-		  If Pic.Width <> Me.Width Or Pic.Height <> Me.Height Then
-		    Dim ratio As Double
-		    If TruePic.Width > TruePic.Height Then
-		      If TruePic.Width < Me.Width Then
-		        ratio = Truepic.Width / Me.Width
-		      Else
-		        ratio = Me.Width / Truepic.Width
-		      End If
-		    Else
-		      If TruePic.Height < Me.Height Then
-		        ratio = Truepic.Height / Me.Height
-		      Else
-		        ratio = Me.Height / Truepic.Height
-		      End If
-		    End If
-		    
-		    pic = Scale(TruePic, ratio)
-		    Canvas1.Invalidate(True)
-		  End If
+		  'If Pic.Width <> Me.Width Or Pic.Height <> Me.Height Then
+		  'Dim ratio As Double
+		  'If TruePic.Width > TruePic.Height Then
+		  'If TruePic.Width < Me.Width Then
+		  'ratio = Truepic.Width / Me.Width
+		  'Else
+		  'ratio = Me.Width / Truepic.Width
+		  'End If
+		  'Else
+		  'If TruePic.Height < Me.Height Then
+		  'ratio = Truepic.Height / Me.Height
+		  'Else
+		  'ratio = Me.Height / Truepic.Height
+		  'End If
+		  'End If
+		  '
+		  'pic = Scale(TruePic, ratio)
+		  'Canvas1.Invalidate(True)
+		  'End If
 		End Sub
 	#tag EndEvent
 
@@ -116,12 +116,18 @@ End
 		  TruePic = New Picture(p.Width, p.Height, p.Depth)
 		  TruePic.Graphics.DrawPicture(p, 0, 0)
 		  If p.Width > Me.Width Or p.Height > Me.Height Then
-		    Pic = Scale(p, 0.5)
-		    Self.Width = Pic.Width
-		    Self.Height = Pic.Height
+		    Dim ratio As Double
+		    If p.Width > p.Height Then
+		      ratio = Me.Width / p.Width
+		    Else
+		      ratio = Me.Height / p.Height
+		    End If
+		    Pic = Scale(p, ratio)
 		  Else
 		    Pic = p
 		  End If
+		  Self.Width = Pic.Width
+		  Self.Height = Pic.Height
 		  Me.ShowModal()
 		End Sub
 	#tag EndMethod
