@@ -1,5 +1,6 @@
 A Thousand Words
-Copyright ©2012 Boredom Software, All Rights Reserved
+Copyright ©2012-13 Andrew Lambert
+http://www.boredomsoft.org/a-thousand-words.bs
 
 1. Purpose
 2. Installing
@@ -25,7 +26,7 @@ Follow the wizard to capture and edit a picture of your screen.
 No uninstall.
 
 5. Contact
-Please send all queries using the form at http://www.boredomsoft.org/contactus.bs to report bugs
+Please send all queries using the form at http://www.boredomsoft.org/contactus.bs
 
 6. 
 The palette icon by Wojciech Walczyszyn (http://wwalczyszyn.deviantart.com/), licensed under the Creative Commons Attribution-Noncommercial-No Derivative Works 3.0 License
