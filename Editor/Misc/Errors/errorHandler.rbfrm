@@ -234,14 +234,9 @@ End
 	#tag Event
 		Sub Action()
 		  //Forcibly terminate ourselves :o
-		  'Debug("VolControl: Mayday! Mayday! We are going down!" + EndOfLine)
-		  Declare Function MyGetCurrentProcessId Lib "Kernel32" Alias "GetCurrentProcessId" () As Integer
-		  Declare Sub TerminateProcess Lib "Kernel32"(handle As Integer, exitCode As Integer)
-		  Declare Function OpenProcess Lib "Kernel32"(access As Integer, inheritHandle As Boolean, processId As Integer)As Integer
-		  Declare Sub CloseHandle Lib "Kernel32"(handle As Integer)
-		  Dim processHandle As Integer = OpenProcess(&h1, false, MyGetCurrentProcessID)
-		  TerminateProcess(processHandle, 0)
-		  CloseHandle(processHandle)
+		  Dim processHandle As Integer = OpenProcess(&h1, false, GetCurrentProcessID)
+		  Call TerminateProcess(processHandle, 0)
+		  Call CloseHandle(processHandle)
 		End Sub
 	#tag EndEvent
 #tag EndEvents

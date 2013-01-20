@@ -415,28 +415,6 @@ End
 		Sub Open()
 		  Me.Top = Me.Top + 190
 		  Me.Left = Me.Left + 250
-		  'Const GWL_EXSTYLE = -20
-		  'Const GWL_STYLE = -16
-		  'Const WS_BORDER = &h00800000
-		  'Const WS_EX_NOACTIVATE = &h08000000
-		  'Const WS_EX_TOOLWINDOW = &h00000080
-		  'Const WS_EX_TOPMOST = &h00000008
-		  '#If Target64Bit And Not TargetWin32 Then
-		  '#pragma Error "Holy crap, REALsoftware got their act together! Change these declares for x64"
-		  '#ElseIf Not TargetWin32 Then
-		  '#pragma Error "This application makes use of Win32-specific declares."
-		  '#endif
-		  ''Declare Function SetWindowLongW  Lib "User32" (HWND As Integer, Index As Integer, NewValue As Integer) As Integer
-		  ''Declare Function GetWindowLongW Lib "User32" (HWND As Integer, Index As Integer) As Integer
-		  ''Declare Function SetWindowPos Lib "User32" (HWND As Integer, hWndInstertAfter As Integer, x As Integer, y As Integer, cx As Integer, _
-		  ''cy As Integer, flags As Integer) As Integer
-		  ''
-		  ''Dim hwndflags As Integer = GetWindowLongW(Me.Handle, GWL_EXSTYLE)
-		  ''hwndflags = hwndflags Or WS_EX_TOOLWINDOW Or WS_BORDER Or WS_EX_NOACTIVATE Or WS_EX_TOPMOST
-		  ''Call SetWindowLongW(Me.Handle, GWL_EXSTYLE, hwndflags)
-		  '
-		  'Declare Function BringWindowToTop Lib "User32" (HWND As Integer) As Boolean
-		  'Call BringWindowToTop(Me.Handle)
 		End Sub
 	#tag EndEvent
 

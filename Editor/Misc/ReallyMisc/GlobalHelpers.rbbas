@@ -121,12 +121,11 @@ Protected Module GlobalHelpers
 		  
 		  
 		  #If TargetWin32 Then
-		    Declare Function PathGetArgsW Lib "Shlwapi" (path As WString) As WString
 		    Dim ret() As String
 		    Dim cmdLine As String = Input
 		    While cmdLine.Len > 0
 		      Dim tmp As String
-		      Dim args As String = PathGetArgsW(cmdLine)
+		      Dim args As String = PathGetArgs(cmdLine)
 		      If Len(args) = 0 Then
 		        tmp = ReplaceAll(cmdLine.Trim, Chr(34), "")
 		        ret.Append(tmp)
@@ -182,27 +181,20 @@ Protected Module GlobalHelpers
 	#tag Method, Flags = &h0
 		Function UUID() As String
 		  'Debug("Request UUID")
-		  dim strUUID As String
+		  Dim strUUID As String
 		  
-		  Const RPC_S_UUID_LOCAL_ONLY = 1824
-		  Const RPC_S_UUID_NO_ADDRESS = 1739
+		  Dim mb As New MemoryBlock(16 * 2)
+		  Call UuidCreate(mb) //can compare to RPC_S_UUID_LOCAL_ONLY and RPC_S_UUID_NO_ADDRESS for more info
 		  
-		  Declare Function RpcStringFree Lib "Rpcrt4" Alias "RpcStringFreeW" (Addr As Ptr) As Integer
-		  Declare Function UuidCreate Lib "Rpcrt4" (Uuid As Ptr) As Integer
-		  Declare Function UuidToString Lib "Rpcrt4" Alias "UuidToStringW" (Uuid As Ptr, byref p as ptr) As Integer
+		  Static ptrUUID As New MemoryBlock(16 * 2)
 		  
-		  static mb As new MemoryBlock( 16 * 2)
-		  Call UuidCreate( mb ) //can compare to RPC_S_UUID_LOCAL_ONLY and RPC_S_UUID_NO_ADDRESS for more info
+		  Dim ppAddr As ptr
+		  Call UuidToString(mb, ppAddr)
 		  
-		  static ptrUUID As new MemoryBlock( 16 * 2)
-		  
-		  dim ppAddr As ptr
-		  call UuidToString( mb, ppAddr )
-		  
-		  dim mb2 As MemoryBlock = ppAddr
+		  Dim mb2 As MemoryBlock = ppAddr
 		  strUUID = mb2.WString(0)
 		  
-		  call RpcStringFree( ptrUUID )
+		  Call RpcStringFree(ptrUUID)
 		  
 		  'strUUID = ConvertEncoding(strUUID, Encodings.UTF16)
 		  'Debug("Got " + strUUID)

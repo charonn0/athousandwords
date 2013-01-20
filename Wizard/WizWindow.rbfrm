@@ -1135,7 +1135,7 @@ End
 		  Case Picture.SaveAsWindowsBMP
 		    ext = ".bmp"
 		  End Select
-		  Dim filename As String = Win32.CurrentUser + "_" + Format(d.TotalSeconds, "##############################") + ext
+		  Dim filename As String = CurrentUser + "_" + Format(d.TotalSeconds, "##############################") + ext
 		  Dim f As FolderItem = SpecialFolder.Temporary.Child(filename)
 		  p.Save(f, SaveType, Picture.QualityHigh)
 		  App.DoEvents(500)
@@ -1264,7 +1264,7 @@ End
 #tag Events SavedToLink
 	#tag Event
 		Sub Action()
-		  Win32.ShowInExplorer(FinalFolder)
+		  ShowInExplorer(FinalFolder)
 		End Sub
 	#tag EndEvent
 #tag EndEvents
@@ -1425,10 +1425,10 @@ End
 		Sub Action()
 		  Select Case TheCaptureType
 		  Case CaptureType.All
-		    FinalPic = Win32.CaptureScreen
+		    FinalPic = CaptureScreen
 		    
 		  Case CaptureType.SpecificScreen
-		    FinalPic = Win32.GetPartialScreenShot(Screen(CaptureReference).Left, Screen(CaptureReference).Top, _
+		    FinalPic = GetPartialScreenShot(Screen(CaptureReference).Left, Screen(CaptureReference).Top, _
 		    Screen(CaptureReference).Width, Screen(CaptureReference).Height)
 		    
 		  Else

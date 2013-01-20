@@ -1,25 +1,5 @@
 #tag Module
 Protected Module ForeignWindows
-	#tag ExternalMethod, Flags = &h1
-		Protected Declare Function BitBlt Lib "GDI32" (DCdest As Integer, xDest As Integer, yDest As Integer, nWidth As Integer, nHeight As Integer, DCdource As Integer, xSource As Integer, ySource As Integer, rasterOp As Integer) As Boolean
-	#tag EndExternalMethod
-
-	#tag Method, Flags = &h1
-		Protected Function CaptureScreen() As Picture
-		  //Calls GetPartialScreenShot with a rectangle comprising all of the desktop rectangle. Returns a Picture
-		  
-		  #If TargetWin32 Then Return GetPartialScreenShot(0, 0, ScreenVirtualWidth, ScreenVirtualHeight)
-		End Function
-	#tag EndMethod
-
-	#tag ExternalMethod, Flags = &h1
-		Protected Declare Function FindWindow Lib "User32" Alias "FindWindowW" (ClassName As Integer, WindowName As Integer) As Integer
-	#tag EndExternalMethod
-
-	#tag ExternalMethod, Flags = &h1
-		Protected Declare Function FlashWindow Lib "User32" (hwnd As integer, bInvert As Integer) As Integer
-	#tag EndExternalMethod
-
 	#tag Method, Flags = &h1
 		Protected Function FromXY(X As Integer, Y As Integer) As ForeignWindows.ForeignWindow
 		  Dim p As POINT
@@ -29,71 +9,6 @@ Protected Module ForeignWindows
 		  Return New ForeignWindows.ForeignWindow(hwnd)
 		End Function
 	#tag EndMethod
-
-	#tag ExternalMethod, Flags = &h1
-		Protected Declare Function GetAncestor Lib "User32" (HWND As Integer, Flags As Integer) As Integer
-	#tag EndExternalMethod
-
-	#tag ExternalMethod, Flags = &h1
-		Protected Declare Function GetDC Lib "User32" (HWND As Integer) As Integer
-	#tag EndExternalMethod
-
-	#tag ExternalMethod, Flags = &h1
-		Protected Declare Function GetDesktopWindow Lib "User32" () As Integer
-	#tag EndExternalMethod
-
-	#tag ExternalMethod, Flags = &h1
-		Protected Declare Function GetLayeredWindowAttributes Lib "User32" (hwnd As Integer, thecolor As Integer, ByRef bAlpha As Integer, flags As Integer) As Boolean
-	#tag EndExternalMethod
-
-	#tag Method, Flags = &h1
-		Protected Function GetPartialScreenShot(X As Integer, Y As Integer, width As Integer, height As Integer) As Picture
-		  Dim screenCap As New Picture(Width, Height, 24)
-		  Dim deskHWND As Integer = GetDesktopWindow()
-		  Dim deskHDC As Integer = GetDC(deskHWND)
-		  Call BitBlt(screenCap.Graphics.Handle(Graphics.HandleTypeHDC), 0, 0, Width, Height, DeskHDC, X, Y, SRCCOPY Or CAPTUREBLT)
-		  Call ReleaseDC(DeskHWND, deskHDC)
-		  
-		  Return screenCap
-		  
-		End Function
-	#tag EndMethod
-
-	#tag ExternalMethod, Flags = &h1
-		Protected Declare Function GetSystemMetrics Lib "User32" (Index As Integer) As Integer
-	#tag EndExternalMethod
-
-	#tag ExternalMethod, Flags = &h1
-		Protected Declare Function GetWindow Lib "User32" (HWND As Integer, CMD As Integer) As Integer
-	#tag EndExternalMethod
-
-	#tag ExternalMethod, Flags = &h1
-		Protected Declare Function GetWindowInfo Lib "User32" (HWND As Integer, ByRef Info As WINDOWINFO) As Boolean
-	#tag EndExternalMethod
-
-	#tag ExternalMethod, Flags = &h1
-		Protected Declare Function GetWindowLong Lib "User32" Alias "GetWindowLongW" (HWND As Integer, Index As Integer) As Integer
-	#tag EndExternalMethod
-
-	#tag ExternalMethod, Flags = &h1
-		Protected Declare Function GetWindowModuleFileName Lib "User32" Alias "GetWindowModuleFileNameW" (HWND As Integer, Filename As Ptr, MaxChars As Integer) As Integer
-	#tag EndExternalMethod
-
-	#tag ExternalMethod, Flags = &h1
-		Protected Declare Function GetWindowRect Lib "User32" (HWND As Integer, ByRef dimensions As RECT) As Boolean
-	#tag EndExternalMethod
-
-	#tag ExternalMethod, Flags = &h1
-		Protected Declare Function GetWindowText Lib "User32" Alias "GetWindowTextW" (HWND As Integer, Buffer As Ptr, BufferSize As Integer) As Integer
-	#tag EndExternalMethod
-
-	#tag ExternalMethod, Flags = &h1
-		Protected Declare Function GetWindowThreadProcessId Lib "User32" (HWND As Integer, ByRef ProcessID As Integer) As Integer
-	#tag EndExternalMethod
-
-	#tag ExternalMethod, Flags = &h1
-		Protected Declare Function IsWindowVisible Lib "User32" (HWND As Integer) As Boolean
-	#tag EndExternalMethod
 
 	#tag Method, Flags = &h0
 		Function ListWindows() As ForeignWindows.ForeignWindow()
@@ -111,56 +26,6 @@ Protected Module ForeignWindows
 		  Return wins
 		End Function
 	#tag EndMethod
-
-	#tag ExternalMethod, Flags = &h1
-		Protected Declare Function LoadImage Lib "User32" Alias "LoadImageW" (ModuleHandle As Ptr, Path As WString, Type As Integer, cx As Integer, cy As Integer, LoadFrom As Integer) As Integer
-	#tag EndExternalMethod
-
-	#tag ExternalMethod, Flags = &h1
-		Protected Declare Function ReleaseDC Lib "User32" (HWND As Integer, DC As Integer) As Integer
-	#tag EndExternalMethod
-
-	#tag Method, Flags = &h1
-		Protected Function ScreenVirtualHeight() As Integer
-		  //Returns the height of the bounding rectangle around all monitors. On single-screen systems this is identical to ScreenHeight
-		  Return GetSystemMetrics(79)
-		End Function
-	#tag EndMethod
-
-	#tag Method, Flags = &h1
-		Protected Function ScreenVirtualWidth() As Integer
-		  //Returns the width of the bounding rectangle around all monitors. On single-screen systems this is identical to ScreenWidth
-		  Return GetSystemMetrics(78)
-		End Function
-	#tag EndMethod
-
-	#tag ExternalMethod, Flags = &h1
-		Protected Declare Function SendMessage Lib "User32" Alias "SendMessageW" (HWND As Integer, Msg As Integer, wParam As Ptr, lParam As Ptr) As Ptr
-	#tag EndExternalMethod
-
-	#tag ExternalMethod, Flags = &h1
-		Protected Declare Function SetLayeredWindowAttributes Lib "User32" (hwnd As Integer, thecolor As Integer, bAlpha As integer, alpha As Integer) As Boolean
-	#tag EndExternalMethod
-
-	#tag ExternalMethod, Flags = &h1
-		Protected Declare Function SetWindowLong Lib "User32" Alias "SetWindowLongW" (HWND As Integer, Index As Integer, NewLong As Integer) As Integer
-	#tag EndExternalMethod
-
-	#tag ExternalMethod, Flags = &h1
-		Protected Declare Function SetWindowPos Lib "User32" (HWND As Integer, hWndInstertAfter As Integer, x As Integer, y As Integer, cx As Integer, cy As Integer, flags As Integer) As Integer
-	#tag EndExternalMethod
-
-	#tag ExternalMethod, Flags = &h1
-		Protected Declare Function SetWindowText Lib "User32" Alias "SetWindowTextW" (WND As Integer, Buffer As Ptr) As Boolean
-	#tag EndExternalMethod
-
-	#tag ExternalMethod, Flags = &h1
-		Protected Declare Function ShowWindow Lib "User32" (HWND As Integer, CmdShow As Integer) As Boolean
-	#tag EndExternalMethod
-
-	#tag ExternalMethod, Flags = &h1
-		Protected Declare Function WindowFromPoint Lib "User32" (XY As POINT) As Integer
-	#tag EndExternalMethod
 
 
 	#tag Constant, Name = CAPTUREBLT, Type = Double, Dynamic = False, Default = \"&h40000000", Scope = Protected
@@ -252,32 +117,6 @@ Protected Module ForeignWindows
 
 	#tag Constant, Name = WS_EX_LAYERED, Type = Double, Dynamic = False, Default = \"&h80000", Scope = Protected
 	#tag EndConstant
-
-
-	#tag Structure, Name = POINT, Flags = &h1
-		X As Integer
-		Y As Integer
-	#tag EndStructure
-
-	#tag Structure, Name = RECT, Flags = &h1
-		left As Integer
-		  top As Integer
-		  right As Integer
-		bottom As Integer
-	#tag EndStructure
-
-	#tag Structure, Name = WINDOWINFO, Flags = &h1
-		cbSize As Integer
-		  WindowArea As RECT
-		  ClientArea As RECT
-		  Style As Integer
-		  ExStyle As Integer
-		  WindowStatus As Integer
-		  cxWindowBorders As Integer
-		  cyWindowBorders As Integer
-		  Atom As UInt16
-		CreatorVersion As UInt16
-	#tag EndStructure
 
 
 	#tag ViewBehavior

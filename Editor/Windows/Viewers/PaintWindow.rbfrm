@@ -106,6 +106,7 @@ Begin Window PaintWindow
       Width           =   80
    End
    Begin Timer capturetimer
+      Enabled         =   True
       Height          =   32
       Index           =   -2147483648
       Left            =   862
@@ -113,11 +114,15 @@ Begin Window PaintWindow
       Mode            =   0
       Period          =   1000
       Scope           =   0
+      TabIndex        =   2
       TabPanelIndex   =   0
+      TabStop         =   True
       Top             =   49
+      Visible         =   True
       Width           =   32
    End
    Begin Timer toolbartimer
+      Enabled         =   True
       Height          =   32
       Index           =   -2147483648
       InitialParent   =   ""
@@ -126,11 +131,15 @@ Begin Window PaintWindow
       Mode            =   1
       Period          =   500
       Scope           =   0
+      TabIndex        =   3
       TabPanelIndex   =   0
+      TabStop         =   True
       Top             =   14
+      Visible         =   True
       Width           =   32
    End
    Begin Timer UndoredomenuTimer
+      Enabled         =   True
       Height          =   32
       Index           =   -2147483648
       Left            =   862
@@ -138,8 +147,11 @@ Begin Window PaintWindow
       Mode            =   2
       Period          =   200
       Scope           =   0
+      TabIndex        =   4
       TabPanelIndex   =   0
+      TabStop         =   True
       Top             =   -20
+      Visible         =   True
       Width           =   32
    End
    Begin ScrollBar UpDown
@@ -601,7 +613,7 @@ End
 		  w = PaintTarget1.Width
 		  h = PaintTarget1.Height
 		  
-		  Dim p As Picture = Win32.GetPartialScreenShot(l, t, w, h)
+		  Dim p As Picture = GetPartialScreenShot(l, t, w, h)
 		  PaintTarget1.Open(p)
 		  PaintTarget1.Taint = True
 		  Self.Top = OldY
