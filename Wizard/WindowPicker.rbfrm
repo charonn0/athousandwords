@@ -193,75 +193,22 @@ End
 		  #pragma Unused Y
 		  If Self.Mode = Self.Mode_Window Then
 		    If Me.ListIndex = -1 Then Return False
-		    'Dim alph As New MenuItem("Increase Alpha By 10%")
-		    'Dim alph1 As New MenuItem("Decrease Alpha By 10%")
-		    'Dim alph2 As New MenuItem("Reset Alpha")
-		    'Dim alph3 As New MenuItem("Alpha")
-		    'Dim max As New MenuItem("Maximize")
-		    'Dim min As New MenuItem("Minimize")
-		    'Dim res As New MenuItem("Restore")
-		    Dim ID As New MenuItem("Identify")
-		    'alph3.Append(alph)
-		    'alph3.Append(alph1)
-		    'alph3.Append(alph2)
-		    'base.Append(alph3)
-		    'base.Append(max)
-		    'base.Append(min)
-		    'base.Append(res)
-		    base.Append(ID)
+		    base.Append New MenuItem("Identify")
+		    base.Append New MenuItem("Restore")
 		  End If
 		End Function
 	#tag EndEvent
 	#tag Event
 		Function ContextualMenuAction(hitItem as MenuItem) As Boolean
 		  If Me.ListIndex > -1 Then
-		    If Me.Cell(Me.ListIndex, 0) = "Default IME" Then
-		      MsgBox("That's probably not a good idea.")
-		      Return False
-		    End If
-		  End If
-		  Dim pw As ForeignWindows.ForeignWindow = Me.RowTag(Me.ListIndex)
-		  Select Case hitItem.Text
-		  Case "Increase Alpha By 10%"
-		    If Me.ListIndex > -1 Then
-		      
-		      Dim i As Single = pw.alpha
-		      i = i - (i * 0.10)
-		      pw.alpha = i
-		    End If
-		  Case "Decrease Alpha By 10%"
-		    If Me.ListIndex > -1 Then
-		      
-		      Dim i As Single = pw.alpha
-		      i = i + (i * 0.10)
-		      pw.alpha = i
-		    End If
-		  Case "Reset Alpha"
-		    If Me.ListIndex > -1 Then
-		      
-		      pw.alpha = 1
-		    End If
-		  Case "Maximize"
-		    If Me.ListIndex > -1 Then
-		      
-		      pw.Maximized
-		    End If
-		  Case "Minimize"
-		    If Me.ListIndex > -1 Then
-		      
-		      pw.Minimized()
-		    End If
-		  Case "Restore"
-		    If Me.ListIndex > -1 Then
-		      
-		      'pw.Visible
-		    End If
-		  Case "Identify"
-		    If Me.ListIndex > -1 Then
-		      
+		    Dim pw As ForeignWindows.ForeignWindow = Me.RowTag(Me.ListIndex)
+		    Select Case hitItem.Text
+		    Case "Restore"
+		      pw.BringToFront
+		    Case "Identify"
 		      pw.Identify(3)
-		    End If
-		  End Select
+		    End Select
+		  End If
 		  
 		End Function
 	#tag EndEvent
@@ -270,7 +217,7 @@ End
 		  If Self.Mode = Self.Mode_Window Then
 		    Dim win As ForeignWindows.ForeignWindow = Me.RowTag(Me.ListIndex)
 		    SelectedWindow = win.Handle
-		    win.BringToFront
+		    'win.BringToFront
 		  Else
 		    SelectedWindow = Me.ListIndex
 		  End If
