@@ -50,33 +50,6 @@ Inherits Label
 	#tag EndEvent
 
 	#tag Event
-		Sub MouseDrag(X As Integer, Y As Integer)
-		  If Draggable Then
-		    If Not RaiseEvent CancelDrag Then
-		      Dim p As Picture = TextToPicture(Me.Text, Me.TextSize, Me.TextColor, Me.TextFont)
-		      p.Transparent = 1
-		      Dim tmp As New Picture(Me.Width, Me.Height, 32)
-		      Me.TrueWindow.DrawInto(tmp.Graphics, Me.Top, Me.Left)
-		      
-		      tmp.Graphics.DrawPicture(p, 0, 0)
-		      tmp.Transparent = 1
-		      p = tmp
-		      p.Transparent = 1
-		      Dim obj As New DragItem(Me.TrueWindow, Me.Window.MouseX, Me.Window.MouseY, p.Width, p.Height, p)
-		      obj.Text = Me.URL
-		      
-		      'obj.MouseCursor = System.Cursors.HandClosed
-		      'obj.FolderItem = CreateURLShortcut(Me.Text, Me.URL)
-		      RaiseEvent CreateDragItem(obj)
-		      If obj = Nil Then Return
-		      obj.Drag
-		    End If
-		  End If
-		  RaiseEvent MouseDrag(X, Y)
-		End Sub
-	#tag EndEvent
-
-	#tag Event
 		Sub MouseEnter()
 		  HoverTimer.Mode = Timer.ModeSingle
 		  Me.HelpTag = AltText
@@ -207,10 +180,6 @@ Inherits Label
 	#tag EndHook
 
 	#tag Hook, Flags = &h0
-		Event MouseDrag(X As Integer, Y As Integer)
-	#tag EndHook
-
-	#tag Hook, Flags = &h0
 		Event MouseEnter()
 	#tag EndHook
 
@@ -256,10 +225,6 @@ Inherits Label
 
 	#tag Property, Flags = &h21
 		Private colorTimer As Timer
-	#tag EndProperty
-
-	#tag Property, Flags = &h0
-		Draggable As Boolean = False
 	#tag EndProperty
 
 	#tag Property, Flags = &h0

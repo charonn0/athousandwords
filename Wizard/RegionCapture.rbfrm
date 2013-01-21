@@ -87,6 +87,12 @@ End
 	#tag Method, Flags = &h0
 		Function ShowModal() As RECT
 		  Self.ShowModal
+		  If Coords.top = Coords.bottom Or Coords.left = Coords.right Then
+		    Coords.bottom = -1
+		    Coords.left = -1
+		    Coords.right = -1
+		    Coords.top = -1
+		  End If
 		  Return Coords
 		End Function
 	#tag EndMethod
@@ -120,7 +126,7 @@ End
 		#tag Getter
 			Get
 			  If mTextPic = Nil Then
-			    mTextPic = TextToPicture("Press enter to save selection" + EndOfLine + "   Press escape to cancel.", 32, &cFF000000, "System")
+			    mTextPic = TextToPicture("Select a region with your mouse" +  EndOfLine + "Press enter to save selection" + EndOfLine + "Press escape to cancel.", 32, &cFF000000, "System")
 			  End If
 			  
 			  Return mTextPic
@@ -145,6 +151,10 @@ End
 	#tag EndEvent
 	#tag Event
 		Function MouseDown(X As Integer, Y As Integer) As Boolean
+		  Coords.bottom = -1
+		  Coords.left = -1
+		  Coords.right = -1
+		  Coords.top = -1
 		  StartX = X
 		  StartY = Y
 		  Return True
