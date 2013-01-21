@@ -137,7 +137,7 @@ Protected Module GlobalHelpers
 		  Next
 		  Dim txtBuffer As Picture
 		  txtBuffer = New Picture(requiredWidth, requiredHeight)
-		  txtBuffer.Graphics.ForeColor = &cFFFFFFFF
+		  txtBuffer.Graphics.ForeColor = &cFFFFFF55
 		  txtBuffer.Graphics.FillRect(0, 0, txtBuffer.Width, txtBuffer.Height)
 		  Dim x, y As Integer
 		  For i As Integer = 0 To UBound(lines)

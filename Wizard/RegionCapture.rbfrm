@@ -5,7 +5,7 @@ Begin Window RegionCapture
    CloseButton     =   True
    Composite       =   False
    Frame           =   4
-   FullScreen      =   True
+   FullScreen      =   False
    HasBackColor    =   False
    Height          =   400
    ImplicitInstance=   False
@@ -29,7 +29,7 @@ Begin Window RegionCapture
       AcceptTabs      =   ""
       AutoDeactivate  =   True
       Backdrop        =   ""
-      DoubleBuffer    =   False
+      DoubleBuffer    =   True
       Enabled         =   True
       EraseBackground =   False
       Height          =   400
@@ -75,11 +75,16 @@ End
 		Sub Constructor(Backdrop As Picture)
 		  // Calling the overridden superclass constructor.
 		  Super.Constructor
+		  Backdrop.Graphics.DrawPicture(TextPic, 0, 0)
+		  If TextPic.Width + 50 + TextPic.Width < Backdrop.Width Then
+		    Backdrop.Graphics.DrawPicture(TextPic, Backdrop.Width - TextPic.Width, 0)
+		  End If
 		  Desktop = Backdrop
-		  'Me.Width = Backdrop.Width
-		  'Me.Height = Backdrop.Height
-		  'Me.Top = 0
-		  'Me.Left = 0
+		  Canvas1.Backdrop = Desktop
+		  Me.Width = Backdrop.Width
+		  Me.Height = Backdrop.Height
+		  Me.Top = 0
+		  Me.Left = 0
 		  Overlay = New Picture(Backdrop.Width, Backdrop.Height)
 		End Sub
 	#tag EndMethod
@@ -126,7 +131,7 @@ End
 		#tag Getter
 			Get
 			  If mTextPic = Nil Then
-			    mTextPic = TextToPicture("Select a region with your mouse" +  EndOfLine + "Press enter to save selection" + EndOfLine + "Press escape to cancel.", 32, &cFF000000, "System")
+			    mTextPic = TextToPicture("Select a region with your mouse" +  EndOfLine + "Press enter to save selection" + EndOfLine + "Press escape to cancel.", 20, &cFF000000, "System")
 			  End If
 			  
 			  Return mTextPic
@@ -141,12 +146,7 @@ End
 #tag Events Canvas1
 	#tag Event
 		Sub Paint(g As Graphics)
-		  Dim p As New Picture(g.Width, g.Height)
-		  p.Graphics.DrawPicture(Desktop, 0, 0)
-		  p.Graphics.DrawPicture(Overlay, 0, 0)
-		  
-		  p.Graphics.DrawPicture(TextPic, p.Width \ 2 - TextPic.Width \ 2, TextPic.Height)
-		  g.DrawPicture(p, 0, 0)
+		  g.DrawPicture(Overlay, 0, 0)
 		End Sub
 	#tag EndEvent
 	#tag Event
@@ -191,6 +191,8 @@ End
 		  Coords.bottom = t + h
 		  Coords.right = l + w
 		  Me.Refresh(False)
+		  
+		  
 		End Sub
 	#tag EndEvent
 #tag EndEvents
