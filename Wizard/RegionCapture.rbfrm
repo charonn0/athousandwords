@@ -180,11 +180,12 @@ End
 		    t = StartY
 		    h = Y - StartY
 		  End If
-		  
 		  Overlay = New Picture(Me.Width, Me.Height)
-		  Overlay.Graphics.ForeColor = &c00FF0000
-		  Overlay.Graphics.PenHeight = 2
-		  Overlay.Graphics.PenWidth = 2
+		  Overlay.Graphics.ForeColor = &c0080FFBE
+		  Overlay.Graphics.FillRect(l, t, w, h)
+		  Overlay.Graphics.ForeColor = &c0080FF00
+		  Overlay.Graphics.PenHeight = 1
+		  Overlay.Graphics.PenWidth = 1
 		  Overlay.Graphics.DrawRect(l, t, w, h)
 		  Coords.top = t
 		  Coords.left = l
@@ -193,6 +194,12 @@ End
 		  Me.Refresh(False)
 		  
 		  
+		End Sub
+	#tag EndEvent
+	#tag Event
+		Sub Open()
+		  Dim c As New MouseCursor(crosshairs, 12, 12)
+		  Me.MouseCursor = c
 		End Sub
 	#tag EndEvent
 #tag EndEvents
