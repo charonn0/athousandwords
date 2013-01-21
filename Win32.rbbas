@@ -103,6 +103,10 @@ Protected Module Win32
 	#tag EndExternalMethod
 
 	#tag ExternalMethod, Flags = &h0
+		Declare Function GetVersionEx Lib "Kernel32" Alias "GetVersionExA" (ByRef info As OSVERSIONINFOEX) As Boolean
+	#tag EndExternalMethod
+
+	#tag ExternalMethod, Flags = &h0
 		Declare Function GetWindow Lib "User32" (HWND As Integer, CMD As Integer) As Integer
 	#tag EndExternalMethod
 
@@ -263,6 +267,29 @@ Protected Module Win32
 	#tag EndExternalMethod
 
 
+	#tag ComputedProperty, Flags = &h0
+		#tag Getter
+			Get
+			  //Returns the Kernel version of Windows as a Double (MajorVersion.MinorVersion)
+			  //For example, Windows 2000 returns 5.0, XP Returns 5.1, Vista Returns 6.0 and Windows 7 returns 6.1
+			  //On error, returns 0.0
+			  
+			  #If TargetWin32 Then
+			    Dim info As OSVERSIONINFOEX
+			    info.StructSize = Info.Size
+			    
+			    If GetVersionEx(info) Then
+			      Return info.MajorVersion + (info.MinorVersion / 10)
+			    Else
+			      Return 0.0
+			    End If
+			  #endif
+			End Get
+		#tag EndGetter
+		KernelVersion As Double
+	#tag EndComputedProperty
+
+
 	#tag Constant, Name = CAPTUREBLT, Type = Double, Dynamic = False, Default = \"&h40000000", Scope = Public
 	#tag EndConstant
 
@@ -290,6 +317,20 @@ Protected Module Win32
 	#tag Constant, Name = SW_SHOW, Type = Double, Dynamic = False, Default = \"5", Scope = Public
 	#tag EndConstant
 
+
+	#tag Structure, Name = OSVERSIONINFOEX, Flags = &h0
+		StructSize As UInt32
+		  MajorVersion As Integer
+		  MinorVersion As Integer
+		  BuildNumber As Integer
+		  PlatformID As Integer
+		  ServicePackName As String*128
+		  ServicePackMajor As UInt16
+		  ServicePackMinor As UInt16
+		  SuiteMask As UInt16
+		  ProductType As Byte
+		Reserved As Byte
+	#tag EndStructure
 
 	#tag Structure, Name = POINT, Flags = &h0
 		X As Integer

@@ -53,7 +53,7 @@ Inherits Label
 		Sub MouseDrag(X As Integer, Y As Integer)
 		  If Draggable Then
 		    If Not RaiseEvent CancelDrag Then
-		      Dim p As Picture = TextToPicture(Me.Text)
+		      Dim p As Picture = TextToPicture(Me.Text, Me.TextSize, Me.TextColor, Me.TextFont)
 		      p.Transparent = 1
 		      Dim tmp As New Picture(Me.Width, Me.Height, 32)
 		      Me.TrueWindow.DrawInto(tmp.Graphics, Me.Top, Me.Left)
@@ -183,50 +183,6 @@ Inherits Label
 		  Sender.Mode = Timer.ModeOff
 		  RaiseEvent Hover
 		End Sub
-	#tag EndMethod
-
-	#tag Method, Flags = &h21
-		Private Function TextToPicture(Text As String) As Picture
-		  Dim lines() As Picture
-		  Dim requiredHeight, requiredWidth As Integer
-		  Dim tlines() As String = Split(Text, EndOfLine)
-		  
-		  For i As Integer = 0 To UBound(tlines)
-		    Try
-		      Dim p As New Picture(250, 250, 24)
-		      p.Graphics.TextFont = Me.TextFont
-		      p.Graphics.TextSize = Me.TextSize
-		      Dim nm As String = tlines(i)
-		      Dim strWidth, strHeight As Integer
-		      strWidth = p.Graphics.StringWidth(nm) + 5
-		      strHeight = p.Graphics.StringHeight(nm, strWidth)
-		      p = New Picture(strWidth, strHeight, 32)
-		      p.Graphics.AntiAlias = True
-		      p.Graphics.ForeColor = Me.BaseColor
-		      p.Graphics.TextFont = Me.TextFont
-		      p.Graphics.TextSize = Me.TextSize
-		      p.Graphics.DrawString(nm, 1, ((p.Height/2) + (strHeight/4)))
-		      p.Graphics.ForeColor = &cFFFFFF
-		      p.Graphics.DrawRect(1, 1, p.Width - 1, p.Height - 1)
-		      lines.Append(p)
-		      requiredHeight = requiredHeight + p.Height
-		      If p.Width > requiredWidth Then requiredWidth = p.Width
-		    Catch NilObjectException
-		      Continue
-		    End Try
-		  Next
-		  Dim txtBuffer As Picture
-		  txtBuffer = New Picture(requiredWidth, requiredHeight, 24)
-		  Dim x, y As Integer
-		  For i As Integer = 0 To UBound(lines)
-		    txtBuffer.Graphics.DrawPicture(lines(i), x, y)
-		    y = y + lines(i).Height
-		  Next
-		  txtBuffer.Graphics.ForeColor = &cFFFFFF
-		  txtBuffer.Graphics.DrawRect(0, 0, txtBuffer.Width - 1, txtBuffer.Height - 1)
-		  txtBuffer.Transparent = 1
-		  Return txtBuffer
-		End Function
 	#tag EndMethod
 
 

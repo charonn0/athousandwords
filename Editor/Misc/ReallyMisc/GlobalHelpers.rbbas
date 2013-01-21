@@ -109,6 +109,50 @@ Protected Module GlobalHelpers
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
+		Function TextToPicture(Text As String, TextSize As Integer, BaseColor As Color, TextFont As String) As Picture
+		  Dim lines() As Picture
+		  Dim requiredHeight, requiredWidth As Integer
+		  Dim tlines() As String = Split(Text, EndOfLine)
+		  
+		  For i As Integer = 0 To UBound(tlines)
+		    Try
+		      Dim p As New Picture(250, 250, 32)
+		      p.Graphics.TextFont = TextFont
+		      p.Graphics.TextSize = TextSize
+		      Dim nm As String = tlines(i)
+		      Dim strWidth, strHeight As Integer
+		      strWidth = p.Graphics.StringWidth(nm) + 5
+		      strHeight = p.Graphics.StringHeight(nm, strWidth)
+		      p = New Picture(strWidth, strHeight, 32)
+		      p.Graphics.AntiAlias = True
+		      p.Graphics.ForeColor = BaseColor
+		      p.Graphics.TextFont = TextFont
+		      p.Graphics.TextSize = TextSize
+		      p.Graphics.DrawString(nm, 1, ((p.Height/2) + (strHeight/4)))
+		      p.Graphics.ForeColor = &cFFFFFF
+		      p.Graphics.DrawRect(1, 1, p.Width - 1, p.Height - 1)
+		      lines.Append(p)
+		      requiredHeight = requiredHeight + p.Height
+		      If p.Width > requiredWidth Then requiredWidth = p.Width
+		    Catch NilObjectException
+		      Continue
+		    End Try
+		  Next
+		  Dim txtBuffer As Picture
+		  txtBuffer = New Picture(requiredWidth, requiredHeight, 24)
+		  Dim x, y As Integer
+		  For i As Integer = 0 To UBound(lines)
+		    txtBuffer.Graphics.DrawPicture(lines(i), x, y)
+		    y = y + lines(i).Height
+		  Next
+		  txtBuffer.Graphics.ForeColor = &cFFFFFF
+		  txtBuffer.Graphics.DrawRect(0, 0, txtBuffer.Width - 1, txtBuffer.Height - 1)
+		  txtBuffer.Transparent = 1
+		  Return txtBuffer
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
 		Function Tokenize(Input As String) As String()
 		  //Returns a String array containing the space-delimited members of the Input string.
 		  //Like `Split` but honoring quotes; good for command line arguments and other parsing.

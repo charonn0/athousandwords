@@ -745,7 +745,7 @@ Begin Window WizWindow
          Bold            =   ""
          Caption         =   "Advanced Options"
          Enabled         =   True
-         Height          =   120
+         Height          =   124
          HelpTag         =   ""
          Index           =   -2147483648
          InitialParent   =   "PagePanel1"
@@ -762,7 +762,7 @@ Begin Window WizWindow
          TextFont        =   "System"
          TextSize        =   0
          TextUnit        =   0
-         Top             =   5
+         Top             =   3
          Underline       =   ""
          Visible         =   True
          Width           =   473
@@ -805,7 +805,7 @@ Begin Window WizWindow
             TextFont        =   "System"
             TextSize        =   0
             TextUnit        =   0
-            Top             =   23
+            Top             =   21
             Underline       =   ""
             UseFocusRing    =   True
             Visible         =   True
@@ -837,7 +837,7 @@ Begin Window WizWindow
             TextFont        =   "System"
             TextSize        =   0
             TextUnit        =   0
-            Top             =   23
+            Top             =   21
             Underline       =   ""
             Visible         =   True
             Width           =   63
@@ -869,7 +869,7 @@ Begin Window WizWindow
             TextFont        =   "System"
             TextSize        =   0
             TextUnit        =   0
-            Top             =   57
+            Top             =   55
             Underline       =   ""
             UseFocusRing    =   True
             Visible         =   True
@@ -898,38 +898,9 @@ Begin Window WizWindow
             TextFont        =   "System"
             TextSize        =   0
             TextUnit        =   0
-            Top             =   69
+            Top             =   85
             Underline       =   ""
             Value           =   False
-            Visible         =   True
-            Width           =   240
-         End
-         Begin RadioButton CaptureEverything
-            AutoDeactivate  =   True
-            Bold            =   ""
-            Caption         =   "Capture Everything"
-            Enabled         =   True
-            Height          =   20
-            HelpTag         =   ""
-            Index           =   -2147483648
-            InitialParent   =   "GroupBox2"
-            Italic          =   ""
-            Left            =   364
-            LockBottom      =   ""
-            LockedInPosition=   False
-            LockLeft        =   True
-            LockRight       =   ""
-            LockTop         =   True
-            Scope           =   0
-            TabIndex        =   5
-            TabPanelIndex   =   5
-            TabStop         =   True
-            TextFont        =   "System"
-            TextSize        =   0
-            TextUnit        =   0
-            Top             =   88
-            Underline       =   ""
-            Value           =   True
             Visible         =   True
             Width           =   240
          End
@@ -960,7 +931,7 @@ Begin Window WizWindow
             TextFont        =   "System"
             TextSize        =   0
             TextUnit        =   0
-            Top             =   87
+            Top             =   85
             Underline       =   ""
             UseFocusRing    =   True
             Visible         =   True
@@ -989,7 +960,65 @@ Begin Window WizWindow
             TextFont        =   "System"
             TextSize        =   0
             TextUnit        =   0
-            Top             =   50
+            Top             =   65
+            Underline       =   ""
+            Value           =   False
+            Visible         =   True
+            Width           =   240
+         End
+         Begin RadioButton CaptureEverything
+            AutoDeactivate  =   True
+            Bold            =   ""
+            Caption         =   "Capture Everything"
+            Enabled         =   True
+            Height          =   20
+            HelpTag         =   ""
+            Index           =   -2147483648
+            InitialParent   =   "GroupBox2"
+            Italic          =   ""
+            Left            =   364
+            LockBottom      =   ""
+            LockedInPosition=   False
+            LockLeft        =   True
+            LockRight       =   ""
+            LockTop         =   True
+            Scope           =   0
+            TabIndex        =   8
+            TabPanelIndex   =   5
+            TabStop         =   True
+            TextFont        =   "System"
+            TextSize        =   0
+            TextUnit        =   0
+            Top             =   105
+            Underline       =   ""
+            Value           =   True
+            Visible         =   True
+            Width           =   240
+         End
+         Begin RadioButton CaptureEverything1
+            AutoDeactivate  =   True
+            Bold            =   ""
+            Caption         =   "Select a region manually"
+            Enabled         =   True
+            Height          =   20
+            HelpTag         =   ""
+            Index           =   -2147483648
+            InitialParent   =   "GroupBox2"
+            Italic          =   ""
+            Left            =   364
+            LockBottom      =   ""
+            LockedInPosition=   False
+            LockLeft        =   True
+            LockRight       =   ""
+            LockTop         =   True
+            Scope           =   0
+            TabIndex        =   9
+            TabPanelIndex   =   5
+            TabStop         =   True
+            TextFont        =   "System"
+            TextSize        =   0
+            TextUnit        =   0
+            Top             =   45
             Underline       =   ""
             Value           =   False
             Visible         =   True
@@ -1149,6 +1178,10 @@ End
 		Private CaptureReference As Integer = -1
 	#tag EndProperty
 
+	#tag Property, Flags = &h21
+		Private CaptureRegion As RECT
+	#tag EndProperty
+
 	#tag Property, Flags = &h0
 		FinalFolder As FolderItem
 	#tag EndProperty
@@ -1202,7 +1235,8 @@ End
 	#tag Enum, Name = CaptureType, Type = Integer, Flags = &h0
 		All
 		  SpecificWindow
-		SpecificScreen
+		  SpecificScreen
+		Region
 	#tag EndEnum
 
 
@@ -1375,13 +1409,6 @@ End
 		End Sub
 	#tag EndEvent
 #tag EndEvents
-#tag Events CaptureEverything
-	#tag Event
-		Sub Action()
-		  TheCaptureType = CaptureType.All
-		End Sub
-	#tag EndEvent
-#tag EndEvents
 #tag Events DelayPeriod
 	#tag Event
 		Sub Change()
@@ -1420,6 +1447,37 @@ End
 		End Sub
 	#tag EndEvent
 #tag EndEvents
+#tag Events CaptureEverything
+	#tag Event
+		Sub Action()
+		  TheCaptureType = CaptureType.All
+		End Sub
+	#tag EndEvent
+#tag EndEvents
+#tag Events CaptureEverything1
+	#tag Event
+		Sub Action()
+		  OldY = Self.Top
+		  Self.Top = Self.Top * -10000
+		  Dim p As Picture = CaptureScreen()
+		  Dim capwin As New RegionCapture(p)
+		  CaptureRegion = capwin.ShowModal
+		  If CaptureRegion.bottom = -1 And CaptureRegion.left = -1 And CaptureRegion.right = -1 And CaptureRegion.top = -1 Then
+		    TheCaptureType = CaptureType.All
+		    CaptureEverything.Value = True
+		  Else
+		    TheCaptureType = CaptureType.Region
+		  End If
+		  
+		  Self.Top = OldY
+		End Sub
+	#tag EndEvent
+	#tag Event
+		Sub Open()
+		  Me.Enabled = KernelVersion >= 6 'Crashes on XP for some reason
+		End Sub
+	#tag EndEvent
+#tag EndEvents
 #tag Events CaptureTimer
 	#tag Event
 		Sub Action()
@@ -1430,6 +1488,9 @@ End
 		  Case CaptureType.SpecificScreen
 		    FinalPic = GetPartialScreenShot(Screen(CaptureReference).Left, Screen(CaptureReference).Top, _
 		    Screen(CaptureReference).Width, Screen(CaptureReference).Height)
+		    
+		  Case CaptureType.Region
+		    FinalPic = GetPartialScreenShot(CaptureRegion.left, CaptureRegion.Top, CaptureRegion.right - CaptureRegion.left, CaptureRegion.bottom - CaptureRegion.top)
 		    
 		  Else
 		    Dim win As New ForeignWindows.ForeignWindow(CaptureReference)
