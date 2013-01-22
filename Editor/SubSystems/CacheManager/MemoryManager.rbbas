@@ -48,22 +48,18 @@ Protected Module MemoryManager
 
 	#tag Method, Flags = &h1
 		Protected Function ExtractIcons(resourcefile As FolderItem) As Boolean
-		  'Debug("Create cache")
 		  Icons = New Dictionary
-		  Dim f As FolderItem = SpecialFolder.Temporary.Child("A Thousand Words")
-		  f.CreateAsFolder()
 		  If resourcefile = Nil Then resourcefile = App.ExecutableFile.Parent.Child("icons.res")
 		  If resourcefile.Exists Then
-		    'Debug("Found the icons file at: " + resourcefile.AbsolutePath)
 		    Dim vv As VirtualVolume = resourcefile.OpenAsVirtualVolume
+		    Dim bs As BinaryStream
 		    For i As Integer = 1 To vv.Root.Count
-		      Dim g As FolderItem = SpecialFolder.Temporary.Child("A Thousand Words").Child(vv.Root.Item(i).Name)
-		      vv.Root.Item(i).CopyFileTo(g)
-		      Dim p As Picture = Picture.Open(g)
-		      g.Delete
+		      bs = BinaryStream.Open(vv.Root.Item(i))
+		      Dim mb As MemoryBlock = bs.Read(bs.Length)
+		      bs.Close
+		      Dim p As Picture = Picture.FromData(mb)
 		      Dim sf As New StackFrame(p)
-		      sf.Key = g.Name
-		      'Debug("Create frame: " + sf.key)
+		      sf.Key = vv.Root.Item(i).Name
 		      sf.Pageable = False
 		      Icons.Value(sf.Key) = sf
 		    Next

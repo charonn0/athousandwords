@@ -14,7 +14,6 @@ Protected Class StackFrame
 		Private Sub Destructor()
 		  ThePicture = Nil
 		  Unlock()
-		  SpecialFolder.Temporary.Child("A Thousand Words").Child(Key).Delete
 		End Sub
 	#tag EndMethod
 

@@ -483,7 +483,6 @@ Begin Window WizWindow
          Bold            =   ""
          DataField       =   ""
          DataSource      =   ""
-         Draggable       =   False
          Enabled         =   True
          Height          =   20
          HilightColor    =   65535
@@ -522,7 +521,6 @@ Begin Window WizWindow
          Bold            =   ""
          DataField       =   ""
          DataSource      =   ""
-         Draggable       =   False
          Enabled         =   True
          Height          =   20
          HilightColor    =   "&c00FFFF"
