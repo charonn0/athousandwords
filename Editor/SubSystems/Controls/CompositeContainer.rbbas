@@ -83,7 +83,7 @@ Inherits Canvas
 		    Call RaiseEvent MouseDown(X, Y)
 		    Return True
 		  Else
-		    If MainWindow.DropperMode Then
+		    If Me.Mode = Mode_Eyedropper Then
 		      Return RaiseEvent MouseDown(X, Y)  //Eyedropper mode so raise the event to the instance handler
 		    End If
 		    
@@ -1623,6 +1623,9 @@ Inherits Canvas
 	#tag EndConstant
 
 	#tag Constant, Name = Mode_Draw_Rect, Type = Double, Dynamic = False, Default = \"&b00000000000000000000001000000000", Scope = Public
+	#tag EndConstant
+
+	#tag Constant, Name = Mode_Eyedropper, Type = Double, Dynamic = False, Default = \"&b00000000000000010000000000000000", Scope = Public
 	#tag EndConstant
 
 	#tag Constant, Name = Mode_Fill, Type = Double, Dynamic = False, Default = \"&b00000000000000000000010000000000", Scope = Public

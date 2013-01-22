@@ -448,10 +448,6 @@ End
 		DrawingMouse As MouseCursor
 	#tag EndComputedProperty
 
-	#tag Property, Flags = &h0
-		DropperMode As Boolean
-	#tag EndProperty
-
 	#tag ComputedProperty, Flags = &h0
 		#tag Getter
 			Get
@@ -485,6 +481,10 @@ End
 		#tag EndSetter
 		FloodMouse As MouseCursor
 	#tag EndComputedProperty
+
+	#tag Property, Flags = &h0
+		LastMode As Integer
+	#tag EndProperty
 
 	#tag Property, Flags = &h21
 		Private mCurrentColor As Color
@@ -557,8 +557,8 @@ End
 		Function MouseDown(X As Integer, Y As Integer) As Boolean
 		  #pragma Unused X
 		  #pragma Unused Y
-		  If DropperMode Then
-		    DropperMode = False
+		  If Me.Mode = Me.Mode_Eyedropper Then
+		    Me.Mode = LastMode
 		    Self.MouseCursor = CurrentCursor
 		    PaintTarget1.CurrentColor = System.Pixel(System.MouseX, System.MouseY)
 		    TheToolsWin.ModeButton(7).value = False
@@ -578,21 +578,21 @@ End
 		Sub MouseMove(X As Integer, Y As Integer)
 		  #pragma Unused X
 		  #pragma Unused Y
-		  If DropperMode Then
+		  
+		  Select Case PaintTarget1.Mode
+		  Case PaintTarget1.Mode_DrawLine, PaintTarget1.Mode_Draw_Circle, PaintTarget1.Mode_Draw_Rect, PaintTarget1.Mode_Draw_Freeform, _
+		    PaintTarget1.Mode_Select_Rect, PaintTarget1.Mode_Draw_Filled_Rect, PaintTarget1.Mode_Draw_Filled_Circle
+		    Self.CurrentCursor = DrawingMouse
+		  Case PaintTarget1.Mode_Draw_Point
+		    Self.CurrentCursor = System.Cursors.StandardPointer
+		  Case PaintTarget1.Mode_Fill
+		    Self.CurrentCursor = FloodMouse
+		  Case PaintTarget1.Mode_Eyedropper
 		    Self.CurrentCursor = DropperMouse
 		  Else
-		    Select Case PaintTarget1.Mode
-		    Case PaintTarget1.Mode_DrawLine, PaintTarget1.Mode_Draw_Circle, PaintTarget1.Mode_Draw_Rect, PaintTarget1.Mode_Draw_Freeform, _
-		      PaintTarget1.Mode_Select_Rect, PaintTarget1.Mode_Draw_Filled_Rect, PaintTarget1.Mode_Draw_Filled_Circle
-		      Self.CurrentCursor = DrawingMouse
-		    Case PaintTarget1.Mode_Draw_Point
-		      Self.CurrentCursor = System.Cursors.StandardPointer
-		    Case PaintTarget1.Mode_Fill
-		      Self.CurrentCursor = FloodMouse
-		    Else
-		      Self.CurrentCursor = System.Cursors.StandardPointer
-		    End Select
-		  End If
+		    Self.CurrentCursor = System.Cursors.StandardPointer
+		  End Select
+		  
 		End Sub
 	#tag EndEvent
 #tag EndEvents

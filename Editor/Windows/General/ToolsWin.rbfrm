@@ -454,21 +454,29 @@ End
 		Sub Action(index as Integer)
 		  Select Case index
 		  Case 0  //Flood
-		    MainWindow.PaintTarget1.Mode =MainWindow.PaintTarget1.Mode_Fill
+		    MainWindow.PaintTarget1.Mode = MainWindow.PaintTarget1.Mode_Fill
+		    
 		  Case 1  //Circle
-		    MainWindow.PaintTarget1.Mode =MainWindow.PaintTarget1.Mode_Draw_Circle
+		    MainWindow.PaintTarget1.Mode = MainWindow.PaintTarget1.Mode_Draw_Circle
+		    
 		  Case 6  //Line
-		    MainWindow.PaintTarget1.Mode =MainWindow.PaintTarget1.Mode_DrawLine
+		    MainWindow.PaintTarget1.Mode = MainWindow.PaintTarget1.Mode_DrawLine
+		    
 		  Case 2  //Rect
-		    MainWindow.PaintTarget1.Mode =MainWindow.PaintTarget1.Mode_Draw_Rect
+		    MainWindow.PaintTarget1.Mode = MainWindow.PaintTarget1.Mode_Draw_Rect
+		    
 		  Case 5  //Filled rect
-		    MainWindow.PaintTarget1.Mode =MainWindow.PaintTarget1.Mode_Draw_Filled_Rect
+		    MainWindow.PaintTarget1.Mode = MainWindow.PaintTarget1.Mode_Draw_Filled_Rect
+		    
 		  Case 3  //Point
-		    MainWindow.PaintTarget1.Mode =MainWindow.PaintTarget1.Mode_Draw_Point
+		    MainWindow.PaintTarget1.Mode = MainWindow.PaintTarget1.Mode_Draw_Point
+		    
 		  Case 4  //Free form
-		    MainWindow.PaintTarget1.Mode =MainWindow.PaintTarget1.Mode_Draw_Freeform
+		    MainWindow.PaintTarget1.Mode = MainWindow.PaintTarget1.Mode_Draw_Freeform
+		    
 		  Case 7  //Eyedroppericon
-		    MainWindow.DropperMode = True
+		    MainWindow.LastMode = MainWindow.PaintTarget1.Mode
+		    MainWindow.PaintTarget1.Mode = MainWindow.PaintTarget1.Mode_Eyedropper
 		    Return
 		  Case 8
 		    Dim c As Color
@@ -483,7 +491,7 @@ End
 		    MainWindow.PaintTarget1.CurrentColor = c
 		    
 		  Else
-		    MainWindow.PaintTarget1.Mode =MainWindow.PaintTarget1.Mode_Draw_Freeform
+		    MainWindow.PaintTarget1.Mode = MainWindow.PaintTarget1.Mode_Draw_Freeform
 		  End Select
 		  PreviousButton = index
 		End Sub
