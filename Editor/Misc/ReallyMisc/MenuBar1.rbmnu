@@ -94,7 +94,7 @@ Begin Menu MenuBar1
       End
       Begin MenuItem ChangePen
          SpecialMenu = 0
-         Text = "Change &Pencil Size..."
+         Text = "Change &Pen Size..."
          Index = -2147483648
          AutoEnable = True
       End

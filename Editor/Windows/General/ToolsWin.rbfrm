@@ -341,7 +341,7 @@ Begin Window ToolsWin
       EraseBackground =   ""
       hasIcon         =   True
       Height          =   25
-      HelpTag         =   "Pencil"
+      HelpTag         =   "Pen"
       Icon            =   "compositor.png"
       Index           =   4
       InitialParent   =   ""
