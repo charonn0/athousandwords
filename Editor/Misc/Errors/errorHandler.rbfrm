@@ -7,7 +7,7 @@ Begin Window errorHandler
    Frame           =   1
    FullScreen      =   False
    HasBackColor    =   False
-   Height          =   1.11e+2
+   Height          =   174
    ImplicitInstance=   True
    LiveResize      =   True
    MacProcID       =   0
@@ -16,21 +16,21 @@ Begin Window errorHandler
    MaxWidth        =   32000
    MenuBar         =   ""
    MenuBarVisible  =   True
-   MinHeight       =   1
+   MinHeight       =   148
    MinimizeButton  =   False
    MinWidth        =   425
    Placement       =   1
    Resizeable      =   True
    Title           =   "Error"
    Visible         =   True
-   Width           =   4.94e+2
+   Width           =   440
    Begin Label Label1
       AutoDeactivate  =   True
       Bold            =   ""
       DataField       =   ""
       DataSource      =   ""
       Enabled         =   True
-      Height          =   17
+      Height          =   48
       HelpTag         =   ""
       Index           =   -2147483648
       InitialParent   =   ""
@@ -46,7 +46,7 @@ Begin Window errorHandler
       Selectable      =   False
       TabIndex        =   4
       TabPanelIndex   =   0
-      Text            =   "An unexpected error occurred. This program must now exit."
+      Text            =   "An unexpected error occurred. This program must now exit.\r\n\r\nTechnical details follow:"
       TextAlign       =   0
       TextColor       =   0
       TextFont        =   "System"
@@ -56,7 +56,7 @@ Begin Window errorHandler
       Transparent     =   True
       Underline       =   ""
       Visible         =   True
-      Width           =   412
+      Width           =   358
    End
    Begin TextArea errorStack
       AcceptTabs      =   ""
@@ -70,7 +70,7 @@ Begin Window errorHandler
       DataSource      =   ""
       Enabled         =   True
       Format          =   ""
-      Height          =   14
+      Height          =   77
       HelpTag         =   ""
       HideSelection   =   True
       Index           =   -2147483648
@@ -97,11 +97,11 @@ Begin Window errorHandler
       TextFont        =   "System"
       TextSize        =   0
       TextUnit        =   0
-      Top             =   65
+      Top             =   57
       Underline       =   ""
       UseFocusRing    =   True
-      Visible         =   False
-      Width           =   468
+      Visible         =   True
+      Width           =   414
    End
    Begin PushButton PushButton1
       AutoDeactivate  =   True
@@ -116,7 +116,7 @@ Begin Window errorHandler
       Index           =   -2147483648
       InitialParent   =   ""
       Italic          =   ""
-      Left            =   356
+      Left            =   277
       LockBottom      =   True
       LockedInPosition=   False
       LockLeft        =   False
@@ -129,7 +129,7 @@ Begin Window errorHandler
       TextFont        =   "System"
       TextSize        =   0
       TextUnit        =   0
-      Top             =   83
+      Top             =   146
       Underline       =   ""
       Visible         =   True
       Width           =   135
@@ -160,9 +160,9 @@ Begin Window errorHandler
       TextFont        =   "System"
       TextSize        =   0
       TextUnit        =   0
-      Top             =   83
+      Top             =   146
       Underline       =   ""
-      Visible         =   False
+      Visible         =   True
       Width           =   83
    End
    Begin PushButton PushButton3
@@ -191,9 +191,9 @@ Begin Window errorHandler
       TextFont        =   "System"
       TextSize        =   0
       TextUnit        =   0
-      Top             =   83
+      Top             =   146
       Underline       =   ""
-      Visible         =   False
+      Visible         =   True
       Width           =   83
    End
    Begin Canvas Canvas1
@@ -222,64 +222,6 @@ Begin Window errorHandler
       UseFocusRing    =   True
       Visible         =   True
       Width           =   58
-   End
-   Begin DisclosureTriangle DisclosureTriangle1
-      AcceptFocus     =   False
-      AutoDeactivate  =   True
-      Enabled         =   True
-      Facing          =   0
-      Height          =   18
-      HelpTag         =   ""
-      Index           =   -2147483648
-      InitialParent   =   ""
-      Left            =   13
-      LockBottom      =   ""
-      LockedInPosition=   False
-      LockLeft        =   True
-      LockRight       =   ""
-      LockTop         =   True
-      Scope           =   0
-      TabIndex        =   6
-      TabPanelIndex   =   0
-      TabStop         =   True
-      Top             =   48
-      Value           =   False
-      Visible         =   True
-      Width           =   18
-   End
-   Begin Label Label2
-      AutoDeactivate  =   True
-      Bold            =   ""
-      DataField       =   ""
-      DataSource      =   ""
-      Enabled         =   True
-      Height          =   20
-      HelpTag         =   ""
-      Index           =   -2147483648
-      InitialParent   =   ""
-      Italic          =   ""
-      Left            =   32
-      LockBottom      =   ""
-      LockedInPosition=   False
-      LockLeft        =   True
-      LockRight       =   ""
-      LockTop         =   True
-      Multiline       =   ""
-      Scope           =   0
-      Selectable      =   False
-      TabIndex        =   7
-      TabPanelIndex   =   0
-      Text            =   "Details"
-      TextAlign       =   0
-      TextColor       =   &h000000
-      TextFont        =   "System"
-      TextSize        =   0
-      TextUnit        =   0
-      Top             =   48
-      Transparent     =   True
-      Underline       =   ""
-      Visible         =   True
-      Width           =   328
    End
 End
 #tag EndWindow
@@ -318,29 +260,5 @@ End
 		Sub Paint(g As Graphics)
 		  g.DrawStopIcon(5, 5)
 		End Sub
-	#tag EndEvent
-#tag EndEvents
-#tag Events DisclosureTriangle1
-	#tag Event
-		Sub Action()
-		  If Me.Value Then
-		    Self.Height = 210
-		    errorStack.Visible = True
-		    PushButton2.Visible = True
-		    PushButton3.Visible = True
-		  Else
-		    Self.Height = 99
-		    errorStack.Visible = False
-		    PushButton2.Visible = False
-		    PushButton3.Visible = False
-		  End If
-		End Sub
-	#tag EndEvent
-#tag EndEvents
-#tag Events Label2
-	#tag Event
-		Function MouseDown(X As Integer, Y As Integer) As Boolean
-		  DisclosureTriangle1.Value = Not DisclosureTriangle1.Value
-		End Function
 	#tag EndEvent
 #tag EndEvents
