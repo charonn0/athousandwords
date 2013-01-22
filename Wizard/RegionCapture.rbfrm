@@ -78,6 +78,12 @@ End
 		  Backdrop.Graphics.DrawPicture(TextPic, 0, 0)
 		  If TextPic.Width + 50 + TextPic.Width < Backdrop.Width Then
 		    Backdrop.Graphics.DrawPicture(TextPic, Backdrop.Width - TextPic.Width, 0)
+		    If TextPic.Height + 50 + TextPic.Height < Backdrop.Height Then
+		      Backdrop.Graphics.DrawPicture(TextPic, Backdrop.Width - TextPic.Width, Backdrop.Height - TextPic.Height)
+		    End If
+		  End If
+		  If TextPic.Height + 50 + TextPic.Height < Backdrop.Height Then
+		    Backdrop.Graphics.DrawPicture(TextPic, 0, Backdrop.Height - TextPic.Height)
 		  End If
 		  Desktop = Backdrop
 		  Canvas1.Backdrop = Desktop
