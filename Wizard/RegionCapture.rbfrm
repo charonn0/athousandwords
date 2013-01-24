@@ -97,7 +97,7 @@ End
 
 	#tag Method, Flags = &h21
 		Private Sub DrawSelection(l As Integer, t As Integer, w As Integer, h As Integer)
-		  Overlay = New Picture(Me.Width, Me.Height)
+		  Overlay = New Picture(Desktop.Width, Desktop.Height)
 		  Overlay.Graphics.ForeColor = &c0080FFBE
 		  Overlay.Graphics.FillRect(l, t, w, h)
 		  Overlay.Graphics.ForeColor = &c0080FF00
