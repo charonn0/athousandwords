@@ -95,8 +95,31 @@ End
 		End Sub
 	#tag EndMethod
 
+	#tag Method, Flags = &h21
+		Private Sub DrawSelection(l As Integer, t As Integer, w As Integer, h As Integer)
+		  Overlay = New Picture(Me.Width, Me.Height)
+		  Overlay.Graphics.ForeColor = &c0080FFBE
+		  Overlay.Graphics.FillRect(l, t, w, h)
+		  Overlay.Graphics.ForeColor = &c0080FF00
+		  Overlay.Graphics.PenHeight = 1
+		  Overlay.Graphics.PenWidth = 1
+		  Overlay.Graphics.DrawRect(l, t, w, h)
+		End Sub
+	#tag EndMethod
+
 	#tag Method, Flags = &h0
-		Function ShowModal() As RECT
+		Function ShowModal(OldRect As RECT) As RECT
+		  If OldRect.left <> OldRect.right And OldRect.top <> OldRect.bottom Then
+		    Dim l, t, w, h As Integer
+		    
+		    l = OldRect.left
+		    w = OldRect.right - OldRect.left
+		    t = OldRect.top
+		    h = OldRect.bottom - OldRect.top
+		    
+		    DrawSelection(l, t, w, h)
+		  End If
+		  
 		  Self.ShowModal
 		  If Coords.top = Coords.bottom Or Coords.left = Coords.right Then
 		    Coords.bottom = -1
@@ -186,13 +209,7 @@ End
 		    t = StartY
 		    h = Y - StartY
 		  End If
-		  Overlay = New Picture(Me.Width, Me.Height)
-		  Overlay.Graphics.ForeColor = &c0080FFBE
-		  Overlay.Graphics.FillRect(l, t, w, h)
-		  Overlay.Graphics.ForeColor = &c0080FF00
-		  Overlay.Graphics.PenHeight = 1
-		  Overlay.Graphics.PenWidth = 1
-		  Overlay.Graphics.DrawRect(l, t, w, h)
+		  DrawSelection(l, t, w, h)
 		  Coords.top = t
 		  Coords.left = l
 		  Coords.bottom = t + h
