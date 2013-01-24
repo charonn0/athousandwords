@@ -110,6 +110,7 @@ End
 	#tag Method, Flags = &h0
 		Function ShowModal(OldRect As RECT) As RECT
 		  If OldRect.left <> OldRect.right And OldRect.top <> OldRect.bottom Then
+		    Coords = OldRect
 		    Dim l, t, w, h As Integer
 		    
 		    l = OldRect.left
