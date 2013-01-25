@@ -272,16 +272,14 @@ End
 	#tag Event
 		Sub Open()
 		  MainWindow = Me
-		  PaintTarget1.Mode = CompositeContainer.Mode_Draw_Freeform Or CompositeContainer.Master_Mode_Paint
+		  PaintTarget1.Mode = CompositeContainer.Mode_Draw_Freeform
 		  Dim f As FolderItem = SpecialFolder.Temporary.Child("bs.icons.cache")
 		  Dim tos As TextOutputStream
 		  tos = tos.Create(f)
 		  tos.Write(icons1)
 		  tos.Close
 		  Call MemoryManager.ExtractIcons(f) 'Then
-		  'Static lossWin As New ExpectedExceptions
-		  'Call lossWin.ShowMe("The icons.res file is corrupt. While this error is 'non-fatal' it will make using this program rather difficult.")
-		  'End If
+		  
 		  f.Delete
 		  
 		  
@@ -407,12 +405,6 @@ End
 		End Function
 	#tag EndMenuHandler
 
-
-	#tag Method, Flags = &h21
-		Private Sub DrawTransparentBG()
-		  
-		End Sub
-	#tag EndMethod
 
 	#tag Method, Flags = &h0
 		Function LoadPic(p As Picture) As Picture

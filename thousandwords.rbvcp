@@ -21,7 +21,6 @@ Class=Palette;Editor/Misc/ReallyMisc/Palette.rbbas;&h538F5FFF;&h7F9CCFFF;false
 FileTypeSet=FileTypes1;Editor/Misc/ReallyMisc/FileTypes1.rbbas;&h5F47F7FF;&h7F9CCFFF;false
 Class=LinkLabel;Editor/SubSystems/Controls/LinkLabel.rbbas;&h325F8FFF;&h62858FFF;false
 Folder=Controls;Editor/SubSystems/Controls;&h62858FFF;&h148CAFFF;false
-Class=dragObject;Editor/Misc/ReallyMisc/dragObject.rbbas;&h20A83FFF;&h7F9CCFFF;false
 Folder=Editor;Editor;&h721FEFFF;&h0;false
 Picture=missingimage;Media/missingimage.png;&h4652FFF;&h721FEFFF;false;0;&h0
 Folder=Misc;Editor/Misc;&h1FD2CFFF;&h721FEFFF;false
