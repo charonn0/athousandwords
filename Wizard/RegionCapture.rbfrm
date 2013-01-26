@@ -75,16 +75,17 @@ End
 		Sub Constructor(Backdrop As Picture)
 		  // Calling the overridden superclass constructor.
 		  Super.Constructor
-		  Backdrop.Graphics.DrawPicture(TextPic, 0, 0)
-		  If TextPic.Width + 50 + TextPic.Width < Backdrop.Width Then
-		    Backdrop.Graphics.DrawPicture(TextPic, Backdrop.Width - TextPic.Width, 0)
-		    If TextPic.Height + 50 + TextPic.Height < Backdrop.Height Then
-		      Backdrop.Graphics.DrawPicture(TextPic, Backdrop.Width - TextPic.Width, Backdrop.Height - TextPic.Height)
-		    End If
-		  End If
-		  If TextPic.Height + 50 + TextPic.Height < Backdrop.Height Then
-		    Backdrop.Graphics.DrawPicture(TextPic, 0, Backdrop.Height - TextPic.Height)
-		  End If
+		  For i As Integer = 0 To ScreenCount - 1
+		    Dim l, t As Integer
+		    l = Screen(i).Left
+		    t = Screen(i).Top
+		    l = (Screen(i).AvailableWidth \ 2) - (TextPic.Width \ 2) + l
+		    t = (Screen(i).AvailableHeight \ 2) - (TextPic.Height \ 2) + t
+		    Backdrop.Graphics.DrawPicture(TextPic, l, t)
+		  Next
+		  
+		  
+		  
 		  Desktop = Backdrop
 		  Canvas1.Backdrop = Desktop
 		  Me.Width = Backdrop.Width
