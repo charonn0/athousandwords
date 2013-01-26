@@ -296,12 +296,9 @@ End
 		    Dim win As New ForeignWindows.ForeignWindow(SelectedWindow)
 		    win.Identify(3)
 		  Else
-		    For i As Integer = 0 To ScreenCount - 1
-		      Dim wi As New WindowIdentifier(i)
-		      wi.Show
-		      ScreenWindows.Append(wi)
-		    Next
-		    Timer1.Mode = Timer.ModeSingle
+		    Dim p As Picture = CaptureScreen()
+		    Dim WinID As New WindowIdentifier(p)
+		    WinID.IdentifyScreens()
 		  End If
 		  
 		End Sub
