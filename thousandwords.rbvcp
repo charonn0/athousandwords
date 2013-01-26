@@ -28,6 +28,7 @@ Folder=SubSystems;Editor/SubSystems;&h148CAFFF;&h721FEFFF;false
 Folder=CacheManager;Editor/SubSystems/CacheManager;&h29D087FF;&h148CAFFF;false
 Folder=Windows;Editor/Windows;&h580DBFFF;&h721FEFFF;false
 Folder=Wizard;Wizard;&h54E8AFFF;&h0;false
+Window=WindowIdentifier;Wizard/WindowIdentifier.rbfrm;&h9671FFF;&h54E8AFFF;false
 Module=ForeignWindows;Wizard/ForeignWindows/ForeignWindows.rbbas;&h3E8CFFF;&h54E8AFFF;false
 Window=WindowPicker;Wizard/WindowPicker.rbfrm;&h211097FF;&h54E8AFFF;false
 Window=Previewer;Wizard/Previewer.rbfrm;&h31E7F7FF;&h54E8AFFF;false

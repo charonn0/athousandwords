@@ -17,7 +17,15 @@ Protected Module Win32
 	#tag EndExternalMethod
 
 	#tag ExternalMethod, Flags = &h0
+		Declare Function CombineRgn Lib "GDI32" (rgnDest As Integer, rgnSrc1 As Integer, rgnSrc2 As Integer, combineMode As Integer) As Integer
+	#tag EndExternalMethod
+
+	#tag ExternalMethod, Flags = &h0
 		Declare Function CreateFile Lib "Kernel32" Alias "CreateFileW" (name As WString, access As Integer, sharemode As Integer, SecAtrribs As Integer, CreateDisp As Integer, flags As Integer, template As Integer) As Integer
+	#tag EndExternalMethod
+
+	#tag ExternalMethod, Flags = &h0
+		Declare Function CreateRectRgn Lib "GDI32" (Left As Integer, top As Integer, Right As Integer, bottom As Integer) As Integer
 	#tag EndExternalMethod
 
 	#tag Method, Flags = &h0
@@ -40,6 +48,10 @@ Protected Module Win32
 		  #endif
 		End Function
 	#tag EndMethod
+
+	#tag ExternalMethod, Flags = &h0
+		Declare Function DeleteObject Lib "GDI32" (hObject as Integer) As Integer
+	#tag EndExternalMethod
 
 	#tag ExternalMethod, Flags = &h0
 		Declare Function FindWindow Lib "User32" Alias "FindWindowW" (ClassName As Integer, WindowName As Integer) As Integer
@@ -215,6 +227,10 @@ Protected Module Win32
 	#tag EndExternalMethod
 
 	#tag ExternalMethod, Flags = &h0
+		Declare Function SetWindowRgn Lib "User32" (HWND as Integer, hRgn as Integer, Redraw as Boolean) As Integer
+	#tag EndExternalMethod
+
+	#tag ExternalMethod, Flags = &h0
 		Declare Function SetWindowText Lib "User32" Alias "SetWindowTextW" (WND As Integer, Buffer As Ptr) As Boolean
 	#tag EndExternalMethod
 
@@ -365,6 +381,11 @@ Protected Module Win32
 			Group="ID"
 			InitialValue="-2147483648"
 			InheritedFrom="Object"
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="KernelVersion"
+			Group="Behavior"
+			Type="Double"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Left"

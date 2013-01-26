@@ -86,7 +86,7 @@ Begin Window WindowPicker
       Index           =   -2147483648
       InitialParent   =   ""
       Italic          =   ""
-      Left            =   179
+      Left            =   223
       LockBottom      =   ""
       LockedInPosition=   False
       LockLeft        =   True
@@ -117,7 +117,7 @@ Begin Window WindowPicker
       Index           =   -2147483648
       InitialParent   =   ""
       Italic          =   ""
-      Left            =   87
+      Left            =   131
       LockBottom      =   ""
       LockedInPosition=   False
       LockLeft        =   True
@@ -134,6 +134,49 @@ Begin Window WindowPicker
       Underline       =   ""
       Visible         =   True
       Width           =   80
+   End
+   Begin PushButton PushButton3
+      AutoDeactivate  =   True
+      Bold            =   ""
+      ButtonStyle     =   0
+      Cancel          =   ""
+      Caption         =   "Identify"
+      Default         =   ""
+      Enabled         =   True
+      Height          =   22
+      HelpTag         =   ""
+      Index           =   -2147483648
+      InitialParent   =   ""
+      Italic          =   ""
+      Left            =   39
+      LockBottom      =   ""
+      LockedInPosition=   False
+      LockLeft        =   True
+      LockRight       =   ""
+      LockTop         =   True
+      Scope           =   0
+      TabIndex        =   3
+      TabPanelIndex   =   0
+      TabStop         =   True
+      TextFont        =   "System"
+      TextSize        =   0
+      TextUnit        =   0
+      Top             =   217
+      Underline       =   ""
+      Visible         =   True
+      Width           =   80
+   End
+   Begin Timer Timer1
+      Height          =   32
+      Index           =   -2147483648
+      Left            =   412
+      LockedInPosition=   False
+      Mode            =   0
+      Period          =   3500
+      Scope           =   0
+      TabPanelIndex   =   0
+      Top             =   -25
+      Width           =   32
    End
 End
 #tag EndWindow
@@ -170,6 +213,10 @@ End
 
 	#tag Property, Flags = &h0
 		Mode As Integer
+	#tag EndProperty
+
+	#tag Property, Flags = &h21
+		Private ScreenWindows() As WindowIdentifier
 	#tag EndProperty
 
 	#tag Property, Flags = &h21
@@ -239,6 +286,33 @@ End
 		Sub Action()
 		  SelectedWindow = -1
 		  Self.Close
+		End Sub
+	#tag EndEvent
+#tag EndEvents
+#tag Events PushButton3
+	#tag Event
+		Sub Action()
+		  If Self.Mode = Self.Mode_Window Then
+		    Dim win As New ForeignWindows.ForeignWindow(SelectedWindow)
+		    win.Identify(3)
+		  Else
+		    For i As Integer = 0 To ScreenCount - 1
+		      Dim wi As New WindowIdentifier(i)
+		      wi.Show
+		      ScreenWindows.Append(wi)
+		    Next
+		    Timer1.Mode = Timer.ModeSingle
+		  End If
+		  
+		End Sub
+	#tag EndEvent
+#tag EndEvents
+#tag Events Timer1
+	#tag Event
+		Sub Action()
+		  For Each wi As WindowIdentifier In ScreenWindows
+		    wi.Close
+		  Next
 		End Sub
 	#tag EndEvent
 #tag EndEvents
