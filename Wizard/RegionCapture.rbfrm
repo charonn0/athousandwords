@@ -104,6 +104,10 @@ End
 		  Overlay.Graphics.PenHeight = 1
 		  Overlay.Graphics.PenWidth = 1
 		  Overlay.Graphics.DrawRect(l, t, w, h)
+		  If Coords.left <> Coords.right And Coords.top <> Coords.bottom Then
+		    Dim coord As Picture = TextToPicture(Str(w) + "x" + Str(h), 11, &c00000000, "System")
+		    Overlay.Graphics.DrawPicture(coord, Coords.right + 5, Coords.bottom + 5)
+		  End If
 		End Sub
 	#tag EndMethod
 
@@ -210,11 +214,11 @@ End
 		    t = StartY
 		    h = Y - StartY
 		  End If
-		  DrawSelection(l, t, w, h)
 		  Coords.top = t
 		  Coords.left = l
 		  Coords.bottom = t + h
 		  Coords.right = l + w
+		  DrawSelection(l, t, w, h)
 		  Me.Refresh(False)
 		  
 		  
