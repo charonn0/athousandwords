@@ -216,7 +216,7 @@ End
 	#tag EndProperty
 
 	#tag Property, Flags = &h21
-		Private ScreenWindows() As WindowIdentifier
+		Private ScreenWindows() As ScreenIdentifier
 	#tag EndProperty
 
 	#tag Property, Flags = &h21
@@ -297,7 +297,7 @@ End
 		    win.Identify(3)
 		  Else
 		    Dim p As Picture = CaptureScreen()
-		    Dim WinID As New WindowIdentifier(p)
+		    Dim WinID As New ScreenIdentifier(p)
 		    WinID.IdentifyScreens()
 		  End If
 		  
@@ -307,7 +307,7 @@ End
 #tag Events Timer1
 	#tag Event
 		Sub Action()
-		  For Each wi As WindowIdentifier In ScreenWindows
+		  For Each wi As ScreenIdentifier In ScreenWindows
 		    wi.Close
 		  Next
 		End Sub

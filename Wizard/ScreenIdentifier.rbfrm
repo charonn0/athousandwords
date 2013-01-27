@@ -1,5 +1,5 @@
 #tag Window
-Begin Window WindowIdentifier
+Begin Window ScreenIdentifier
    BackColor       =   16777215
    Backdrop        =   ""
    CloseButton     =   True
