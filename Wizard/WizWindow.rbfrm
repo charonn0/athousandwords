@@ -1470,11 +1470,6 @@ End
 		  Self.Top = OldY
 		End Sub
 	#tag EndEvent
-	#tag Event
-		Sub Open()
-		  Me.Enabled = KernelVersion >= 6 'Crashes on XP for some reason
-		End Sub
-	#tag EndEvent
 #tag EndEvents
 #tag Events CaptureTimer
 	#tag Event
