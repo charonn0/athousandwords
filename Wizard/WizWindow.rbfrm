@@ -43,7 +43,7 @@ Begin Window WizWindow
       TabIndex        =   0
       TabPanelIndex   =   0
       Top             =   0
-      Value           =   4
+      Value           =   3
       Visible         =   True
       Width           =   626
       Begin Label Label1
@@ -490,7 +490,7 @@ Begin Window WizWindow
          Index           =   -2147483648
          InitialParent   =   "PagePanel1"
          Italic          =   ""
-         Left            =   147
+         Left            =   204
          LockBottom      =   ""
          LockedInPosition=   False
          LockLeft        =   True
@@ -512,7 +512,7 @@ Begin Window WizWindow
          Transparent     =   True
          Underline       =   ""
          Visible         =   True
-         Width           =   471
+         Width           =   414
       End
       Begin LinkLabel BSLink
          ActiveColor     =   "&cFF0000"
@@ -540,7 +540,7 @@ Begin Window WizWindow
          Selectable      =   ""
          TabIndex        =   7
          TabPanelIndex   =   4
-         Text            =   "Copyright 𹢩 2012 Boredom Software"
+         Text            =   "Boredom Software"
          TextAlign       =   0
          TextColor       =   "&c0000FF"
          TextFont        =   "System"
@@ -550,7 +550,7 @@ Begin Window WizWindow
          Transparent     =   True
          Underline       =   ""
          Visible         =   True
-         Width           =   215
+         Width           =   136
       End
       Begin PushButton P3StartOver
          AutoDeactivate  =   True
@@ -738,6 +738,33 @@ Begin Window WizWindow
          Visible         =   True
          Width           =   80
       End
+      Begin Canvas Canvas7
+         AcceptFocus     =   ""
+         AcceptTabs      =   ""
+         AutoDeactivate  =   True
+         Backdrop        =   925700095
+         DoubleBuffer    =   False
+         Enabled         =   True
+         EraseBackground =   True
+         Height          =   128
+         HelpTag         =   ""
+         Index           =   -2147483648
+         InitialParent   =   "PagePanel1"
+         Left            =   7
+         LockBottom      =   ""
+         LockedInPosition=   False
+         LockLeft        =   True
+         LockRight       =   ""
+         LockTop         =   True
+         Scope           =   0
+         TabIndex        =   3
+         TabPanelIndex   =   5
+         TabStop         =   True
+         Top             =   7
+         UseFocusRing    =   True
+         Visible         =   True
+         Width           =   128
+      End
       Begin GroupBox GroupBox2
          AutoDeactivate  =   True
          Bold            =   ""
@@ -764,6 +791,219 @@ Begin Window WizWindow
          Underline       =   ""
          Visible         =   True
          Width           =   473
+         Begin RadioButton CaptureEverything1
+            AutoDeactivate  =   True
+            Bold            =   ""
+            Caption         =   "Select a region manually"
+            Enabled         =   True
+            Height          =   20
+            HelpTag         =   ""
+            Index           =   -2147483648
+            InitialParent   =   "GroupBox2"
+            Italic          =   ""
+            Left            =   364
+            LockBottom      =   ""
+            LockedInPosition=   False
+            LockLeft        =   True
+            LockRight       =   ""
+            LockTop         =   True
+            Scope           =   0
+            TabIndex        =   9
+            TabPanelIndex   =   5
+            TabStop         =   True
+            TextFont        =   "System"
+            TextSize        =   0
+            TextUnit        =   0
+            Top             =   45
+            Underline       =   ""
+            Value           =   False
+            Visible         =   True
+            Width           =   240
+         End
+         Begin RadioButton CaptureEverything
+            AutoDeactivate  =   True
+            Bold            =   ""
+            Caption         =   "Capture Everything"
+            Enabled         =   True
+            Height          =   20
+            HelpTag         =   ""
+            Index           =   -2147483648
+            InitialParent   =   "GroupBox2"
+            Italic          =   ""
+            Left            =   364
+            LockBottom      =   ""
+            LockedInPosition=   False
+            LockLeft        =   True
+            LockRight       =   ""
+            LockTop         =   True
+            Scope           =   0
+            TabIndex        =   8
+            TabPanelIndex   =   5
+            TabStop         =   True
+            TextFont        =   "System"
+            TextSize        =   0
+            TextUnit        =   0
+            Top             =   105
+            Underline       =   ""
+            Value           =   True
+            Visible         =   True
+            Width           =   240
+         End
+         Begin RadioButton ScreenZero
+            AutoDeactivate  =   True
+            Bold            =   ""
+            Caption         =   "Only capture a specific screen..."
+            Enabled         =   True
+            Height          =   20
+            HelpTag         =   ""
+            Index           =   -2147483648
+            InitialParent   =   "GroupBox2"
+            Italic          =   ""
+            Left            =   364
+            LockBottom      =   ""
+            LockedInPosition=   False
+            LockLeft        =   True
+            LockRight       =   ""
+            LockTop         =   True
+            Scope           =   0
+            TabIndex        =   3
+            TabPanelIndex   =   5
+            TabStop         =   True
+            TextFont        =   "System"
+            TextSize        =   0
+            TextUnit        =   0
+            Top             =   65
+            Underline       =   ""
+            Value           =   False
+            Visible         =   True
+            Width           =   240
+         End
+         Begin ComboBox DelayPeriod
+            AutoComplete    =   False
+            AutoDeactivate  =   True
+            Bold            =   ""
+            DataField       =   ""
+            DataSource      =   ""
+            Enabled         =   True
+            Height          =   20
+            HelpTag         =   ""
+            Index           =   -2147483648
+            InitialParent   =   "GroupBox2"
+            InitialValue    =   "No Delay\r\n5 Second Delay\r\n10 Second Delay"
+            Italic          =   ""
+            Left            =   149
+            ListIndex       =   0
+            LockBottom      =   ""
+            LockedInPosition=   False
+            LockLeft        =   True
+            LockRight       =   ""
+            LockTop         =   True
+            Scope           =   0
+            TabIndex        =   2
+            TabPanelIndex   =   5
+            TabStop         =   True
+            TextFont        =   "System"
+            TextSize        =   0
+            TextUnit        =   0
+            Top             =   85
+            Underline       =   ""
+            UseFocusRing    =   True
+            Visible         =   True
+            Width           =   121
+         End
+         Begin RadioButton WindowSelect
+            AutoDeactivate  =   True
+            Bold            =   ""
+            Caption         =   "Only capture a specific window..."
+            Enabled         =   True
+            Height          =   20
+            HelpTag         =   ""
+            Index           =   -2147483648
+            InitialParent   =   "GroupBox2"
+            Italic          =   ""
+            Left            =   364
+            LockBottom      =   ""
+            LockedInPosition=   False
+            LockLeft        =   True
+            LockRight       =   ""
+            LockTop         =   True
+            Scope           =   0
+            TabIndex        =   4
+            TabPanelIndex   =   5
+            TabStop         =   True
+            TextFont        =   "System"
+            TextSize        =   0
+            TextUnit        =   0
+            Top             =   85
+            Underline       =   ""
+            Value           =   False
+            Visible         =   True
+            Width           =   240
+         End
+         Begin ComboBox PicType
+            AutoComplete    =   False
+            AutoDeactivate  =   True
+            Bold            =   ""
+            DataField       =   ""
+            DataSource      =   ""
+            Enabled         =   True
+            Height          =   20
+            HelpTag         =   ""
+            Index           =   -2147483648
+            InitialParent   =   "GroupBox2"
+            InitialValue    =   "Save As JPEG\r\nSave As PNG\r\nSave As BMP"
+            Italic          =   ""
+            Left            =   149
+            ListIndex       =   0
+            LockBottom      =   ""
+            LockedInPosition=   False
+            LockLeft        =   True
+            LockRight       =   ""
+            LockTop         =   True
+            Scope           =   0
+            TabIndex        =   1
+            TabPanelIndex   =   5
+            TabStop         =   True
+            TextFont        =   "System"
+            TextSize        =   0
+            TextUnit        =   0
+            Top             =   55
+            Underline       =   ""
+            UseFocusRing    =   True
+            Visible         =   True
+            Width           =   121
+         End
+         Begin PushButton P4Browse
+            AutoDeactivate  =   True
+            Bold            =   ""
+            ButtonStyle     =   0
+            Cancel          =   ""
+            Caption         =   "Browse..."
+            Default         =   ""
+            Enabled         =   True
+            Height          =   22
+            HelpTag         =   ""
+            Index           =   -2147483648
+            InitialParent   =   "GroupBox2"
+            Italic          =   ""
+            Left            =   541
+            LockBottom      =   ""
+            LockedInPosition=   False
+            LockLeft        =   True
+            LockRight       =   ""
+            LockTop         =   True
+            Scope           =   0
+            TabIndex        =   0
+            TabPanelIndex   =   5
+            TabStop         =   True
+            TextFont        =   "System"
+            TextSize        =   0
+            TextUnit        =   0
+            Top             =   21
+            Underline       =   ""
+            Visible         =   True
+            Width           =   63
+         End
          Begin HintTextField SavePath
             AcceptTabs      =   ""
             Alignment       =   0
@@ -809,246 +1049,74 @@ Begin Window WizWindow
             Visible         =   True
             Width           =   385
          End
-         Begin PushButton P4Browse
-            AutoDeactivate  =   True
-            Bold            =   ""
-            ButtonStyle     =   0
-            Cancel          =   ""
-            Caption         =   "Browse..."
-            Default         =   ""
-            Enabled         =   True
-            Height          =   22
-            HelpTag         =   ""
-            Index           =   -2147483648
-            InitialParent   =   "GroupBox2"
-            Italic          =   ""
-            Left            =   541
-            LockBottom      =   ""
-            LockedInPosition=   False
-            LockLeft        =   True
-            LockRight       =   ""
-            LockTop         =   True
-            Scope           =   0
-            TabIndex        =   0
-            TabPanelIndex   =   5
-            TabStop         =   True
-            TextFont        =   "System"
-            TextSize        =   0
-            TextUnit        =   0
-            Top             =   21
-            Underline       =   ""
-            Visible         =   True
-            Width           =   63
-         End
-         Begin ComboBox PicType
-            AutoComplete    =   False
-            AutoDeactivate  =   True
-            Bold            =   ""
-            DataField       =   ""
-            DataSource      =   ""
-            Enabled         =   True
-            Height          =   20
-            HelpTag         =   ""
-            Index           =   -2147483648
-            InitialParent   =   "GroupBox2"
-            InitialValue    =   "Save As JPEG\r\nSave As PNG\r\nSave As BMP"
-            Italic          =   ""
-            Left            =   149
-            ListIndex       =   0
-            LockBottom      =   ""
-            LockedInPosition=   False
-            LockLeft        =   True
-            LockRight       =   ""
-            LockTop         =   True
-            Scope           =   0
-            TabIndex        =   1
-            TabPanelIndex   =   5
-            TabStop         =   True
-            TextFont        =   "System"
-            TextSize        =   0
-            TextUnit        =   0
-            Top             =   55
-            Underline       =   ""
-            UseFocusRing    =   True
-            Visible         =   True
-            Width           =   121
-         End
-         Begin RadioButton WindowSelect
-            AutoDeactivate  =   True
-            Bold            =   ""
-            Caption         =   "Only capture a specific window..."
-            Enabled         =   True
-            Height          =   20
-            HelpTag         =   ""
-            Index           =   -2147483648
-            InitialParent   =   "GroupBox2"
-            Italic          =   ""
-            Left            =   364
-            LockBottom      =   ""
-            LockedInPosition=   False
-            LockLeft        =   True
-            LockRight       =   ""
-            LockTop         =   True
-            Scope           =   0
-            TabIndex        =   4
-            TabPanelIndex   =   5
-            TabStop         =   True
-            TextFont        =   "System"
-            TextSize        =   0
-            TextUnit        =   0
-            Top             =   85
-            Underline       =   ""
-            Value           =   False
-            Visible         =   True
-            Width           =   240
-         End
-         Begin ComboBox DelayPeriod
-            AutoComplete    =   False
-            AutoDeactivate  =   True
-            Bold            =   ""
-            DataField       =   ""
-            DataSource      =   ""
-            Enabled         =   True
-            Height          =   20
-            HelpTag         =   ""
-            Index           =   -2147483648
-            InitialParent   =   "GroupBox2"
-            InitialValue    =   "No Delay\r\n5 Second Delay\r\n10 Second Delay"
-            Italic          =   ""
-            Left            =   149
-            ListIndex       =   0
-            LockBottom      =   ""
-            LockedInPosition=   False
-            LockLeft        =   True
-            LockRight       =   ""
-            LockTop         =   True
-            Scope           =   0
-            TabIndex        =   2
-            TabPanelIndex   =   5
-            TabStop         =   True
-            TextFont        =   "System"
-            TextSize        =   0
-            TextUnit        =   0
-            Top             =   85
-            Underline       =   ""
-            UseFocusRing    =   True
-            Visible         =   True
-            Width           =   121
-         End
-         Begin RadioButton ScreenZero
-            AutoDeactivate  =   True
-            Bold            =   ""
-            Caption         =   "Only capture a specific screen..."
-            Enabled         =   True
-            Height          =   20
-            HelpTag         =   ""
-            Index           =   -2147483648
-            InitialParent   =   "GroupBox2"
-            Italic          =   ""
-            Left            =   364
-            LockBottom      =   ""
-            LockedInPosition=   False
-            LockLeft        =   True
-            LockRight       =   ""
-            LockTop         =   True
-            Scope           =   0
-            TabIndex        =   3
-            TabPanelIndex   =   5
-            TabStop         =   True
-            TextFont        =   "System"
-            TextSize        =   0
-            TextUnit        =   0
-            Top             =   65
-            Underline       =   ""
-            Value           =   False
-            Visible         =   True
-            Width           =   240
-         End
-         Begin RadioButton CaptureEverything
-            AutoDeactivate  =   True
-            Bold            =   ""
-            Caption         =   "Capture Everything"
-            Enabled         =   True
-            Height          =   20
-            HelpTag         =   ""
-            Index           =   -2147483648
-            InitialParent   =   "GroupBox2"
-            Italic          =   ""
-            Left            =   364
-            LockBottom      =   ""
-            LockedInPosition=   False
-            LockLeft        =   True
-            LockRight       =   ""
-            LockTop         =   True
-            Scope           =   0
-            TabIndex        =   8
-            TabPanelIndex   =   5
-            TabStop         =   True
-            TextFont        =   "System"
-            TextSize        =   0
-            TextUnit        =   0
-            Top             =   105
-            Underline       =   ""
-            Value           =   True
-            Visible         =   True
-            Width           =   240
-         End
-         Begin RadioButton CaptureEverything1
-            AutoDeactivate  =   True
-            Bold            =   ""
-            Caption         =   "Select a region manually"
-            Enabled         =   True
-            Height          =   20
-            HelpTag         =   ""
-            Index           =   -2147483648
-            InitialParent   =   "GroupBox2"
-            Italic          =   ""
-            Left            =   364
-            LockBottom      =   ""
-            LockedInPosition=   False
-            LockLeft        =   True
-            LockRight       =   ""
-            LockTop         =   True
-            Scope           =   0
-            TabIndex        =   9
-            TabPanelIndex   =   5
-            TabStop         =   True
-            TextFont        =   "System"
-            TextSize        =   0
-            TextUnit        =   0
-            Top             =   45
-            Underline       =   ""
-            Value           =   False
-            Visible         =   True
-            Width           =   240
-         End
       End
-      Begin Canvas Canvas7
-         AcceptFocus     =   ""
-         AcceptTabs      =   ""
+      Begin Label Label5
          AutoDeactivate  =   True
-         Backdrop        =   925700095
-         DoubleBuffer    =   False
+         Bold            =   ""
+         DataField       =   ""
+         DataSource      =   ""
          Enabled         =   True
-         EraseBackground =   True
-         Height          =   128
+         Height          =   20
          HelpTag         =   ""
          Index           =   -2147483648
          InitialParent   =   "PagePanel1"
-         Left            =   7
+         Italic          =   ""
+         Left            =   147
          LockBottom      =   ""
          LockedInPosition=   False
          LockLeft        =   True
          LockRight       =   ""
          LockTop         =   True
+         Multiline       =   ""
          Scope           =   0
-         TabIndex        =   3
-         TabPanelIndex   =   5
-         TabStop         =   True
-         Top             =   7
-         UseFocusRing    =   True
+         Selectable      =   False
+         TabIndex        =   9
+         TabPanelIndex   =   4
+         Text            =   "Saved To:"
+         TextAlign       =   2
+         TextColor       =   &h000000
+         TextFont        =   "System"
+         TextSize        =   0
+         TextUnit        =   0
+         Top             =   82
+         Transparent     =   False
+         Underline       =   ""
          Visible         =   True
-         Width           =   128
+         Width           =   52
+      End
+      Begin Label Label6
+         AutoDeactivate  =   True
+         Bold            =   ""
+         DataField       =   ""
+         DataSource      =   ""
+         Enabled         =   True
+         Height          =   20
+         HelpTag         =   ""
+         Index           =   -2147483648
+         InitialParent   =   "PagePanel1"
+         Italic          =   False
+         Left            =   446
+         LockBottom      =   ""
+         LockedInPosition=   False
+         LockLeft        =   True
+         LockRight       =   ""
+         LockTop         =   True
+         Multiline       =   ""
+         Scope           =   0
+         Selectable      =   False
+         TabIndex        =   10
+         TabPanelIndex   =   4
+         Text            =   "A Thousand Words 0.00"
+         TextAlign       =   1
+         TextColor       =   &h00C0C0C0
+         TextFont        =   "System"
+         TextSize        =   10
+         TextUnit        =   0
+         Top             =   111
+         Transparent     =   True
+         Underline       =   ""
+         Visible         =   True
+         Width           =   159
       End
    End
    Begin Timer CaptureTimer
@@ -1254,7 +1322,7 @@ End
 		  FinalFolder.MoveFileTo(SaveToFolder)
 		  FinalFolder = SaveToFolder.Child(FinalFolder.Name)
 		  PagePanel1.Value = PagePanel1.Value + 1
-		  SavedToLink.Text = "Saved To: " + FinalFolder.AbsolutePath
+		  SavedToLink.Text = FinalFolder.AbsolutePath
 		  Self.Title = "A Thousand Words -  Step 3 of 3"
 		End Sub
 	#tag EndEvent
@@ -1376,55 +1444,29 @@ End
 		End Sub
 	#tag EndEvent
 #tag EndEvents
-#tag Events P4Browse
+#tag Events CaptureEverything1
 	#tag Event
 		Sub Action()
-		  Dim f As FolderItem = SelectFolder()
-		  If f <> Nil Then
-		    SavePath.Text = f.AbsolutePath
-		  End If
-		End Sub
-	#tag EndEvent
-#tag EndEvents
-#tag Events PicType
-	#tag Event
-		Sub Change()
-		  Select Case Me.Text
-		  Case "Save As JPEG"
-		    SaveType = Picture.SaveAsJPEG
-		  Case "Save As PNG"
-		    SaveType = Picture.SaveAsPNG
-		  Case "Save As BMP"
-		    SaveType = Picture.SaveAsWindowsBMP
-		  End Select
-		End Sub
-	#tag EndEvent
-#tag EndEvents
-#tag Events WindowSelect
-	#tag Event
-		Sub Action()
-		  TheCaptureType = CaptureType.SpecificWindow
-		  Dim picker As New WindowPicker
-		  CaptureReference = Picker.GetWindowHandle()
-		  If CaptureReference <= 0 Then
+		  OldY = Self.Top
+		  Self.Top = Self.Top * -10000
+		  Dim p As Picture = CaptureScreen()
+		  Dim capwin As New RegionCapture(p)
+		  CaptureRegion = capwin.ShowModal(CaptureRegion)
+		  If CaptureRegion.bottom = -1 And CaptureRegion.left = -1 And CaptureRegion.right = -1 And CaptureRegion.top = -1 Then
+		    TheCaptureType = CaptureType.All
 		    CaptureEverything.Value = True
+		  Else
+		    TheCaptureType = CaptureType.Region
 		  End If
 		  
-		  
+		  Self.Top = OldY
 		End Sub
 	#tag EndEvent
 #tag EndEvents
-#tag Events DelayPeriod
+#tag Events CaptureEverything
 	#tag Event
-		Sub Change()
-		  Select Case Me.Text
-		  Case "No Delay"
-		    CaptureTimer.Period = 250
-		  Case "5 Second Delay"
-		    CaptureTimer.Period = 5250
-		  Case "10 Second Delay"
-		    CaptureTimer.Period = 10250
-		  End Select
+		Sub Action()
+		  TheCaptureType = CaptureType.All
 		End Sub
 	#tag EndEvent
 #tag EndEvents
@@ -1452,29 +1494,62 @@ End
 		End Sub
 	#tag EndEvent
 #tag EndEvents
-#tag Events CaptureEverything
+#tag Events DelayPeriod
 	#tag Event
-		Sub Action()
-		  TheCaptureType = CaptureType.All
+		Sub Change()
+		  Select Case Me.Text
+		  Case "No Delay"
+		    CaptureTimer.Period = 250
+		  Case "5 Second Delay"
+		    CaptureTimer.Period = 5250
+		  Case "10 Second Delay"
+		    CaptureTimer.Period = 10250
+		  End Select
 		End Sub
 	#tag EndEvent
 #tag EndEvents
-#tag Events CaptureEverything1
+#tag Events WindowSelect
 	#tag Event
 		Sub Action()
-		  OldY = Self.Top
-		  Self.Top = Self.Top * -10000
-		  Dim p As Picture = CaptureScreen()
-		  Dim capwin As New RegionCapture(p)
-		  CaptureRegion = capwin.ShowModal(CaptureRegion)
-		  If CaptureRegion.bottom = -1 And CaptureRegion.left = -1 And CaptureRegion.right = -1 And CaptureRegion.top = -1 Then
-		    TheCaptureType = CaptureType.All
+		  TheCaptureType = CaptureType.SpecificWindow
+		  Dim picker As New WindowPicker
+		  CaptureReference = Picker.GetWindowHandle()
+		  If CaptureReference <= 0 Then
 		    CaptureEverything.Value = True
-		  Else
-		    TheCaptureType = CaptureType.Region
 		  End If
 		  
-		  Self.Top = OldY
+		  
+		End Sub
+	#tag EndEvent
+#tag EndEvents
+#tag Events PicType
+	#tag Event
+		Sub Change()
+		  Select Case Me.Text
+		  Case "Save As JPEG"
+		    SaveType = Picture.SaveAsJPEG
+		  Case "Save As PNG"
+		    SaveType = Picture.SaveAsPNG
+		  Case "Save As BMP"
+		    SaveType = Picture.SaveAsWindowsBMP
+		  End Select
+		End Sub
+	#tag EndEvent
+#tag EndEvents
+#tag Events P4Browse
+	#tag Event
+		Sub Action()
+		  Dim f As FolderItem = SelectFolder()
+		  If f <> Nil Then
+		    SavePath.Text = f.AbsolutePath
+		  End If
+		End Sub
+	#tag EndEvent
+#tag EndEvents
+#tag Events Label6
+	#tag Event
+		Sub Open()
+		  Me.Text = Replace(Me.Text, "0.00", GlobalHelpers.Version)
 		End Sub
 	#tag EndEvent
 #tag EndEvents
