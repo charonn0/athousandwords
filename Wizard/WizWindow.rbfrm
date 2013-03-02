@@ -1255,6 +1255,7 @@ End
 		  FinalFolder = SaveToFolder.Child(FinalFolder.Name)
 		  PagePanel1.Value = PagePanel1.Value + 1
 		  SavedToLink.Text = "Saved To: " + FinalFolder.AbsolutePath
+		  Self.Title = "A Thousand Words -  Step 3 of 3"
 		End Sub
 	#tag EndEvent
 #tag EndEvents
@@ -1283,6 +1284,7 @@ End
 	#tag Event
 		Sub Action()
 		  PagePanel1.Value = PagePanel1.Value + 1
+		  Self.Title = "A Thousand Words -  Step 1 of 3"
 		End Sub
 	#tag EndEvent
 #tag EndEvents
@@ -1317,6 +1319,7 @@ End
 	#tag Event
 		Sub Action()
 		  PagePanel1.Value = 0
+		  Self.Title = "A Thousand Words"
 		End Sub
 	#tag EndEvent
 #tag EndEvents
@@ -1324,6 +1327,7 @@ End
 	#tag Event
 		Sub Action()
 		  PagePanel1.Value = 0
+		  Self.Title = "A Thousand Words"
 		End Sub
 	#tag EndEvent
 #tag EndEvents
@@ -1347,6 +1351,7 @@ End
 	#tag Event
 		Sub Action()
 		  PagePanel1.Value = 0
+		  Self.Title = "A Thousand Words"
 		End Sub
 	#tag EndEvent
 #tag EndEvents
@@ -1359,6 +1364,7 @@ End
 		    SaveToFolder = Nil
 		  End If
 		  PagePanel1.Value = 1
+		  Self.Title = "A Thousand Words -  Step 1 of 3"
 		End Sub
 	#tag EndEvent
 #tag EndEvents
@@ -1366,6 +1372,7 @@ End
 	#tag Event
 		Sub Action()
 		  PagePanel1.Value = 4
+		  Self.Title = "A Thousand Words - Advanced Options"
 		End Sub
 	#tag EndEvent
 #tag EndEvents
@@ -1492,6 +1499,7 @@ End
 		  
 		  Self.Top = OldY
 		  PagePanel1.Value = PagePanel1.Value + 1
+		  Self.Title = "A Thousand Words -  Step 2 of 3"
 		End Sub
 	#tag EndEvent
 #tag EndEvents

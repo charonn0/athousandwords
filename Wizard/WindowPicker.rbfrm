@@ -240,8 +240,7 @@ End
 		  #pragma Unused Y
 		  If Self.Mode = Self.Mode_Window Then
 		    If Me.ListIndex = -1 Then Return False
-		    base.Append New MenuItem("Identify")
-		    base.Append New MenuItem("Restore")
+		    base.Append New MenuItem("Bring to front")
 		  End If
 		End Function
 	#tag EndEvent
@@ -250,7 +249,7 @@ End
 		  If Me.ListIndex > -1 Then
 		    Dim pw As ForeignWindows.ForeignWindow = Me.RowTag(Me.ListIndex)
 		    Select Case hitItem.Text
-		    Case "Restore"
+		    Case "Bring to front"
 		      pw.BringToFront
 		    Case "Identify"
 		      pw.Identify(3)

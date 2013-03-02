@@ -86,31 +86,6 @@ End
 #tag EndWindow
 
 #tag WindowCode
-	#tag Event
-		Sub Resized()
-		  'If Pic.Width <> Me.Width Or Pic.Height <> Me.Height Then
-		  'Dim ratio As Double
-		  'If TruePic.Width > TruePic.Height Then
-		  'If TruePic.Width < Me.Width Then
-		  'ratio = Truepic.Width / Me.Width
-		  'Else
-		  'ratio = Me.Width / Truepic.Width
-		  'End If
-		  'Else
-		  'If TruePic.Height < Me.Height Then
-		  'ratio = Truepic.Height / Me.Height
-		  'Else
-		  'ratio = Me.Height / Truepic.Height
-		  'End If
-		  'End If
-		  '
-		  'pic = Scale(TruePic, ratio)
-		  'Canvas1.Invalidate(True)
-		  'End If
-		End Sub
-	#tag EndEvent
-
-
 	#tag Method, Flags = &h0
 		Sub ShowModal(p As Picture)
 		  TruePic = New Picture(p.Width, p.Height, p.Depth)
@@ -123,6 +98,7 @@ End
 		      ratio = Me.Height / p.Height
 		    End If
 		    Pic = Scale(p, ratio)
+		    Me.Title = "Preview - " + Format(ratio * 100, "##0\%")
 		  Else
 		    Pic = p
 		  End If
