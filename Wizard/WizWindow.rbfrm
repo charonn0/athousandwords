@@ -182,7 +182,7 @@ Begin Window WizWindow
          DataField       =   ""
          DataSource      =   ""
          Enabled         =   True
-         Height          =   90
+         Height          =   112
          HelpTag         =   ""
          Index           =   -2147483648
          InitialParent   =   "PagePanel1"
@@ -198,7 +198,7 @@ Begin Window WizWindow
          Selectable      =   False
          TabIndex        =   4
          TabPanelIndex   =   3
-         Text            =   "I just snapped a picture of your screen. Take a look at it by clicking the Preview button or edit it by clicking the Edit button. You can use the editor to block out any information you don't want to share with strangers.\r\n\r\nWhen you're ready to share the picture, click next."
+         Text            =   "I just took a picture of your screen. Click the Preview button to see the picture or click the Edit button to open the picture in an editor. \r\n\r\nUse the editor to block out any information you don't want to share with strangers or to hilight the issue(s) you want to address.\r\n\r\nWhen you're ready to share the picture, click next."
          TextAlign       =   0
          TextColor       =   0
          TextFont        =   "System"
@@ -208,7 +208,7 @@ Begin Window WizWindow
          Transparent     =   True
          Underline       =   ""
          Visible         =   True
-         Width           =   465
+         Width           =   479
       End
       Begin PushButton P2Preview
          AutoDeactivate  =   True
