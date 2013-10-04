@@ -2,7 +2,7 @@
 Protected Class StackFrame
 	#tag Method, Flags = &h0
 		Sub Constructor(p As Picture)
-		  Key = UUID()
+		  Key = WinLib.Utils.UUID()
 		  ThePicture = p
 		  Dim d As New Date
 		  TimeStamp = d.TotalSeconds
@@ -20,14 +20,14 @@ Protected Class StackFrame
 	#tag Method, Flags = &h21
 		Private Sub Lock(f As FolderItem)
 		  If LockToken <> 0 Then Return
-		  LockToken = LockFile(f)
+		  LockToken = GlobalHelpers.LockFile(f)
 		End Sub
 	#tag EndMethod
 
 	#tag Method, Flags = &h21
 		Private Sub Unlock()
 		  If LockToken = 0 Then Return
-		  If UnlockFile(LockToken) Then
+		  If GlobalHelpers.UnlockFile(LockToken) Then
 		    LockToken = 0
 		  End If
 		End Sub

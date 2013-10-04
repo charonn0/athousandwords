@@ -232,10 +232,7 @@ End
 #tag Events PushButton1
 	#tag Event
 		Sub Action()
-		  //Forcibly terminate ourselves :o
-		  Dim processHandle As Integer = OpenProcess(&h1, false, GetCurrentProcessID)
-		  Call TerminateProcess(processHandle, 0)
-		  Call CloseHandle(processHandle)
+		  Quit()
 		End Sub
 	#tag EndEvent
 #tag EndEvents

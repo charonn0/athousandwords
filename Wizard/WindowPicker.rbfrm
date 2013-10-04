@@ -200,9 +200,9 @@ End
 		  Me.Mode = Me.Mode_Window
 		  Me.Title = "Choose a window to capture"
 		  Listbox1.DeleteAllRows()
-		  Dim list() As ForeignWindows.ForeignWindow = ForeignWindows.ListWindows()
+		  Dim list() As WindowRef = ListWindows()
 		  For i As Integer = 0 To UBound(list)
-		    Listbox1.AddRow(list(i).Caption)
+		    Listbox1.AddRow(list(i).Text)
 		    Listbox1.RowTag(i) = list(i)
 		  Next
 		  Me.ShowModalWithin(WizWindow)
@@ -247,12 +247,12 @@ End
 	#tag Event
 		Function ContextualMenuAction(hitItem as MenuItem) As Boolean
 		  If Me.ListIndex > -1 Then
-		    Dim pw As ForeignWindows.ForeignWindow = Me.RowTag(Me.ListIndex)
+		    Dim pw As WindowRef = Me.RowTag(Me.ListIndex)
 		    Select Case hitItem.Text
 		    Case "Bring to front"
 		      pw.BringToFront
 		    Case "Identify"
-		      pw.Identify(3)
+		      pw.FlashWindow
 		    End Select
 		  End If
 		  
@@ -261,7 +261,7 @@ End
 	#tag Event
 		Sub Change()
 		  If Self.Mode = Self.Mode_Window Then
-		    Dim win As ForeignWindows.ForeignWindow = Me.RowTag(Me.ListIndex)
+		    Dim win As WindowRef = Me.RowTag(Me.ListIndex)
 		    SelectedWindow = win.Handle
 		    'win.BringToFront
 		  Else
@@ -292,8 +292,8 @@ End
 	#tag Event
 		Sub Action()
 		  If Self.Mode = Self.Mode_Window Then
-		    Dim win As New ForeignWindows.ForeignWindow(SelectedWindow)
-		    win.Identify(3)
+		    Dim win As New WindowRef(SelectedWindow)
+		    win.FlashWindow
 		  Else
 		    Dim p As Picture = CaptureScreen()
 		    Dim WinID As New ScreenIdentifier(p)

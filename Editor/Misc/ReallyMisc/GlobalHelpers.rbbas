@@ -1,12 +1,65 @@
 #tag Module
 Protected Module GlobalHelpers
 	#tag Method, Flags = &h0
+		Function CaptureScreen() As Picture
+		  //Calls GetPartialScreenShot with a rectangle comprising all of the desktop rectangle. Returns a Picture
+		  
+		  #If TargetWin32 Then 
+		    Dim ScreenVirtualHeight, ScreenVirtualWidth As Integer
+		    ScreenVirtualHeight = Win32.User32.GetSystemMetrics(79)
+		    ScreenVirtualWidth = Win32.User32.GetSystemMetrics(78)
+		    Return WinLib.GUI.CaptureRect(0, 0, ScreenVirtualWidth, ScreenVirtualHeight)
+		  #endif
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Function CurrentUser() As String
+		  //Returns the username of the account under which the application is running.
+		  //On Error, returns an empty string
+		  //Do not use this function to determine if the user is the Administrator. Use IsAdmin instead.
+		  
+		  #If TargetWin32 Then
+		    Dim mb As New MemoryBlock(0)
+		    Dim nmLen As Integer = mb.Size
+		    Call Win32.AdvApi32.GetUserName(mb, nmLen)
+		    mb = New MemoryBlock(nmLen * 2)
+		    nmLen = mb.Size
+		    If Win32.AdvApi32.GetUserName(mb, nmLen) Then
+		      Return mb.WString(0)
+		    Else
+		      Return ""
+		    End If
+		  #endif
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
 		Function IntToColor(extends c as Integer) As Color
 		  //From WFS, converts an Integer to a Color
 		  
 		  Dim mb as new MemoryBlock(4)
 		  mb.Long(0) = c
 		  Return RGB(mb.Byte(0), mb.Byte(1), mb.Byte(2))
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Function ListWindows(PartialTitle As String = "") As WindowRef()
+		  Dim wins() As WindowRef
+		  Dim ret as integer
+		  ret = Win32.User32.FindWindow(Nil, Nil)
+		  Dim hidden() As String = Split("MSCTFIME UI,Default IME,Jump List,Start Menu,Start,Program Manager", ",")
+		  while ret > 0
+		    Dim pw As New WindowRef(ret)
+		    If pw.Text.Trim <> "" And hidden.IndexOf(pw.Text.Trim) <= -1 And pw.Visible Then
+		      If PartialTitle.Trim = "" Or InStr(pw.Text, PartialTitle) > 0 Then
+		        wins.Append(pw)
+		      End If
+		    End If
+		    ret = Win32.User32.GetWindow(ret, GW_HWNDNEXT)
+		  wend
+		  Return wins
 		End Function
 	#tag EndMethod
 
@@ -29,6 +82,38 @@ Protected Module GlobalHelpers
 		  sf.Key = f.Name
 		  Icons.Value(sf.Key) = sf
 		  Return sf.Key
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h1
+		Protected Function LockFile(lockedFile As FolderItem) As Integer
+		  //Locks the file for exclusive use. You must call UnlockFile with the integer returned from this function to unlock the file.
+		  //A positive return value is returned on success, 0 if lockedFile is Nil, and a negative number on error (a negative return value
+		  //is actually the last Win32 error multiplied by -1. So, for example, -5 is ERROR_ACCESS_DENIED.)
+		  //
+		  //Once the file is locked you can pass the integer from this function to the constructor methods of the TextInputStream, TextOutputStream,
+		  //and BinaryStream classes:
+		  '
+		  '    Dim file As FolderItem = GetFolderItem("C:\boot.ini")
+		  '    Dim fhandle As Integer = f.LockFile
+		  '    Dim tis As TextInputStream = New TextInputStream(fhandle, TextInputStream.HandleTypeWin32Handle
+		  '
+		  //Just as handy, the Close methods of each Stream class will also release the lock.
+		  
+		  #If TargetWin32 Then
+		    If lockedFile = Nil Then Return 0
+		    
+		    Dim fHandle As Integer = Win32.Kernel32.CreateFile(lockedFile.AbsolutePath, GENERIC_READ Or GENERIC_WRITE, FILE_SHARE_READ, 0, OPEN_EXISTING, 0, 0)
+		    If fHandle > 0 Then
+		      If Win32.Kernel32.LockFile(fHandle, 0, 0, 1, 0) Then
+		        Return fHandle   //You MUST keep this return value if you want to unlock the file later!!!
+		      Else
+		        Return WinLib.GetLastError * -1
+		      End If
+		    Else
+		      Return WinLib.GetLastError * -1
+		    End If
+		  #endif
 		End Function
 	#tag EndMethod
 
@@ -109,6 +194,17 @@ Protected Module GlobalHelpers
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
+		Sub ShowInExplorer(extends f As FolderItem)
+		  //Shows the file in Windows Explorer
+		  
+		  #If TargetWin32 Then
+		    Dim param As String = "/select, """ + f.AbsolutePath + """"
+		    Call Win32.Shell32.ShellExecute(0, "open", "explorer", param, "", SW_SHOW)
+		  #endif
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
 		Function TextToPicture(Text As String, TextSize As Integer, BaseColor As Color, TextFont As String) As Picture
 		  Dim lines() As Picture
 		  Dim requiredHeight, requiredWidth As Integer
@@ -165,7 +261,7 @@ Protected Module GlobalHelpers
 		    Dim cmdLine As String = Input
 		    While cmdLine.Len > 0
 		      Dim tmp As String
-		      Dim args As String = PathGetArgs(cmdLine)
+		      Dim args As String = Win32.Shlwapi.PathGetArgs(cmdLine)
 		      If Len(args) = 0 Then
 		        tmp = ReplaceAll(cmdLine.Trim, Chr(34), "")
 		        ret.Append(tmp)
@@ -180,6 +276,18 @@ Protected Module GlobalHelpers
 		    Return ret
 		  #endif
 		  
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h1
+		Protected Function UnlockFile(fHandle As Integer) As Boolean
+		  //See the LockFile function
+		  #If TargetWin32 Then
+		    If Win32.Kernel32.UnlockFile(fHandle, 0, 0, 1, 0) Then
+		      Call Win32.Kernel32.CloseHandle(fHandle)
+		      Return True
+		    End If
+		  #endif
 		End Function
 	#tag EndMethod
 
@@ -216,30 +324,6 @@ Protected Module GlobalHelpers
 		  'Debug("Palettizer thread done: " + Str(Me.ThreadID))
 		  'If Finish <> Nil Then Finish.Invoke(sf.Key)
 		End Sub
-	#tag EndMethod
-
-	#tag Method, Flags = &h0
-		Function UUID() As String
-		  'Debug("Request UUID")
-		  Dim strUUID As String
-		  
-		  Dim mb As New MemoryBlock(16 * 2)
-		  Call UuidCreate(mb) //can compare to RPC_S_UUID_LOCAL_ONLY and RPC_S_UUID_NO_ADDRESS for more info
-		  
-		  Static ptrUUID As New MemoryBlock(16 * 2)
-		  
-		  Dim ppAddr As ptr
-		  Call UuidToString(mb, ppAddr)
-		  
-		  Dim mb2 As MemoryBlock = ppAddr
-		  strUUID = mb2.WString(0)
-		  
-		  Call RpcStringFree(ptrUUID)
-		  
-		  'strUUID = ConvertEncoding(strUUID, Encodings.UTF16)
-		  'Debug("Got " + strUUID)
-		  Return strUUID
-		End Function
 	#tag EndMethod
 
 

@@ -605,7 +605,7 @@ End
 		  w = PaintTarget1.Width
 		  h = PaintTarget1.Height
 		  
-		  Dim p As Picture = GetPartialScreenShot(l, t, w, h)
+		  Dim p As Picture = WinLib.GUI.CaptureRect(l, t, w, h)
 		  PaintTarget1.Open(p)
 		  PaintTarget1.Taint = True
 		  Self.Top = OldY

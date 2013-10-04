@@ -43,7 +43,7 @@ Begin Window WizWindow
       TabIndex        =   0
       TabPanelIndex   =   0
       Top             =   0
-      Value           =   3
+      Value           =   4
       Visible         =   True
       Width           =   626
       Begin Label Label1
@@ -68,7 +68,7 @@ Begin Window WizWindow
          Selectable      =   False
          TabIndex        =   0
          TabPanelIndex   =   1
-         Text            =   "Your computer is showing you something and you don't know what it is. This wizard will step you through the process of taking still image of your screen which you can give to others who can help you.\r\n\r\nTo proceed, click next."
+         Text            =   "This wizard will step you through the process of taking still image of your screen which you can give to others.\r\n\r\nTo proceed, click next."
          TextAlign       =   0
          TextColor       =   0
          TextFont        =   "System"
@@ -102,7 +102,7 @@ Begin Window WizWindow
          Selectable      =   False
          TabIndex        =   0
          TabPanelIndex   =   2
-         Text            =   "Please take any steps needed to bring the error or offending software application into view on your screen. When you are ready, click next."
+         Text            =   "Please take any steps needed to bring the error or offending software application into view on your screen. When you are ready, click next.\r\n\r\nFor more options, click advanced."
          TextAlign       =   0
          TextColor       =   0
          TextFont        =   "System"
@@ -712,7 +712,7 @@ Begin Window WizWindow
          Bold            =   ""
          ButtonStyle     =   0
          Cancel          =   ""
-         Caption         =   "&Advanced"
+         Caption         =   "&Options"
          Default         =   ""
          Enabled         =   True
          Height          =   22
@@ -768,7 +768,7 @@ Begin Window WizWindow
       Begin GroupBox GroupBox2
          AutoDeactivate  =   True
          Bold            =   ""
-         Caption         =   "Advanced Options"
+         Caption         =   "Options"
          Enabled         =   True
          Height          =   124
          HelpTag         =   ""
@@ -1366,7 +1366,7 @@ End
 #tag Events SavedToLink
 	#tag Event
 		Sub Action()
-		  ShowInExplorer(FinalFolder)
+		  FinalFolder.ShowInExplorer
 		End Sub
 	#tag EndEvent
 #tag EndEvents
@@ -1561,14 +1561,13 @@ End
 		    FinalPic = CaptureScreen
 		    
 		  Case CaptureType.SpecificScreen
-		    FinalPic = GetPartialScreenShot(Screen(CaptureReference).Left, Screen(CaptureReference).Top, _
-		    Screen(CaptureReference).Width, Screen(CaptureReference).Height)
+		    FinalPic = WinLib.GUI.CaptureRect(Screen(CaptureReference).Left, Screen(CaptureReference).Top, Screen(CaptureReference).Width, Screen(CaptureReference).Height)
 		    
 		  Case CaptureType.Region
-		    FinalPic = GetPartialScreenShot(CaptureRegion.left, CaptureRegion.Top, CaptureRegion.right - CaptureRegion.left, CaptureRegion.bottom - CaptureRegion.top)
+		    FinalPic = WinLib.GUI.CaptureRect(CaptureRegion.left, CaptureRegion.Top, CaptureRegion.right - CaptureRegion.left, CaptureRegion.bottom - CaptureRegion.top)
 		    
 		  Else
-		    Dim win As New ForeignWindows.ForeignWindow(CaptureReference)
+		    Dim win As New WindowRef(CaptureReference)
 		    FinalPic = win.Capture()
 		  End Select
 		  
