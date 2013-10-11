@@ -978,7 +978,7 @@ Begin Window WizWindow
             Bold            =   ""
             ButtonStyle     =   0
             Cancel          =   ""
-            Caption         =   "Browse..."
+            Caption         =   "Change..."
             Default         =   ""
             Enabled         =   True
             Height          =   22
@@ -986,7 +986,7 @@ Begin Window WizWindow
             Index           =   -2147483648
             InitialParent   =   "GroupBox2"
             Italic          =   ""
-            Left            =   541
+            Left            =   531
             LockBottom      =   ""
             LockedInPosition=   False
             LockLeft        =   True
@@ -1002,52 +1002,45 @@ Begin Window WizWindow
             Top             =   21
             Underline       =   ""
             Visible         =   True
-            Width           =   63
+            Width           =   73
          End
-         Begin HintTextField SavePath
-            AcceptTabs      =   ""
-            Alignment       =   0
+         Begin LinkLabel SavePath
+            ActiveColor     =   "&cFF0000"
+            AltText         =   ""
             AutoDeactivate  =   True
-            AutomaticallyCheckSpelling=   False
-            BackColor       =   &hFFFFFF
             Bold            =   ""
-            Border          =   True
-            CueText         =   ""
             DataField       =   ""
             DataSource      =   ""
             Enabled         =   True
-            Format          =   ""
-            HasText         =   ""
-            Height          =   22
-            HelpTag         =   ""
-            HintText        =   "Default Save Folder"
+            Height          =   20
+            HilightColor    =   "&c00FFFF"
+            HoverPeriod     =   250
             Index           =   -2147483648
             InitialParent   =   "GroupBox2"
             Italic          =   ""
-            Left            =   149
-            LimitText       =   0
+            Left            =   225
             LockBottom      =   ""
             LockedInPosition=   False
             LockLeft        =   True
             LockRight       =   ""
             LockTop         =   True
-            Mask            =   ""
-            Password        =   ""
-            ReadOnly        =   ""
+            Multiline       =   ""
+            ResetPeriod     =   1000
             Scope           =   0
-            TabIndex        =   6
+            Selectable      =   ""
+            TabIndex        =   10
             TabPanelIndex   =   5
-            TabStop         =   True
-            Text            =   ""
-            TextColor       =   &h000000
+            Text            =   "Untitled"
+            TextAlign       =   0
+            TextColor       =   "&c0000FF"
             TextFont        =   "System"
             TextSize        =   0
             TextUnit        =   0
             Top             =   21
+            Transparent     =   True
             Underline       =   ""
-            UseFocusRing    =   True
             Visible         =   True
-            Width           =   385
+            Width           =   304
          End
       End
       Begin Label Label5
@@ -1117,6 +1110,40 @@ Begin Window WizWindow
          Underline       =   ""
          Visible         =   True
          Width           =   159
+      End
+      Begin Label Label7
+         AutoDeactivate  =   True
+         Bold            =   ""
+         DataField       =   ""
+         DataSource      =   ""
+         Enabled         =   True
+         Height          =   20
+         HelpTag         =   ""
+         Index           =   -2147483648
+         InitialParent   =   "PagePanel1"
+         Italic          =   ""
+         Left            =   149
+         LockBottom      =   ""
+         LockedInPosition=   False
+         LockLeft        =   True
+         LockRight       =   ""
+         LockTop         =   True
+         Multiline       =   ""
+         Scope           =   0
+         Selectable      =   False
+         TabIndex        =   4
+         TabPanelIndex   =   5
+         Text            =   "Save To:"
+         TextAlign       =   2
+         TextColor       =   &h000000
+         TextFont        =   "System"
+         TextSize        =   0
+         TextUnit        =   0
+         Top             =   21
+         Transparent     =   False
+         Underline       =   ""
+         Visible         =   True
+         Width           =   72
       End
    End
    Begin Timer CaptureTimer
@@ -1202,6 +1229,23 @@ End
 	#tag Event
 		Sub Close()
 		  Quit()
+		End Sub
+	#tag EndEvent
+
+	#tag Event
+		Sub Open()
+		  Try
+		    #pragma BreakOnExceptions Off
+		    Dim r As New RegistryItem("HKEY_CURRENT_USER\Software\Boredomsoft", False)
+		    #pragma BreakOnExceptions Default
+		    r = r.Child("ATW")
+		    mSaveToFolder = GetFolderItem(r.Value("SaveTo"), FolderItem.PathTypeAbsolute)
+		  Catch
+		    mSaveToFolder = Nil
+		  Finally
+		    SavePath.Text = SaveToFolder.AbsolutePath
+		  End Try
+		  
 		End Sub
 	#tag EndEvent
 
@@ -1426,11 +1470,11 @@ End
 #tag Events P4Continue
 	#tag Event
 		Sub Action()
-		  If SavePath.HasText Then
-		    SaveToFolder = GetFolderItem(SavePath.Text)
-		  Else
-		    SaveToFolder = Nil
-		  End If
+		  'If SavePath.HasText Then
+		  'SaveToFolder = GetFolderItem(SavePath.Text)
+		  'ElseIf SaveToFolder <> Nil And Not SaveToFolder.Exists Then
+		  'SaveToFolder = Nil
+		  'End If
 		  PagePanel1.Value = 1
 		  Self.Title = "A Thousand Words -  Step 1 of 3"
 		End Sub
@@ -1542,7 +1586,18 @@ End
 		  Dim f As FolderItem = SelectFolder()
 		  If f <> Nil Then
 		    SavePath.Text = f.AbsolutePath
+		    If MsgBox("Save this folder as the default save folder?", 4+32, "Change default folder") = 6 Then
+		      Dim r As New RegistryItem("HKEY_CURRENT_USER\Software\Boredomsoft\ATW", True)
+		      r.Value("SaveTo") = f.AbsolutePath
+		    End If
 		  End If
+		End Sub
+	#tag EndEvent
+#tag EndEvents
+#tag Events SavePath
+	#tag Event
+		Sub Action()
+		  SaveToFolder.OpenInExplorer
 		End Sub
 	#tag EndEvent
 #tag EndEvents

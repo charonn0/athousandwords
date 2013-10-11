@@ -22,7 +22,8 @@ Inherits Application
 		  AutoQuit = True
 		  errorHandler.Show
 		  If error.Message.Trim = "" Then
-		    error.Message = "An exception of type " + Introspection.GetType(error).FullName + " occurred. Call stack:" + EndOfLine
+		    error.Message = "An exception of type " + Introspection.GetType(error).FullName + " occurred." + EndOfLine + _
+		    "Error number: " + Str(error.ErrorNumber) + EndOfLine + "Error message: " + error.Message + EndOfLine + EndOfLine + "Call stack:" '+ EndOfLine
 		  End If
 		  Dim theStack As String = Join(error.CleanStack, EndOfLine)
 		  errorHandler.errorStack.Text = error.Message + EndOfLine + theStack

@@ -4,7 +4,7 @@ Protected Module GlobalHelpers
 		Function CaptureScreen() As Picture
 		  //Calls GetPartialScreenShot with a rectangle comprising all of the desktop rectangle. Returns a Picture
 		  
-		  #If TargetWin32 Then 
+		  #If TargetWin32 Then
 		    Dim ScreenVirtualHeight, ScreenVirtualWidth As Integer
 		    ScreenVirtualHeight = Win32.User32.GetSystemMetrics(79)
 		    ScreenVirtualWidth = Win32.User32.GetSystemMetrics(78)
@@ -127,6 +127,17 @@ Protected Module GlobalHelpers
 		  'Return b
 		  Call MsgBox(Message, 16, "Editor Error")
 		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Sub OpenInExplorer(extends f As FolderItem)
+		  //Opens the directory in Windows Explorer
+		  
+		  #If TargetWin32 Then
+		    If Not f.Directory Then Return
+		    Call Win32.Shell32.ShellExecute(0, "open", "explorer", f.AbsolutePath, "", SW_SHOW)
+		  #endif
+		End Sub
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
