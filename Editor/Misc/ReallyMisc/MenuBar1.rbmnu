@@ -86,12 +86,6 @@ Begin Menu MenuBar1
          Index = -2147483648
          AutoEnable = True
       End
-      Begin MenuItem ChangeColor
-         SpecialMenu = 0
-         Text = "&Change Drawing Color..."
-         Index = -2147483648
-         AutoEnable = True
-      End
       Begin MenuItem ChangePen
          SpecialMenu = 0
          Text = "Change &Pen Size..."

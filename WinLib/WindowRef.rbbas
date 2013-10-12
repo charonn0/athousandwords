@@ -88,6 +88,13 @@ Implements Win32Object
 		End Function
 	#tag EndMethod
 
+	#tag Method, Flags = &h0
+		Function OwnerProcess() As WinLib.ProcessInfo
+		  Dim proc As Integer = Win32.Oleacc.GetProcessHandleFromHwnd(Me.Handle)
+		  Return New WinLib.ProcessInfo(proc)
+		End Function
+	#tag EndMethod
+
 
 	#tag Note, Name = About this class
 		

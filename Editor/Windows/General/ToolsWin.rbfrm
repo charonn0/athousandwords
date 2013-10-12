@@ -23,7 +23,7 @@ Begin Window ToolsWin
    Resizeable      =   False
    Title           =   "Tools"
    Visible         =   True
-   Width           =   1.33e+2
+   Width           =   1.6e+2
    Begin ComboBox LineSize
       AutoComplete    =   False
       AutoDeactivate  =   True
@@ -387,7 +387,7 @@ Begin Window ToolsWin
       invertTextColor =   ""
       isSticky        =   False
       italic          =   0
-      Left            =   138
+      Left            =   135
       LockBottom      =   False
       LockedInPosition=   False
       LockLeft        =   False
@@ -404,6 +404,33 @@ Begin Window ToolsWin
       underline       =   0
       UseFocusRing    =   True
       value           =   False
+      Visible         =   True
+      Width           =   25
+   End
+   Begin Canvas Pallete
+      AcceptFocus     =   ""
+      AcceptTabs      =   ""
+      AutoDeactivate  =   True
+      Backdrop        =   ""
+      DoubleBuffer    =   False
+      Enabled         =   True
+      EraseBackground =   True
+      Height          =   25
+      HelpTag         =   ""
+      Index           =   -2147483648
+      InitialParent   =   ""
+      Left            =   135
+      LockBottom      =   ""
+      LockedInPosition=   False
+      LockLeft        =   True
+      LockRight       =   ""
+      LockTop         =   True
+      Scope           =   0
+      TabIndex        =   10
+      TabPanelIndex   =   0
+      TabStop         =   True
+      Top             =   0
+      UseFocusRing    =   True
       Visible         =   True
       Width           =   25
    End
@@ -440,14 +467,14 @@ End
 		Sub Open(index as Integer)
 		  #pragma Unused index
 		  ModeButton(PreviousButton).setValue(True)
-		  'If Me.Index = 8 Then
-		  'Dim p As New Picture(Me.Width, Me.Height, 32)
-		  'p.Graphics.ForeColor = MainWindow.PaintTarget1.CurrentColor
-		  'p.Graphics.FillRect(1, 1, p.Width - 1, p.Height - 1)
-		  'Dim sf As New StackFrame(p)
-		  'AddStackFrame(sf)
-		  'Me.setIcon(sf.Key)
-		  'End If
+		  If Me.Index = 8 Then
+		    Dim p As New Picture(Me.Width, Me.Height, 32)
+		    p.Graphics.ForeColor = MainWindow.PaintTarget1.CurrentColor
+		    p.Graphics.FillRect(1, 1, p.Width - 1, p.Height - 1)
+		    Dim sf As New StackFrame(p)
+		    AddStackFrame(sf)
+		    Me.setIcon(sf.Key)
+		  End If
 		End Sub
 	#tag EndEvent
 	#tag Event
@@ -480,16 +507,17 @@ End
 		    Return
 		  Case 8
 		    Dim c As Color
-		    Call SelectColor(c, "New drawing color")
-		    Dim p As New Picture(Me.Width, Me.Height, 32)
-		    p.Graphics.ForeColor = c
-		    p.Graphics.FillRect(1, 1, p.Width - 1, p.Height - 1)
-		    Dim sf As New StackFrame(p)
-		    AddStackFrame(sf)
-		    Me.setIcon(sf.Key)
-		    Me.Refresh()
-		    MainWindow.PaintTarget1.CurrentColor = c
-		    
+		    If SelectColor(c, "New drawing color") Then
+		      Dim p As New Picture(Me.Width, Me.Height, 32)
+		      p.Graphics.ForeColor = c
+		      p.Graphics.FillRect(1, 1, p.Width - 1, p.Height - 1)
+		      Dim sf As New StackFrame(p)
+		      AddStackFrame(sf)
+		      Me.setIcon(sf.Key)
+		      Me.Refresh()
+		      MainWindow.PaintTarget1.CurrentColor = c
+		    End If
+		    Return
 		  Else
 		    MainWindow.PaintTarget1.Mode = MainWindow.PaintTarget1.Mode_Draw_Freeform
 		  End Select
@@ -506,6 +534,34 @@ End
 		    If ModeButton(i).value Then Return
 		  Next
 		  ModeButton(PreviousButton).setValue(True)
+		End Sub
+	#tag EndEvent
+#tag EndEvents
+#tag Events Pallete
+	#tag Event
+		Sub Paint(g As Graphics)
+		  g.ForeColor = MainWindow.PaintTarget1.CurrentColor
+		  g.FillRect(0, 0, g.Width, g.Height)
+		End Sub
+	#tag EndEvent
+	#tag Event
+		Function MouseDown(X As Integer, Y As Integer) As Boolean
+		  Dim c As Color
+		  If SelectColor(c, "New drawing color") Then
+		    MainWindow.PaintTarget1.CurrentColor = c
+		    Me.Invalidate
+		    Return True
+		  End If
+		End Function
+	#tag EndEvent
+	#tag Event
+		Sub MouseEnter()
+		  Me.MouseCursor = System.Cursors.FingerPointer
+		End Sub
+	#tag EndEvent
+	#tag Event
+		Sub MouseExit()
+		  Me.MouseCursor = System.Cursors.StandardPointer
 		End Sub
 	#tag EndEvent
 #tag EndEvents

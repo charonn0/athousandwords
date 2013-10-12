@@ -395,7 +395,7 @@ Protected Module GlobalHelpers
 	#tag EndProperty
 
 	#tag Property, Flags = &h0
-		Version As String = "1.0"
+		Version As String
 	#tag EndProperty
 
 

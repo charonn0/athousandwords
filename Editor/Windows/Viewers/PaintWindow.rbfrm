@@ -30,14 +30,13 @@ Begin Window PaintWindow
       AutoDeactivate  =   True
       Backdrop        =   ""
       CancelDraw      =   ""
-      currentObject   =   -1
-      DoubleBuffer    =   False
+      DoubleBuffer    =   True
       DragEndX        =   -1
       DragEndY        =   -1
       DragStartX      =   -1
       DragStartY      =   -1
       Enabled         =   True
-      EraseBackground =   True
+      EraseBackground =   False
       Font            =   "System"
       FontSize        =   11
       Height          =   584
@@ -57,7 +56,6 @@ Begin Window PaintWindow
       MagSize         =   0
       Mode            =   0
       MustScroll      =   ""
-      Override        =   ""
       ReDoable        =   ""
       Resizing        =   ""
       Scope           =   0
@@ -106,7 +104,6 @@ Begin Window PaintWindow
       Width           =   80
    End
    Begin Timer capturetimer
-      Enabled         =   True
       Height          =   32
       Index           =   -2147483648
       Left            =   862
@@ -114,15 +111,11 @@ Begin Window PaintWindow
       Mode            =   0
       Period          =   1000
       Scope           =   0
-      TabIndex        =   2
       TabPanelIndex   =   0
-      TabStop         =   True
       Top             =   49
-      Visible         =   True
       Width           =   32
    End
    Begin Timer toolbartimer
-      Enabled         =   True
       Height          =   32
       Index           =   -2147483648
       InitialParent   =   ""
@@ -131,15 +124,11 @@ Begin Window PaintWindow
       Mode            =   1
       Period          =   500
       Scope           =   0
-      TabIndex        =   3
       TabPanelIndex   =   0
-      TabStop         =   True
       Top             =   14
-      Visible         =   True
       Width           =   32
    End
    Begin Timer UndoredomenuTimer
-      Enabled         =   True
       Height          =   32
       Index           =   -2147483648
       Left            =   862
@@ -147,11 +136,8 @@ Begin Window PaintWindow
       Mode            =   2
       Period          =   200
       Scope           =   0
-      TabIndex        =   4
       TabPanelIndex   =   0
-      TabStop         =   True
       Top             =   -20
-      Visible         =   True
       Width           =   32
    End
    Begin ScrollBar UpDown
@@ -287,18 +273,6 @@ End
 		End Sub
 	#tag EndEvent
 
-
-	#tag MenuHandler
-		Function ChangeColor() As Boolean Handles ChangeColor.Action
-			Dim c As Color
-			If SelectColor(c, "New Drawing Color") Then
-			PaintTarget1.CurrentColor = c
-			End If
-			
-			Return True
-			
-		End Function
-	#tag EndMenuHandler
 
 	#tag MenuHandler
 		Function ChangePen() As Boolean Handles ChangePen.Action
@@ -570,7 +544,7 @@ End
 		Sub MouseMove(X As Integer, Y As Integer)
 		  #pragma Unused X
 		  #pragma Unused Y
-		  
+		  If Not (Window(0) Is Self) Then Return
 		  Select Case PaintTarget1.Mode
 		  Case PaintTarget1.Mode_DrawLine, PaintTarget1.Mode_Draw_Circle, PaintTarget1.Mode_Draw_Rect, PaintTarget1.Mode_Draw_Freeform, _
 		    PaintTarget1.Mode_Select_Rect, PaintTarget1.Mode_Draw_Filled_Rect, PaintTarget1.Mode_Draw_Filled_Circle

@@ -73,7 +73,7 @@ Inherits Canvas
 
 	#tag Event
 		Sub MouseMove(X As Integer, Y As Integer)
-		  If Not MagOn Then
+		  If Not MagOn Or Not (Window(0) Is Self.Window) Then
 		    If X >= Buffer.Width + ViewX And X <= Buffer.Width + ViewX + 5 And Y >= Buffer.Height + ViewY And Y <= Buffer.Height + ViewY + 5 Then
 		      Me.mousecursor = System.Cursors.ArrowNorthwestSoutheast
 		      If Resizing Then
@@ -1172,12 +1172,6 @@ Inherits Canvas
 			Type="Color"
 		#tag EndViewProperty
 		#tag ViewProperty
-			Name="currentObject"
-			Group="Behavior"
-			InitialValue="-1"
-			Type="Integer"
-		#tag EndViewProperty
-		#tag ViewProperty
 			Name="DoubleBuffer"
 			Visible=true
 			Group="Behavior"
@@ -1359,17 +1353,6 @@ Inherits Canvas
 			Name="Overlay"
 			Group="Behavior"
 			Type="Picture"
-		#tag EndViewProperty
-		#tag ViewProperty
-			Name="Override"
-			Group="Behavior"
-			Type="Boolean"
-		#tag EndViewProperty
-		#tag ViewProperty
-			Name="OverrideText"
-			Group="Behavior"
-			Type="String"
-			EditorType="MultiLineEditor"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="ReDoable"
