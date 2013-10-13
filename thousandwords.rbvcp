@@ -66,6 +66,7 @@ Module=GUI;WinLib/GUI.rbbas;&h65C107FF;&h76D5AFFF;false
 Class=WindowRef;WinLib/WindowRef.rbbas;&h60ACE7FF;&h76D5AFFF;false
 Interface=Win32Object;WinLib/Win32Object.rbbas;&h706C27FF;&h76D5AFFF;false
 Class=MessageMonitor;WinLib/MessageMonitor.rbbas;&h34267FFF;&h76D5AFFF;false
+Window=HelpWindow;Wizard/HelpWindow.rbfrm;&h1939D7FF;&h54E8AFFF;false
 DefaultWindow=WizWindow
 AppMenuBar=MenuBar1
 MajorVersion=1
