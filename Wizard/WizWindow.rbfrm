@@ -102,7 +102,7 @@ Begin Window WizWindow
          Selectable      =   False
          TabIndex        =   0
          TabPanelIndex   =   2
-         Text            =   "Please take any steps needed to bring the error or offending software application into view on your screen. When you are ready, click next.\r\n\r\nFor more options, click advanced."
+         Text            =   "Please take any steps needed to bring the error or offending software application into view on your screen. When you are ready, click next.\r\n\r\nFor more options, click Options."
          TextAlign       =   0
          TextColor       =   0
          TextFont        =   "System"
@@ -198,7 +198,7 @@ Begin Window WizWindow
          Selectable      =   False
          TabIndex        =   4
          TabPanelIndex   =   3
-         Text            =   "I just took a picture of your screen. Click the Preview button to see the picture or click the Edit button to open the picture in an editor. \r\n\r\nUse the editor to block out any information you don't want to share with strangers or to hilight the issue(s) you want to address.\r\n\r\nWhen you're ready to share the picture, click next."
+         Text            =   "A screen capture was successfully created. Click the Preview button to view the capture or click the Edit button to open the capture in an editor. \r\n\r\nUse the editor to block out any information you do not wish to share with others or to hilight the issue(s) you wish to address.\r\n\r\nWhen you are ready to save the capture, click next."
          TextAlign       =   0
          TextColor       =   0
          TextFont        =   "System"
@@ -356,7 +356,7 @@ Begin Window WizWindow
          Selectable      =   False
          TabIndex        =   4
          TabPanelIndex   =   4
-         Text            =   "Finished! A copy of your screen capture has been saved to your desktop. \r\n\r\nClick the Finish button to close this wizard.\r\n"
+         Text            =   "Finished! A copy of your screen capture has been saved to your computer. \r\n\r\nClick the Finish button to close this wizard.\r\n"
          TextAlign       =   0
          TextColor       =   0
          TextFont        =   "System"
@@ -1276,7 +1276,7 @@ End
 		  End Select
 		  Dim filename As String = CurrentUser + "_" + Format(d.TotalSeconds, "##############################") + ext
 		  Dim f As FolderItem = SpecialFolder.Temporary.Child(filename)
-		  p.Save(f, SaveType, Picture.QualityHigh)
+		  p.Save(f, SaveType, Picture.QualityMax)
 		  App.DoEvents(500)
 		  Return f
 		  
@@ -1462,8 +1462,21 @@ End
 #tag Events P4StartOver
 	#tag Event
 		Sub Action()
+		  Select Case MsgBox("Would you like to reset all options to their defaults?", 3 + 32, "Advanced Options")
+		  Case 2 ' Cancel
+		    Return
+		  Case 6 ' Yes
+		    SaveToFolder = Nil
+		    PicType.ListIndex = 0
+		    DelayPeriod.ListIndex = 0
+		    CaptureEverything.Value = True
+		    SavePath.Text = SaveToFolder.AbsolutePath
+		  Case 7 ' No
+		    
+		  End Select
 		  PagePanel1.Value = 0
 		  Self.Title = "A Thousand Words"
+		  
 		End Sub
 	#tag EndEvent
 #tag EndEvents
@@ -1585,6 +1598,7 @@ End
 		Sub Action()
 		  Dim f As FolderItem = SelectFolder()
 		  If f <> Nil Then
+		    SaveToFolder = f
 		    SavePath.Text = f.AbsolutePath
 		    If MsgBox("Save this folder as the default save folder?", 4+32, "Change default folder") = 6 Then
 		      Dim r As New RegistryItem("HKEY_CURRENT_USER\Software\Boredomsoft\ATW", True)
