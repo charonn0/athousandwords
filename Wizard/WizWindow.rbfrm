@@ -43,7 +43,7 @@ Begin Window WizWindow
       TabIndex        =   0
       TabPanelIndex   =   0
       Top             =   0
-      Value           =   4
+      Value           =   3
       Visible         =   True
       Width           =   626
       Begin Label Label1
@@ -102,7 +102,7 @@ Begin Window WizWindow
          Selectable      =   False
          TabIndex        =   0
          TabPanelIndex   =   2
-         Text            =   "Please take any steps needed to bring the error or offending software application into view on your screen. When you are ready, click next.\r\n\r\nFor more options, click advanced."
+         Text            =   "Please take any steps needed to bring the error or offending software application into view on your screen. When you are ready for the screen to be captured, click next.\r\n\r\nFor more options, click Options."
          TextAlign       =   0
          TextColor       =   0
          TextFont        =   "System"
@@ -198,7 +198,7 @@ Begin Window WizWindow
          Selectable      =   False
          TabIndex        =   4
          TabPanelIndex   =   3
-         Text            =   "I just took a picture of your screen. Click the Preview button to see the picture or click the Edit button to open the picture in an editor. \r\n\r\nUse the editor to block out any information you don't want to share with strangers or to hilight the issue(s) you want to address.\r\n\r\nWhen you're ready to share the picture, click next."
+         Text            =   "A screen capture was successfully created. Click the Preview button to see the capture or click the Edit button to open it in an editor. \r\n\r\nUse the editor to block out any information you don't want to share with others or to hilight the issue(s) you want to address.\r\n\r\nWhen you're ready to share the capture, click next."
          TextAlign       =   0
          TextColor       =   0
          TextFont        =   "System"
@@ -356,7 +356,7 @@ Begin Window WizWindow
          Selectable      =   False
          TabIndex        =   4
          TabPanelIndex   =   4
-         Text            =   "Finished! A copy of your screen capture has been saved to your desktop. \r\n\r\nClick the Finish button to close this wizard.\r\n"
+         Text            =   "Finished! A copy of your screen capture has been saved to your computer. \r\n\r\nClick the Finish button to close this wizard.\r\n"
          TextAlign       =   0
          TextColor       =   0
          TextFont        =   "System"
@@ -513,44 +513,6 @@ Begin Window WizWindow
          Underline       =   ""
          Visible         =   True
          Width           =   414
-      End
-      Begin LinkLabel BSLink
-         ActiveColor     =   "&cFF0000"
-         AltText         =   "Visit Boredom Software"
-         AutoDeactivate  =   True
-         Bold            =   ""
-         DataField       =   ""
-         DataSource      =   ""
-         Enabled         =   True
-         Height          =   20
-         HilightColor    =   "&c00FFFF"
-         HoverPeriod     =   250
-         Index           =   -2147483648
-         InitialParent   =   "PagePanel1"
-         Italic          =   ""
-         Left            =   7
-         LockBottom      =   ""
-         LockedInPosition=   False
-         LockLeft        =   True
-         LockRight       =   ""
-         LockTop         =   True
-         Multiline       =   ""
-         ResetPeriod     =   1000
-         Scope           =   0
-         Selectable      =   ""
-         TabIndex        =   7
-         TabPanelIndex   =   4
-         Text            =   "Boredom Software"
-         TextAlign       =   0
-         TextColor       =   "&c0000FF"
-         TextFont        =   "System"
-         TextSize        =   0
-         TextUnit        =   0
-         Top             =   139
-         Transparent     =   True
-         Underline       =   ""
-         Visible         =   True
-         Width           =   136
       End
       Begin PushButton P3StartOver
          AutoDeactivate  =   True
@@ -799,7 +761,9 @@ Begin Window WizWindow
          Visible         =   True
          Width           =   52
       End
-      Begin Label Label6
+      Begin LinkLabel Label6
+         ActiveColor     =   "&cFF0000"
+         AltText         =   ""
          AutoDeactivate  =   True
          Bold            =   ""
          DataField       =   ""
@@ -807,6 +771,8 @@ Begin Window WizWindow
          Enabled         =   True
          Height          =   20
          HelpTag         =   ""
+         HilightColor    =   &h00000000
+         HoverPeriod     =   250
          Index           =   -2147483648
          InitialParent   =   "PagePanel1"
          Italic          =   False
@@ -817,6 +783,7 @@ Begin Window WizWindow
          LockRight       =   ""
          LockTop         =   True
          Multiline       =   ""
+         ResetPeriod     =   1000
          Scope           =   0
          Selectable      =   False
          TabIndex        =   10
@@ -894,37 +861,6 @@ Begin Window WizWindow
          Underline       =   ""
          Visible         =   True
          Width           =   169
-      End
-      Begin PopupMenu DelayPeriod
-         AutoDeactivate  =   True
-         Bold            =   ""
-         DataField       =   ""
-         DataSource      =   ""
-         Enabled         =   True
-         Height          =   20
-         HelpTag         =   ""
-         Index           =   -2147483648
-         InitialParent   =   "PagePanel1"
-         InitialValue    =   "No Delay\r\n5 Second Delay\r\n10 Second Delay"
-         Italic          =   ""
-         Left            =   497
-         ListIndex       =   0
-         LockBottom      =   ""
-         LockedInPosition=   False
-         LockLeft        =   True
-         LockRight       =   ""
-         LockTop         =   True
-         Scope           =   0
-         TabIndex        =   2
-         TabPanelIndex   =   5
-         TabStop         =   True
-         TextFont        =   "System"
-         TextSize        =   0
-         TextUnit        =   0
-         Top             =   14
-         Underline       =   ""
-         Visible         =   True
-         Width           =   121
       End
       Begin GroupBox GroupBox2
          AutoDeactivate  =   True
@@ -1229,6 +1165,37 @@ Begin Window WizWindow
          Visible         =   True
          Width           =   12
       End
+      Begin PopupMenu DelayPeriod
+         AutoDeactivate  =   True
+         Bold            =   ""
+         DataField       =   ""
+         DataSource      =   ""
+         Enabled         =   True
+         Height          =   20
+         HelpTag         =   ""
+         Index           =   -2147483648
+         InitialParent   =   "PagePanel1"
+         InitialValue    =   "No Delay\r\n5 Second Delay\r\n10 Second Delay"
+         Italic          =   ""
+         Left            =   497
+         ListIndex       =   0
+         LockBottom      =   ""
+         LockedInPosition=   False
+         LockLeft        =   True
+         LockRight       =   ""
+         LockTop         =   True
+         Scope           =   0
+         TabIndex        =   2
+         TabPanelIndex   =   5
+         TabStop         =   True
+         TextFont        =   "System"
+         TextSize        =   0
+         TextUnit        =   0
+         Top             =   14
+         Underline       =   ""
+         Visible         =   True
+         Width           =   121
+      End
    End
    Begin Timer CaptureTimer
       Height          =   32
@@ -1369,7 +1336,6 @@ End
 
 	#tag Method, Flags = &h0
 		Function SavePic(p As Picture) As FolderItem
-		  Dim d As New Date
 		  Dim ext As String
 		  Select Case SaveType
 		  Case Picture.SaveAsJPEG
@@ -1562,19 +1528,6 @@ End
 		End Sub
 	#tag EndEvent
 #tag EndEvents
-#tag Events BSLink
-	#tag Event
-		Sub Open()
-		  Me.Text = "Boredom Software"
-		  '"Copyright " + Chr(169) +
-		End Sub
-	#tag EndEvent
-	#tag Event
-		Sub Action()
-		  ShowURL("http://www.boredomsoft.org/a-thousand-words.bs")
-		End Sub
-	#tag EndEvent
-#tag EndEvents
 #tag Events P3StartOver
 	#tag Event
 		Sub Action()
@@ -1642,6 +1595,11 @@ End
 		  Me.Text = Replace(Me.Text, "0.00", GlobalHelpers.Version)
 		End Sub
 	#tag EndEvent
+	#tag Event
+		Sub Action()
+		  AboutWin.ShowModal
+		End Sub
+	#tag EndEvent
 #tag EndEvents
 #tag Events PicType
 	#tag Event
@@ -1692,20 +1650,6 @@ End
 		    End If
 		    
 		    Self.Top = OldY
-		  End Select
-		End Sub
-	#tag EndEvent
-#tag EndEvents
-#tag Events DelayPeriod
-	#tag Event
-		Sub Change()
-		  Select Case Me.Text
-		  Case "No Delay"
-		    CaptureTimer.Period = 250
-		  Case "5 Second Delay"
-		    CaptureTimer.Period = 5250
-		  Case "10 Second Delay"
-		    CaptureTimer.Period = 10250
 		  End Select
 		End Sub
 	#tag EndEvent
@@ -1775,6 +1719,20 @@ End
 		  's.RTFData = capuretypeshelp
 		  'HelpWindow.ShowStyledHelp("Capture types", CaptureHelpSmall, s)
 		  ''CaptureHelpBig)
+		End Sub
+	#tag EndEvent
+#tag EndEvents
+#tag Events DelayPeriod
+	#tag Event
+		Sub Change()
+		  Select Case Me.Text
+		  Case "No Delay"
+		    CaptureTimer.Period = 250
+		  Case "5 Second Delay"
+		    CaptureTimer.Period = 5250
+		  Case "10 Second Delay"
+		    CaptureTimer.Period = 10250
+		  End Select
 		End Sub
 	#tag EndEvent
 #tag EndEvents
