@@ -1032,7 +1032,7 @@ Begin Window WizWindow
             BackColor       =   &hFFFFFF
             Bold            =   ""
             Border          =   True
-            CueText         =   ""
+            CueText         =   "%u_%t"
             DataField       =   ""
             DataSource      =   ""
             Enabled         =   True
@@ -1138,6 +1138,19 @@ Begin Window WizWindow
             Underline       =   ""
             Visible         =   True
             Width           =   72
+         End
+         Begin Timer NameExpansionTimer
+            Height          =   32
+            Index           =   -2147483648
+            InitialParent   =   "GroupBox2"
+            Left            =   531
+            LockedInPosition=   False
+            Mode            =   2
+            Period          =   250
+            Scope           =   0
+            TabPanelIndex   =   5
+            Top             =   77
+            Width           =   32
          End
       End
       Begin LinkLabel TypeHelp
@@ -1333,6 +1346,27 @@ End
 		End Sub
 	#tag EndMethod
 
+	#tag Method, Flags = &h21
+		Private Function GetSaveName() As String
+		  Dim s As String
+		  If NamePattern.Text.Trim = "" Then
+		    s = GlobalHelpers.ExpandPattern(NamePattern.CueText)
+		  Else
+		    s = GlobalHelpers.ExpandPattern(NamePattern.Text)
+		  End If
+		  Dim ext As String
+		  Select Case PicType.Text
+		  Case "Save As JPEG"
+		    ext = ".jpg"
+		  Case "Save As PNG"
+		    ext = ".png"
+		  Case "Save As BMP"
+		    ext = ".bmp"
+		  End Select
+		  Return s + ext
+		End Function
+	#tag EndMethod
+
 	#tag Method, Flags = &h0
 		Function SavePic(p As Picture) As FolderItem
 		  Dim d As New Date
@@ -1345,11 +1379,13 @@ End
 		  Case Picture.SaveAsWindowsBMP
 		    ext = ".bmp"
 		  End Select
-		  Dim filename As String = CurrentUser + "_" + Format(d.TotalSeconds, "##############################") + ext
-		  Dim f As FolderItem = SpecialFolder.Temporary.Child(filename)
-		  p.Save(f, SaveType, Picture.QualityHigh)
-		  App.DoEvents(500)
-		  Return f
+		  Dim filename As String = GetSaveName
+		  If filename.Trim <> "" Then
+		    Dim f As FolderItem = SpecialFolder.Temporary.Child(filename)
+		    p.Save(f, SaveType, Picture.QualityHigh)
+		    App.DoEvents(500)
+		    Return f
+		  End If
 		  
 		End Function
 	#tag EndMethod
@@ -1681,12 +1717,32 @@ End
 		End Sub
 	#tag EndEvent
 #tag EndEvents
-#tag Events NamePattern
+#tag Events SavePath
 	#tag Event
-		Sub KeyUp(Key As String)
-		  #pragma BreakOnExceptions Off
+		Sub Action()
+		  'SaveToFolder.OpenInExplorer
+		  Dim f As FolderItem = SelectFolder()
+		  If f <> Nil Then
+		    SaveToFolder = f
+		    Me.Text = f.AbsolutePath
+		    If MsgBox("Save this folder as the default save folder?", 4+32, "Change default folder") = 6 Then
+		      Dim r As New RegistryItem("HKEY_CURRENT_USER\Software\Boredomsoft\ATW", True)
+		      r.Value("SaveTo") = f.AbsolutePath
+		    End If
+		  End If
+		End Sub
+	#tag EndEvent
+#tag EndEvents
+#tag Events NameExpansionTimer
+	#tag Event
+		Sub Action()
 		  Try
-		    Dim s As String = GlobalHelpers.ExpandPattern(Me.Text)
+		    Dim s As String
+		    If NamePattern.Text.Trim = "" Then
+		      s = GlobalHelpers.ExpandPattern(NamePattern.CueText)
+		    Else
+		      s = GlobalHelpers.ExpandPattern(NamePattern.Text)
+		    End If
 		    Dim ext As String
 		    Select Case PicType.Text
 		    Case "Save As JPEG"
@@ -1704,22 +1760,6 @@ End
 		End Sub
 	#tag EndEvent
 #tag EndEvents
-#tag Events SavePath
-	#tag Event
-		Sub Action()
-		  'SaveToFolder.OpenInExplorer
-		  Dim f As FolderItem = SelectFolder()
-		  If f <> Nil Then
-		    SaveToFolder = f
-		    Me.Text = f.AbsolutePath
-		    If MsgBox("Save this folder as the default save folder?", 4+32, "Change default folder") = 6 Then
-		      Dim r As New RegistryItem("HKEY_CURRENT_USER\Software\Boredomsoft\ATW", True)
-		      r.Value("SaveTo") = f.AbsolutePath
-		    End If
-		  End If
-		End Sub
-	#tag EndEvent
-#tag EndEvents
 #tag Events TypeHelp
 	#tag Event
 		Sub Action()
@@ -1731,6 +1771,10 @@ End
 	#tag Event
 		Sub Action()
 		  HelpWindow.ShowHelp("Capture types", CaptureHelpSmall, CaptureHelpBig)
+		  'Dim s As New StyledText
+		  's.RTFData = capuretypeshelp
+		  'HelpWindow.ShowStyledHelp("Capture types", CaptureHelpSmall, s)
+		  ''CaptureHelpBig)
 		End Sub
 	#tag EndEvent
 #tag EndEvents

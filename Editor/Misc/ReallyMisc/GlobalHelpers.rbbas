@@ -37,28 +37,35 @@ Protected Module GlobalHelpers
 	#tag Method, Flags = &h0
 		Function ExpandPattern(Pattern As String) As String
 		  Dim output As String
-		  Dim tis As Readable = New BinaryStream(Pattern)
-		  While Not tis.EOF
-		    Dim char As String = tis.Read(1)
+		  Dim chars() As String = Pattern.Split("")
+		  For i As Integer = 0 To UBound(chars)
+		    Dim char As String = chars(i)
 		    If char = "%" Then
-		      Dim n As String = tis.Read(1)
+		      Dim n As String
+		      Try
+		        n = chars(i + 1)
+		      Catch OutOfBoundsException
+		        output = output + char
+		        Continue
+		      End Try
+		      i = i + 1
 		      Select Case n
 		      Case "d" 'date
 		        Dim d As New Date
 		        output = output + d.SQLDate
 		      Case "t" 'time
 		        Dim d As New Date
-		        output = output + ReplaceAll(d.ShortTime, ":", "_")
+		        output = output + ReplaceAll(d.LongTime, ":", "_")
 		      Case "u" 'username
 		        output = output + WinLib.Utils.UserName
 		      Else
-		        Raise New UnsupportedFormatException
+		        output = output + char
 		      End Select
 		    Else
 		      output = output + char
 		    End If
-		  Wend
-		  
+		    
+		  Next
 		  Return output
 		End Function
 	#tag EndMethod
