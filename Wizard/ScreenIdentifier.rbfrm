@@ -25,8 +25,8 @@ Begin Window ScreenIdentifier
    Visible         =   True
    Width           =   600
    Begin Canvas Canvas1
-      AcceptFocus     =   ""
-      AcceptTabs      =   ""
+      AcceptFocus     =   True
+      AcceptTabs      =   True
       AutoDeactivate  =   True
       Backdrop        =   ""
       DoubleBuffer    =   True
@@ -67,6 +67,23 @@ End
 #tag EndWindow
 
 #tag WindowCode
+	#tag Event
+		Function MouseDown(X As Integer, Y As Integer) As Boolean
+		  #pragma Unused X
+		  #pragma Unused Y
+		  Return True
+		End Function
+	#tag EndEvent
+
+	#tag Event
+		Sub MouseUp(X As Integer, Y As Integer)
+		  #pragma Unused X
+		  #pragma Unused Y
+		  Self.Close
+		End Sub
+	#tag EndEvent
+
+
 	#tag Method, Flags = &h1000
 		Sub Constructor(Backdrop As Picture)
 		  // Calling the overridden superclass constructor.
@@ -97,6 +114,20 @@ End
 
 #tag EndWindowCode
 
+#tag Events Canvas1
+	#tag Event
+		Function KeyDown(Key As String) As Boolean
+		  #pragma Unused Key
+		  Return True
+		End Function
+	#tag EndEvent
+	#tag Event
+		Sub KeyUp(Key As String)
+		  #pragma Unused Key
+		  Self.Close
+		End Sub
+	#tag EndEvent
+#tag EndEvents
 #tag Events Timer1
 	#tag Event
 		Sub Action()

@@ -164,11 +164,11 @@ Protected Module Utils
 		  #If TargetWin32 Then
 		    Dim mb As New MemoryBlock(0)
 		    Dim nmLen As Integer = mb.Size
-		    If Not Win32.AdvApi32.GetUserName(mb, nmLen) Then Return ""
+		    Call Win32.AdvApi32.GetUserName(mb, nmLen)
 		    mb = New MemoryBlock(nmLen * 2)
 		    nmLen = mb.Size
 		    If Win32.AdvApi32.GetUserName(mb, nmLen) Then
-		      Return mb.WString(0)
+		      Return DefineEncoding(mb.WString(0).Trim, Encodings.UTF16)
 		    Else
 		      Return ""
 		    End If

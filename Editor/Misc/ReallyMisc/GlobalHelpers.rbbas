@@ -37,28 +37,35 @@ Protected Module GlobalHelpers
 	#tag Method, Flags = &h0
 		Function ExpandPattern(Pattern As String) As String
 		  Dim output As String
-		  Dim tis As Readable = New BinaryStream(Pattern)
-		  While Not tis.EOF
-		    Dim char As String = tis.Read(1)
+		  Dim chars() As String = Pattern.Split("")
+		  For i As Integer = 0 To UBound(chars)
+		    Dim char As String = chars(i)
 		    If char = "%" Then
-		      Dim n As String = tis.Read(1)
+		      Dim n As String
+		      Try
+		        n = chars(i + 1)
+		      Catch OutOfBoundsException
+		        output = output + char
+		        Continue
+		      End Try
+		      i = i + 1
 		      Select Case n
 		      Case "d" 'date
 		        Dim d As New Date
 		        output = output + d.SQLDate
 		      Case "t" 'time
 		        Dim d As New Date
-		        output = output + ReplaceAll(d.ShortTime, ":", "_")
+		        output = output + ReplaceAll(d.LongTime, ":", "_")
 		      Case "u" 'username
 		        output = output + WinLib.Utils.UserName
 		      Else
-		        Raise New UnsupportedFormatException
+		        output = output + char
 		      End Select
 		    Else
 		      output = output + char
 		    End If
-		  Wend
-		  
+		    
+		  Next
 		  Return output
 		End Function
 	#tag EndMethod
@@ -331,41 +338,6 @@ Protected Module GlobalHelpers
 		End Function
 	#tag EndMethod
 
-	#tag Method, Flags = &h0
-		Sub Untitled()
-		  'Debug("Palettizer thread running: " + Str(Me.ThreadID))
-		  'Dim cols As New Dictionary
-		  'For X As Integer = 0 To Pic.Width
-		  'For Y As Integer = 0 To Pic.Height
-		  'cols.Value(Pic.RGBSurface.Pixel(X, Y)) = 1
-		  'Next
-		  'Next
-		  'Dim col() As Integer
-		  '
-		  'For Each Key As Variant In cols.Keys
-		  'col.Append(Key.IntegerValue)
-		  'Next
-		  'col.Sort
-		  '
-		  '
-		  'Pic = New Picture(Sqrt(UBound(col)) * 10, Sqrt(UBound(col)) * 10, 32)
-		  'For X As Integer = 0 To Pic.Width Step 10
-		  'For Y As Integer = 0 To Pic.Height Step 10
-		  'If UBound(col) = -1 Then Exit For X
-		  'Pic.Graphics.ForeColor = col(0).IntToColor
-		  'col.Remove(0)
-		  'Pic.Graphics.FillRect(X, Y, 10, 10)
-		  'Next
-		  'Next
-		  '
-		  'Dim sf As New StackFrame(Pic)
-		  'AddStackFrame(sf)
-		  '
-		  'Debug("Palettizer thread done: " + Str(Me.ThreadID))
-		  'If Finish <> Nil Then Finish.Invoke(sf.Key)
-		End Sub
-	#tag EndMethod
-
 
 	#tag ComputedProperty, Flags = &h0
 		#tag Getter
@@ -424,7 +396,7 @@ Protected Module GlobalHelpers
 	#tag EndProperty
 
 	#tag Property, Flags = &h0
-		Version As String = "1.0"
+		Version As String = "1.1"
 	#tag EndProperty
 
 

@@ -140,6 +140,7 @@ Begin Window HelpWindow
       Selectable      =   False
       TabIndex        =   2
       TabPanelIndex   =   0
+      TabStop         =   True
       Text            =   "No help for that item! "
       TextAlign       =   0
       TextColor       =   &h000000
@@ -204,6 +205,30 @@ End
 		    Me.Height = 131
 		    LongHelp.Visible = False
 		  Else
+		    Me.Height = 276
+		    LongHelp.Visible = True
+		  End If
+		  If Remember Then
+		    Dim d As New Dictionary
+		    d.Value("Title") = Title
+		    d.Value("Short") = ShortVersion
+		    d.Value("Long") = Longversion
+		    RecentItems.AddRow(Title)
+		    RecentItems.RowTag(RecentItems.LastIndex) = d
+		  End If
+		  Me.Show
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Sub ShowStyledHelp(Title As String, ShortVersion As String, Longversion As StyledText, Remember As Boolean = True)
+		  Me.Title = "Help: " + Title
+		  Me.ShortHelp.Text = ShortVersion
+		  If Longversion = Nil Then
+		    Me.Height = 131
+		    LongHelp.Visible = False
+		  Else
+		    Me.LongHelp.StyledText = Longversion
 		    Me.Height = 276
 		    LongHelp.Visible = True
 		  End If
