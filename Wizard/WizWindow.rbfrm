@@ -43,7 +43,7 @@ Begin Window WizWindow
       TabIndex        =   0
       TabPanelIndex   =   0
       Top             =   0
-      Value           =   3
+      Value           =   4
       Visible         =   True
       Width           =   626
       Begin Label Label1
@@ -102,11 +102,7 @@ Begin Window WizWindow
          Selectable      =   False
          TabIndex        =   0
          TabPanelIndex   =   2
-<<<<<<< HEAD
-         Text            =   "Please take any steps needed to bring the error or offending software application into view on your screen. When you are ready, click next.\r\n\r\nFor more options, click Options."
-=======
          Text            =   "Please take any steps needed to bring the error or offending software application into view on your screen. When you are ready for the screen to be captured, click next.\r\n\r\nFor more options, click Options."
->>>>>>> origin/Better-settings
          TextAlign       =   0
          TextColor       =   0
          TextFont        =   "System"
@@ -202,11 +198,7 @@ Begin Window WizWindow
          Selectable      =   False
          TabIndex        =   4
          TabPanelIndex   =   3
-<<<<<<< HEAD
-         Text            =   "A screen capture was successfully created. Click the Preview button to view the capture or click the Edit button to open the capture in an editor. \r\n\r\nUse the editor to block out any information you do not wish to share with others or to hilight the issue(s) you wish to address.\r\n\r\nWhen you are ready to save the capture, click next."
-=======
          Text            =   "A screen capture was successfully created. Click the Preview button to see the capture or click the Edit button to open it in an editor. \r\n\r\nUse the editor to block out any information you don't want to share with others or to hilight the issue(s) you want to address.\r\n\r\nWhen you're ready to share the capture, click next."
->>>>>>> origin/Better-settings
          TextAlign       =   0
          TextColor       =   0
          TextFont        =   "System"
@@ -1353,13 +1345,6 @@ End
 		  Case Picture.SaveAsWindowsBMP
 		    ext = ".bmp"
 		  End Select
-<<<<<<< HEAD
-		  Dim filename As String = CurrentUser + "_" + Format(d.TotalSeconds, "##############################") + ext
-		  Dim f As FolderItem = SpecialFolder.Temporary.Child(filename)
-		  p.Save(f, SaveType, Picture.QualityMax)
-		  App.DoEvents(500)
-		  Return f
-=======
 		  Dim filename As String = GetSaveName
 		  If filename.Trim <> "" Then
 		    Dim f As FolderItem = SpecialFolder.Temporary.Child(filename)
@@ -1367,7 +1352,6 @@ End
 		    App.DoEvents(500)
 		    Return f
 		  End If
->>>>>>> origin/Better-settings
 		  
 		End Function
 	#tag EndMethod
@@ -1586,7 +1570,7 @@ End
 		    SaveToFolder = Nil
 		    PicType.ListIndex = 0
 		    DelayPeriod.ListIndex = 0
-		    CaptureEverything.Value = True
+		    TheCaptureType = CaptureType.All
 		    SavePath.Text = SaveToFolder.AbsolutePath
 		  Case 7 ' No
 		    
@@ -1697,7 +1681,7 @@ End
 		  Dim f As FolderItem = SelectFolder()
 		  If f <> Nil Then
 		    SaveToFolder = f
-		    Me.Text = f.AbsolutePath
+		    SavePath.Text = f.AbsolutePath
 		    If MsgBox("Save this folder as the default save folder?", 4+32, "Change default folder") = 6 Then
 		      Dim r As New RegistryItem("HKEY_CURRENT_USER\Software\Boredomsoft\ATW", True)
 		      r.Value("SaveTo") = f.AbsolutePath
@@ -1733,29 +1717,6 @@ End
 		End Sub
 	#tag EndEvent
 #tag EndEvents
-<<<<<<< HEAD
-#tag Events SavePath
-	#tag Event
-		Sub Action()
-		  'SaveToFolder.OpenInExplorer
-		  Dim f As FolderItem = SelectFolder()
-		  If f <> Nil Then
-		    SaveToFolder = f
-<<<<<<< HEAD
-		    SavePath.Text = f.AbsolutePath
-=======
-		    Me.Text = f.AbsolutePath
->>>>>>> origin/Better-settings
-		    If MsgBox("Save this folder as the default save folder?", 4+32, "Change default folder") = 6 Then
-		      Dim r As New RegistryItem("HKEY_CURRENT_USER\Software\Boredomsoft\ATW", True)
-		      r.Value("SaveTo") = f.AbsolutePath
-		    End If
-		  End If
-		End Sub
-	#tag EndEvent
-#tag EndEvents
-=======
->>>>>>> origin/Better-settings
 #tag Events TypeHelp
 	#tag Event
 		Sub Action()
