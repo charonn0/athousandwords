@@ -106,8 +106,13 @@ End
 		  Overlay.Graphics.PenWidth = 1
 		  Overlay.Graphics.DrawRect(l, t, w, h)
 		  If Coords.left <> Coords.right And Coords.top <> Coords.bottom Then
-		    Dim coord As Picture = TextToPicture(Str(w) + "x" + Str(h), 11, &c00000000, "System")
-		    Overlay.Graphics.DrawPicture(coord, Coords.right + 5, Coords.bottom + 5)
+		    Dim coord As Picture = TextToPicture("(" + Str(w) + "," + Str(h) + ")", Overlay.Graphics)
+		    Overlay.Graphics.DrawPicture(coord, Coords.right + 5, Coords.bottom)
+		    
+		    coord = TextToPicture(Str(l) + "x" + Str(t), Overlay.Graphics)
+		    Overlay.Graphics.DrawPicture(coord, Coords.left, Coords.top)
+		    
+		    
 		  End If
 		End Sub
 	#tag EndMethod
@@ -166,7 +171,11 @@ End
 		#tag Getter
 			Get
 			  If mTextPic = Nil Then
-			    mTextPic = TextToPicture("Select a region with your mouse" +  EndOfLine + "Press enter to save selection" + EndOfLine + "Press escape to cancel.", 20, &cFF000000, "System")
+			    mTextPic = New Picture(1, 1, 32)
+			    Dim g As Graphics = mTextPic.Graphics
+			    g.ForeColor = &cFF000000
+			    g.TextSize = 20
+			    mTextPic = TextToPicture("Select a region with your mouse" +  EndOfLine + "Press enter to save selection" + EndOfLine + "Press escape to cancel.", g)
 			  End If
 			  
 			  Return mTextPic

@@ -52,6 +52,7 @@ Begin Window ScreenIdentifier
       Width           =   600
    End
    Begin Timer Timer1
+      Enabled         =   True
       Height          =   32
       Index           =   -2147483648
       Left            =   652
@@ -59,8 +60,11 @@ Begin Window ScreenIdentifier
       Mode            =   1
       Period          =   3500
       Scope           =   0
+      TabIndex        =   1
       TabPanelIndex   =   0
+      TabStop         =   True
       Top             =   0
+      Visible         =   True
       Width           =   32
    End
 End
@@ -89,7 +93,10 @@ End
 		  // Calling the overridden superclass constructor.
 		  Super.Constructor
 		  For i As Integer = 0 To ScreenCount - 1
-		    Dim txtpic As Picture = TextToPicture("Screen " + Str(i), 200, &cFF000000, "System")
+		    Dim txtpic As New Picture(1, 1, 32)
+		    txtpic.Graphics.ForeColor = &cFF000000
+		    txtpic.Graphics.TextSize = 200
+		    txtpic = TextToPicture("Screen " + Str(i), txtpic.Graphics)
 		    Dim l, t As Integer
 		    l = Screen(i).Left
 		    t = Screen(i).Top

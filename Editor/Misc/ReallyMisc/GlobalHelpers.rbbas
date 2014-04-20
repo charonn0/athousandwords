@@ -252,7 +252,7 @@ Protected Module GlobalHelpers
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		Function TextToPicture(Text As String, TextSize As Integer, BaseColor As Color, TextFont As String) As Picture
+		Function TextToPicture(Text As String, SampleGraphics As Graphics) As Picture
 		  Dim lines() As Picture
 		  Dim requiredHeight, requiredWidth As Integer
 		  Dim tlines() As String = Split(Text, EndOfLine)
@@ -260,16 +260,16 @@ Protected Module GlobalHelpers
 		  For i As Integer = 0 To UBound(tlines)
 		    Try
 		      Dim p As New Picture(250, 250)
-		      p.Graphics.TextFont = TextFont
-		      p.Graphics.TextSize = TextSize
+		      p.Graphics.TextFont = SampleGraphics.TextFont
+		      p.Graphics.TextSize = SampleGraphics.TextSize
 		      Dim nm As String = tlines(i)
 		      Dim strWidth, strHeight As Integer
 		      strWidth = p.Graphics.StringWidth(nm) + 5
 		      strHeight = p.Graphics.StringHeight(nm, strWidth)
 		      p = New Picture(strWidth, strHeight)
-		      p.Graphics.ForeColor = BaseColor
-		      p.Graphics.TextFont = TextFont
-		      p.Graphics.TextSize = TextSize
+		      p.Graphics.ForeColor = SampleGraphics.ForeColor
+		      p.Graphics.TextFont = SampleGraphics.TextFont
+		      p.Graphics.TextSize = SampleGraphics.TextSize
 		      p.Graphics.DrawString(nm, 1, ((p.Height/2) + (strHeight/4)))
 		      lines.Append(p)
 		      requiredHeight = requiredHeight + p.Height
