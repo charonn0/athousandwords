@@ -1278,6 +1278,12 @@ End
 
 #tag WindowCode
 	#tag Event
+		Function CancelClose(appQuitting as Boolean) As Boolean
+		  If MsgBox("Do you want to quit?", 36, "Please confirm") <> 6 Then Return True
+		End Function
+	#tag EndEvent
+
+	#tag Event
 		Sub Close()
 		  Quit()
 		End Sub
