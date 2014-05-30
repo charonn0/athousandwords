@@ -42,7 +42,6 @@ Begin Window WizWindow
       Scope           =   0
       TabIndex        =   0
       TabPanelIndex   =   0
-      TabStop         =   True
       Top             =   0
       Value           =   4
       Visible         =   True
@@ -69,7 +68,6 @@ Begin Window WizWindow
          Selectable      =   False
          TabIndex        =   0
          TabPanelIndex   =   1
-         TabStop         =   True
          Text            =   "This wizard will step you through the process of taking still image of your screen which you can give to others.\r\n\r\nTo proceed, click next."
          TextAlign       =   0
          TextColor       =   0
@@ -104,7 +102,6 @@ Begin Window WizWindow
          Selectable      =   False
          TabIndex        =   0
          TabPanelIndex   =   2
-         TabStop         =   True
          Text            =   "Please take any steps needed to bring the error or offending software application into view on your screen. When you are ready for the screen to be captured, click next.\r\n\r\nFor more options, click Options."
          TextAlign       =   0
          TextColor       =   0
@@ -201,7 +198,6 @@ Begin Window WizWindow
          Selectable      =   False
          TabIndex        =   4
          TabPanelIndex   =   3
-         TabStop         =   True
          Text            =   "A screen capture was successfully created. Click the Preview button to see the capture or click the Edit button to open it in an editor. \r\n\r\nUse the editor to block out any information you don't want to share with others or to hilight the issue(s) you want to address.\r\n\r\nWhen you're ready to share the capture, click next."
          TextAlign       =   0
          TextColor       =   0
@@ -360,7 +356,6 @@ Begin Window WizWindow
          Selectable      =   False
          TabIndex        =   4
          TabPanelIndex   =   4
-         TabStop         =   True
          Text            =   "Finished! A copy of your screen capture has been saved to your computer. \r\n\r\nClick the Finish button to close this wizard.\r\n"
          TextAlign       =   0
          TextColor       =   0
@@ -507,7 +502,6 @@ Begin Window WizWindow
          Selectable      =   ""
          TabIndex        =   6
          TabPanelIndex   =   4
-         TabStop         =   True
          Text            =   "Saved to : "
          TextAlign       =   0
          TextColor       =   255
@@ -755,7 +749,6 @@ Begin Window WizWindow
          Selectable      =   False
          TabIndex        =   9
          TabPanelIndex   =   4
-         TabStop         =   True
          Text            =   "Saved To:"
          TextAlign       =   2
          TextColor       =   &h000000
@@ -795,7 +788,6 @@ Begin Window WizWindow
          Selectable      =   False
          TabIndex        =   10
          TabPanelIndex   =   4
-         TabStop         =   True
          Text            =   "A Thousand Words 0.00"
          TextAlign       =   1
          TextColor       =   &h00C0C0C0
@@ -889,7 +881,6 @@ Begin Window WizWindow
          Scope           =   0
          TabIndex        =   4
          TabPanelIndex   =   5
-         TabStop         =   True
          TextFont        =   "System"
          TextSize        =   0
          TextUnit        =   0
@@ -919,7 +910,6 @@ Begin Window WizWindow
             Selectable      =   False
             TabIndex        =   3
             TabPanelIndex   =   5
-            TabStop         =   True
             Text            =   "Name:"
             TextAlign       =   2
             TextColor       =   &h000000
@@ -958,7 +948,6 @@ Begin Window WizWindow
             Selectable      =   ""
             TabIndex        =   4
             TabPanelIndex   =   5
-            TabStop         =   True
             Text            =   "?"
             TextAlign       =   1
             TextColor       =   "&c0000FF"
@@ -1040,7 +1029,6 @@ Begin Window WizWindow
             Selectable      =   ""
             TabIndex        =   0
             TabPanelIndex   =   5
-            TabStop         =   True
             Text            =   "Untitled"
             TextAlign       =   0
             TextColor       =   "&c0000FF"
@@ -1075,7 +1063,6 @@ Begin Window WizWindow
             Selectable      =   False
             TabIndex        =   2
             TabPanelIndex   =   5
-            TabStop         =   True
             Text            =   "Location:"
             TextAlign       =   2
             TextColor       =   &h000000
@@ -1089,7 +1076,6 @@ Begin Window WizWindow
             Width           =   72
          End
          Begin Timer NameExpansionTimer
-            Enabled         =   True
             Height          =   32
             Index           =   -2147483648
             InitialParent   =   "GroupBox2"
@@ -1098,11 +1084,8 @@ Begin Window WizWindow
             Mode            =   2
             Period          =   250
             Scope           =   0
-            TabIndex        =   5
             TabPanelIndex   =   5
-            TabStop         =   True
             Top             =   77
-            Visible         =   True
             Width           =   32
          End
       End
@@ -1132,7 +1115,6 @@ Begin Window WizWindow
          Selectable      =   ""
          TabIndex        =   7
          TabPanelIndex   =   5
-         TabStop         =   True
          Text            =   "?"
          TextAlign       =   1
          TextColor       =   "&c0000FF"
@@ -1171,7 +1153,6 @@ Begin Window WizWindow
          Selectable      =   ""
          TabIndex        =   8
          TabPanelIndex   =   5
-         TabStop         =   True
          Text            =   "?"
          TextAlign       =   1
          TextColor       =   "&c0000FF"
@@ -1217,7 +1198,6 @@ Begin Window WizWindow
       End
    End
    Begin Timer CaptureTimer
-      Enabled         =   True
       Height          =   32
       Index           =   -2147483648
       Left            =   720
@@ -1225,11 +1205,8 @@ Begin Window WizWindow
       Mode            =   0
       Period          =   250
       Scope           =   0
-      TabIndex        =   1
       TabPanelIndex   =   0
-      TabStop         =   True
       Top             =   -14
-      Visible         =   True
       Width           =   32
    End
    Begin CheckBox ScreenSelect
@@ -1302,7 +1279,7 @@ End
 #tag WindowCode
 	#tag Event
 		Function CancelClose(appQuitting as Boolean) As Boolean
-		  If MsgBox("Do you want to quit?", 36, "Please confirm") <> 6 Then Return True
+		  If Not appQuitting And MsgBox("Do you want to quit?", 36, "Please confirm") <> 6 Then Return True
 		End Function
 	#tag EndEvent
 
