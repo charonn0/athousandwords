@@ -37,10 +37,6 @@ Protected Module User32
 	#tag EndExternalMethod
 
 	#tag ExternalMethod, Flags = &h1
-		Protected Declare Function CloseClipboard Lib "User32" () As Boolean
-	#tag EndExternalMethod
-
-	#tag ExternalMethod, Flags = &h1
 		Protected Declare Function CloseDesktop Lib "User32" (hDesktop As Integer) As Integer
 	#tag EndExternalMethod
 
@@ -73,14 +69,6 @@ Protected Module User32
 	#tag EndExternalMethod
 
 	#tag ExternalMethod, Flags = &h1
-		Protected Declare Function EmptyClipboard Lib "User32" () As Boolean
-	#tag EndExternalMethod
-
-	#tag ExternalMethod, Flags = &h1
-		Protected Declare Function EnumClipboardFormats Lib "User32" (format As UInt32) As UInt32
-	#tag EndExternalMethod
-
-	#tag ExternalMethod, Flags = &h1
 		Protected Declare Function ExitWindowsEx Lib "User32" (flags As Integer, reason As Integer) As Boolean
 	#tag EndExternalMethod
 
@@ -106,14 +94,6 @@ Protected Module User32
 
 	#tag ExternalMethod, Flags = &h1
 		Protected Declare Function GetClientRect Lib "User32" (HWND As Integer, ByRef Dimensions As RECT) As Boolean
-	#tag EndExternalMethod
-
-	#tag ExternalMethod, Flags = &h1
-		Protected Declare Function GetClipboardData Lib "User32" (format As UInt32) As UInt32
-	#tag EndExternalMethod
-
-	#tag ExternalMethod, Flags = &h1
-		Protected Declare Function GetClipboardFormatName Lib "User32" Alias "GetClipboardFormatNameW" (format As UInt32, Buffer As Ptr, MaxCount As Integer) As Integer
 	#tag EndExternalMethod
 
 	#tag ExternalMethod, Flags = &h1
@@ -185,15 +165,7 @@ Protected Module User32
 	#tag EndExternalMethod
 
 	#tag ExternalMethod, Flags = &h1
-		Protected Declare Function IsClipboardFormatAvailable Lib "User32" (format As UInt32) As Boolean
-	#tag EndExternalMethod
-
-	#tag ExternalMethod, Flags = &h1
 		Protected Declare Function IsIconic Lib "User32" (HWND As Integer) As Boolean
-	#tag EndExternalMethod
-
-	#tag ExternalMethod, Flags = &h1
-		Protected Declare Function IsWindow Lib "User32" (HWND As Integer) As Boolean
 	#tag EndExternalMethod
 
 	#tag ExternalMethod, Flags = &h1
@@ -202,10 +174,6 @@ Protected Module User32
 
 	#tag ExternalMethod, Flags = &h1
 		Protected Declare Function LoadImage Lib "User32" Alias "LoadImageW" (Instance As Integer, FileName As WString, ImageType As Integer, DesiredWidth As UInt32, DesiredHeight As UInt32, Flags As Integer) As Integer
-	#tag EndExternalMethod
-
-	#tag ExternalMethod, Flags = &h1
-		Protected Declare Function LockWorkStation Lib "User32" () As Boolean
 	#tag EndExternalMethod
 
 	#tag ExternalMethod, Flags = &h1
@@ -218,14 +186,6 @@ Protected Module User32
 
 	#tag ExternalMethod, Flags = &h1
 		Protected Declare Function MessageBox Lib "User32" Alias "MessageBox" (HWND As Integer, text As WString, caption As WString, type As Integer) As Integer
-	#tag EndExternalMethod
-
-	#tag ExternalMethod, Flags = &h1
-		Protected Declare Function MoveWindow Lib "User32" (HWND As Integer, X As Integer, Y As Integer, Width As Integer, Height As Integer, Repaint As Boolean) As Boolean
-	#tag EndExternalMethod
-
-	#tag ExternalMethod, Flags = &h1
-		Protected Declare Function OpenClipboard Lib "User32" (HWND As Integer) As Boolean
 	#tag EndExternalMethod
 
 	#tag ExternalMethod, Flags = &h1
@@ -245,10 +205,6 @@ Protected Module User32
 	#tag EndExternalMethod
 
 	#tag ExternalMethod, Flags = &h1
-		Protected Declare Function RegisterClipboardFormat Lib "User32" Alias "RegisterClipboardFormatW" (FormatName As WString) As UInt32
-	#tag EndExternalMethod
-
-	#tag ExternalMethod, Flags = &h1
 		Protected Declare Function RegisterHotKey Lib "User32" (HWND As Integer, ID As Integer, Modifiers As Integer, VirtualKey As Integer) As Boolean
 	#tag EndExternalMethod
 
@@ -261,19 +217,7 @@ Protected Module User32
 	#tag EndExternalMethod
 
 	#tag ExternalMethod, Flags = &h1
-		Protected Declare Function ScreenToClient Lib "User32" (HWND As Integer, ByRef Point As Win32 . POINT) As Boolean
-	#tag EndExternalMethod
-
-	#tag ExternalMethod, Flags = &h1
-		Protected Declare Function SendMessage Lib "User32" Alias "SendMessageW" (HWND As Integer, Message As UInt32, WParam As Integer, LParam As Integer) As Integer
-	#tag EndExternalMethod
-
-	#tag ExternalMethod, Flags = &h1
 		Protected Declare Function SendMessage Lib "User32" Alias "SendMessageW" (HWND As Integer, Message As UInt32, WParam As Ptr, LParam As Ptr) As Integer
-	#tag EndExternalMethod
-
-	#tag ExternalMethod, Flags = &h1
-		Protected Declare Function SetClipboardData Lib "User32" (format As UInt32, hMem As Ptr) As Integer
 	#tag EndExternalMethod
 
 	#tag ExternalMethod, Flags = &h1
@@ -314,18 +258,6 @@ Protected Module User32
 
 	#tag ExternalMethod, Flags = &h1
 		Protected Declare Function ShowWindow Lib "User32" (HWND As Integer, Command As Integer) As Boolean
-	#tag EndExternalMethod
-
-	#tag ExternalMethod, Flags = &h1
-		Protected Soft Declare Function ShutdownBlockReasonCreate Lib "User32" (HWND As Integer, Reason As WString) As Boolean
-	#tag EndExternalMethod
-
-	#tag ExternalMethod, Flags = &h1
-		Protected Soft Declare Function ShutdownBlockReasonDestroy Lib "User32" (HWND As Integer) As Boolean
-	#tag EndExternalMethod
-
-	#tag ExternalMethod, Flags = &h1
-		Protected Soft Declare Function ShutdownBlockReasonQuery Lib "User32" (HWND As Integer, Buffer As Ptr, ByRef BufferSz As Integer) As Boolean
 	#tag EndExternalMethod
 
 	#tag ExternalMethod, Flags = &h1

@@ -1,27 +1,15 @@
 #tag Module
-Protected Module Rpcrt4
+Protected Module Version
 	#tag ExternalMethod, Flags = &h1
-		Protected Declare Function RpcStringFree Lib "Rpcrt4" Alias "RpcStringFreeA" (Addr As Ptr) As Integer
+		Protected Declare Function GetFileVersionInfo Lib "Version" Alias "GetFileVersionInfoW" (fileName As WString, ignored As Integer, bufferSize As Integer, buffer As Ptr) As Boolean
 	#tag EndExternalMethod
 
 	#tag ExternalMethod, Flags = &h1
-		Protected Declare Function UuidCompare Lib "Rpcrt4" (Uuid1 As Ptr, Uuid2 As Ptr, Status As Ptr) As Integer
+		Protected Declare Function GetFileVersionInfoSize Lib "Version" Alias "GetFileVersionInfoSizeW" (fileName As WString, ignored As Integer) As Integer
 	#tag EndExternalMethod
 
 	#tag ExternalMethod, Flags = &h1
-		Protected Declare Function UuidCreate Lib "Rpcrt4" (Uuid As Ptr) As Integer
-	#tag EndExternalMethod
-
-	#tag ExternalMethod, Flags = &h1
-		Protected Declare Function UuidCreateSequential Lib "Rpcrt4" (Uuid As Ptr) As Integer
-	#tag EndExternalMethod
-
-	#tag ExternalMethod, Flags = &h1
-		Protected Declare Function UuidFromString Lib "Rpcrt4" Alias "UuidFromStringA" (StringUUID As Ptr, BinaryUUID As Ptr) As Integer
-	#tag EndExternalMethod
-
-	#tag ExternalMethod, Flags = &h1
-		Protected Declare Function UuidToString Lib "Rpcrt4" Alias "UuidToStringA" (Uuid As Ptr, ByRef p As ptr) As Integer
+		Protected Declare Function VerQueryValue Lib "Version" Alias "VerQueryValueW" (inBuffer As Ptr, subBlock As WString, outBuffer As Ptr, ByRef outBufferLen As Integer) As Boolean
 	#tag EndExternalMethod
 
 

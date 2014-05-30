@@ -1,27 +1,23 @@
 #tag Module
-Protected Module Rpcrt4
+Protected Module ws2_32
 	#tag ExternalMethod, Flags = &h1
-		Protected Declare Function RpcStringFree Lib "Rpcrt4" Alias "RpcStringFreeA" (Addr As Ptr) As Integer
+		Protected Declare Function GetHostByName Lib "ws2_32" (Address As CString) As Ptr
 	#tag EndExternalMethod
 
 	#tag ExternalMethod, Flags = &h1
-		Protected Declare Function UuidCompare Lib "Rpcrt4" (Uuid1 As Ptr, Uuid2 As Ptr, Status As Ptr) As Integer
+		Protected Declare Function GetHostName Lib "ws2_32" (name As Ptr, size As Integer) As Integer
 	#tag EndExternalMethod
 
 	#tag ExternalMethod, Flags = &h1
-		Protected Declare Function UuidCreate Lib "Rpcrt4" (Uuid As Ptr) As Integer
+		Protected Declare Function inet_addr Lib "ws2_32" (Address As CString) As Integer
 	#tag EndExternalMethod
 
 	#tag ExternalMethod, Flags = &h1
-		Protected Declare Function UuidCreateSequential Lib "Rpcrt4" (Uuid As Ptr) As Integer
+		Protected Declare Sub WSACleanup Lib "ws2_32" ()
 	#tag EndExternalMethod
 
 	#tag ExternalMethod, Flags = &h1
-		Protected Declare Function UuidFromString Lib "Rpcrt4" Alias "UuidFromStringA" (StringUUID As Ptr, BinaryUUID As Ptr) As Integer
-	#tag EndExternalMethod
-
-	#tag ExternalMethod, Flags = &h1
-		Protected Declare Function UuidToString Lib "Rpcrt4" Alias "UuidToStringA" (Uuid As Ptr, ByRef p As ptr) As Integer
+		Protected Declare Sub WSAStartup Lib "ws2_32" (versRequest As Integer, data As Ptr)
 	#tag EndExternalMethod
 
 

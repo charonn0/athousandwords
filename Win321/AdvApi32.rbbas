@@ -1,19 +1,7 @@
 #tag Module
 Protected Module AdvApi32
 	#tag ExternalMethod, Flags = &h1
-		Protected Declare Function AbortSystemShutdown Lib "AdvApi32" Alias "AbortSystemShutdownW" (MachineName As WString) As Boolean
-	#tag EndExternalMethod
-
-	#tag ExternalMethod, Flags = &h1
 		Protected Declare Function AdjustTokenPrivileges Lib "AdvApi32" (tHandle As Integer, disableAllPrivs As Boolean, newState As Ptr, buffLength As Integer, prevPrivs As Ptr, ByRef retLen As Integer) As Boolean
-	#tag EndExternalMethod
-
-	#tag ExternalMethod, Flags = &h1
-		Protected Declare Function CloseServiceHandle Lib "AdvApi32" (ServiceHandle As Integer) As Boolean
-	#tag EndExternalMethod
-
-	#tag ExternalMethod, Flags = &h1
-		Protected Declare Function ControlService Lib "AdvApi32" (ServiceHandle As Integer, Control As Integer, ByRef Status As SERVICE_STATUS) As Boolean
 	#tag EndExternalMethod
 
 	#tag ExternalMethod, Flags = &h1
@@ -45,23 +33,7 @@ Protected Module AdvApi32
 	#tag EndExternalMethod
 
 	#tag ExternalMethod, Flags = &h1
-		Protected Declare Function GetServiceDisplayName Lib "AdvApi32" Alias "GetServiceDisplayNameW" (SCManager As Integer, ServiceName As WString, DisplayName As Ptr, ByRef ServiceNameSize As Integer) As Boolean
-	#tag EndExternalMethod
-
-	#tag ExternalMethod, Flags = &h1
-		Protected Declare Function GetServiceKeyName Lib "AdvApi32" Alias "GetServiceKeyNameW" (SCManager As Integer, DisplayName As WString, ServiceName As Ptr, ByRef ServiceNameSize As Integer) As Boolean
-	#tag EndExternalMethod
-
-	#tag ExternalMethod, Flags = &h1
 		Protected Declare Function GetUserName Lib "AdvApi32" Alias "GetUserNameW" (buffer As Ptr, ByRef buffSize As Integer) As Boolean
-	#tag EndExternalMethod
-
-	#tag ExternalMethod, Flags = &h1
-		Protected Declare Function InitiateSystemShutdown Lib "AdvApi32" Alias "InitiateSystemShutdownW" (MachineName As WString, Message As WString, TimeOut As Integer, ForceAppsClosed As Boolean, RebootAfterShutdown As Boolean) As Boolean
-	#tag EndExternalMethod
-
-	#tag ExternalMethod, Flags = &h1
-		Protected Declare Function InitiateSystemShutdownEx Lib "AdvApi32" Alias "InitiateSystemShutdownExW" (MachineName As WString, Message As WString, TimeOut As Integer, ForceAppsClosed As Boolean, RebootAfterShutdown As Boolean, Reason As Integer) As Boolean
 	#tag EndExternalMethod
 
 	#tag ExternalMethod, Flags = &h1
@@ -77,27 +49,7 @@ Protected Module AdvApi32
 	#tag EndExternalMethod
 
 	#tag ExternalMethod, Flags = &h1
-		Protected Declare Function OpenSCManager Lib "AdvApi32" Alias "OpenSCManagerW" (MachineName As WString, DatabaseName As WString, DesiredAccess As Integer) As Integer
-	#tag EndExternalMethod
-
-	#tag ExternalMethod, Flags = &h1
-		Protected Declare Function OpenService Lib "AdvApi32" Alias "OpenServiceW" (SCManager As Integer, ServiceName As WString, DesiredAccess As Integer) As Integer
-	#tag EndExternalMethod
-
-	#tag ExternalMethod, Flags = &h1
-		Protected Declare Function QueryServiceConfig Lib "AdvApi32" Alias "QueryServiceConfigW" (SCManager As Integer, DataBuffer As Ptr, BufferSize As Integer, ByRef NeededSize As Integer) As Boolean
-	#tag EndExternalMethod
-
-	#tag ExternalMethod, Flags = &h1
-		Protected Declare Function QueryServiceStatus Lib "AdvApi32" (ServiceHandle As Integer, ByRef Status As SERVICE_STATUS) As Boolean
-	#tag EndExternalMethod
-
-	#tag ExternalMethod, Flags = &h1
 		Protected Declare Function SaferiIsExecutableFileType Lib "AdvApi32" (FilePath As WString, OmitEXE As Boolean) As Boolean
-	#tag EndExternalMethod
-
-	#tag ExternalMethod, Flags = &h1
-		Protected Declare Function StartService Lib "AdvApi32" Alias "StartServiceW" (ServiceHandle As Integer, NumServiceArgs As Integer, ServiceArguments As Ptr) As Boolean
 	#tag EndExternalMethod
 
 

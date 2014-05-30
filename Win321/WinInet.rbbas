@@ -1,27 +1,19 @@
 #tag Module
-Protected Module Rpcrt4
+Protected Module WinInet
 	#tag ExternalMethod, Flags = &h1
-		Protected Declare Function RpcStringFree Lib "Rpcrt4" Alias "RpcStringFreeA" (Addr As Ptr) As Integer
+		Protected Declare Function InternetAttemptConnect Lib "WinInet" (Reserved As Integer) As Integer
 	#tag EndExternalMethod
 
 	#tag ExternalMethod, Flags = &h1
-		Protected Declare Function UuidCompare Lib "Rpcrt4" (Uuid1 As Ptr, Uuid2 As Ptr, Status As Ptr) As Integer
+		Protected Declare Function InternetAutodial Lib "WinInet" (flags As Integer, HWND As Integer) As Boolean
 	#tag EndExternalMethod
 
 	#tag ExternalMethod, Flags = &h1
-		Protected Declare Function UuidCreate Lib "Rpcrt4" (Uuid As Ptr) As Integer
+		Protected Declare Function InternetCanonicalizeUrl Lib "WinInet" Alias "InternetCanonicalizeUrlW" (URL As WString, output As Ptr, ByRef buffersize As Integer, flags As Integer) As Boolean
 	#tag EndExternalMethod
 
 	#tag ExternalMethod, Flags = &h1
-		Protected Declare Function UuidCreateSequential Lib "Rpcrt4" (Uuid As Ptr) As Integer
-	#tag EndExternalMethod
-
-	#tag ExternalMethod, Flags = &h1
-		Protected Declare Function UuidFromString Lib "Rpcrt4" Alias "UuidFromStringA" (StringUUID As Ptr, BinaryUUID As Ptr) As Integer
-	#tag EndExternalMethod
-
-	#tag ExternalMethod, Flags = &h1
-		Protected Declare Function UuidToString Lib "Rpcrt4" Alias "UuidToStringA" (Uuid As Ptr, ByRef p As ptr) As Integer
+		Protected Declare Function InternetCombineUrl Lib "WinInet" Alias "InternetCombineUrlW" (base As WString, relative As WString, output As Ptr, ByRef size As Integer, flags As Integer) As Boolean
 	#tag EndExternalMethod
 
 

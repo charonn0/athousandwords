@@ -139,7 +139,7 @@ Protected Module GlobalHelpers
 		  #If TargetWin32 Then
 		    If lockedFile = Nil Then Return 0
 		    
-		    Dim fHandle As Integer = Win32.Kernel32.CreateFile(lockedFile.AbsolutePath, GENERIC_READ Or GENERIC_WRITE, FILE_SHARE_READ, 0, OPEN_EXISTING, 0, 0)
+		    Dim fHandle As Integer = Win32.Kernel32.CreateFile(lockedFile.AbsolutePath, GENERIC_READ Or GENERIC_WRITE, FILE_SHARE_READ, Nil, OPEN_EXISTING, 0, 0)
 		    If fHandle > 0 Then
 		      If Win32.Kernel32.LockFile(fHandle, 0, 0, 1, 0) Then
 		        Return fHandle   //You MUST keep this return value if you want to unlock the file later!!!

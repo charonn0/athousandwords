@@ -1,27 +1,27 @@
 #tag Module
-Protected Module Rpcrt4
+Protected Module Dwmapi
 	#tag ExternalMethod, Flags = &h1
-		Protected Declare Function RpcStringFree Lib "Rpcrt4" Alias "RpcStringFreeA" (Addr As Ptr) As Integer
+		Protected Soft Declare Function DwmEnableComposition Lib "Dwmapi" (CompositionAction As Integer) As Integer
 	#tag EndExternalMethod
 
 	#tag ExternalMethod, Flags = &h1
-		Protected Declare Function UuidCompare Lib "Rpcrt4" (Uuid1 As Ptr, Uuid2 As Ptr, Status As Ptr) As Integer
+		Protected Soft Declare Function DwmExtendFrameIntoClientArea Lib "Dwmapi" (HWND As Integer, ByRef Margin As MARGINS) As Integer
 	#tag EndExternalMethod
 
 	#tag ExternalMethod, Flags = &h1
-		Protected Declare Function UuidCreate Lib "Rpcrt4" (Uuid As Ptr) As Integer
+		Protected Soft Declare Function DwmIsCompositionEnabled Lib "Dwmapi" (ByRef IsEnabled As Boolean) As Integer
 	#tag EndExternalMethod
 
 	#tag ExternalMethod, Flags = &h1
-		Protected Declare Function UuidCreateSequential Lib "Rpcrt4" (Uuid As Ptr) As Integer
+		Protected Soft Declare Function DwmRegisterThumbnail Lib "Dwmapi" (MainWindow As Integer, ThumbWindow As Integer, ByRef ThumbID As Integer) As Integer
 	#tag EndExternalMethod
 
 	#tag ExternalMethod, Flags = &h1
-		Protected Declare Function UuidFromString Lib "Rpcrt4" Alias "UuidFromStringA" (StringUUID As Ptr, BinaryUUID As Ptr) As Integer
+		Protected Soft Declare Function DwmUnregisterThumbnail Lib "Dwmapi" (ThumbID As Integer) As Integer
 	#tag EndExternalMethod
 
 	#tag ExternalMethod, Flags = &h1
-		Protected Declare Function UuidToString Lib "Rpcrt4" Alias "UuidToStringA" (Uuid As Ptr, ByRef p As ptr) As Integer
+		Protected Soft Declare Function DwmUpdateThumbnailProperties Lib "Dwmapi" (ThumbID As Integer, ByRef Properties As DWM_THUMBNAIL_PROPERTIES) As Integer
 	#tag EndExternalMethod
 
 

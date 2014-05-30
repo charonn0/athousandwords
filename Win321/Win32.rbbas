@@ -12,33 +12,6 @@ Protected Module Win32
 		End Function
 	#tag EndMethod
 
-	#tag Method, Flags = &h1
-		Protected Function HBITMAP(hMap As Integer) As Picture
-		  Dim szm As New MemoryBlock(28)
-		  If Win32.GDI32.GetObject(hMap, 28, szm) > 0 Then
-		    Dim p As New Picture(szm.Int32Value(4), szm.Int32Value(8), 32)
-		    Dim dsthDC, srcDC As Integer
-		    dsthDC = p.Graphics.Handle(1)
-		    srcDC = Win32.GDI32.CreateCompatibleDC(dsthDC)
-		    Call Win32.GDI32.SelectObject(srcDC, hMap)
-		    Call Win32.GDI32.BitBlt(dsthDC, 0, 0, p.Width, p.Height, srcDC, 0, 0, SRCCOPY)
-		    Return p
-		  End If
-		End Function
-	#tag EndMethod
-
-	#tag Method, Flags = &h1
-		Protected Function HBITMAP(p As Picture) As Integer
-		  Dim pp As New Picture(p.Width, p.Height, 32)
-		  Dim srcDC As Integer = pp.Graphics.Handle(1)
-		  Dim bmp As Integer = Win32.GDI32.CreateCompatibleBitmap(srcDC, p.Width, p.Height)
-		  Dim dstDC As Integer = Win32.GDI32.CreateCompatibleDC(srcDC)
-		  Call Win32.GDI32.SelectObject(dstDC, bmp)
-		  Call Win32.GDI32.BitBlt(dstDC, 0, 0, p.Width, p.Height, srcDC, 0, 0, SRCCOPY)
-		  Return bmp
-		End Function
-	#tag EndMethod
-
 	#tag Method, Flags = &h0
 		Function HighBits(Extends BigInt As Int64) As Integer
 		  'Gets the high-order bits of the passed Int64
@@ -50,18 +23,6 @@ Protected Module Win32
 		Sub HighBits(Extends ByRef BigInt As Int64, Assigns HighOrder As Integer)
 		  'Sets the high-order bits of the passed Int64
 		  BigInt = BitOr(ShiftLeft(HighOrder, 32), BigInt.LowBits)
-		End Sub
-	#tag EndMethod
-
-	#tag Method, Flags = &h1
-		Protected Function LastError() As Integer
-		  Return Win32.Kernel32.GetLastError()
-		End Function
-	#tag EndMethod
-
-	#tag Method, Flags = &h1
-		Protected Sub LastError(Assigns NewErrorNumber As Integer)
-		  Win32.Kernel32.SetLastError(NewErrorNumber)
 		End Sub
 	#tag EndMethod
 
@@ -100,61 +61,6 @@ Protected Module Win32
 		      Return PROCESS_QUERY_INFORMATION  'On old Windows, use the old API
 		    End If
 		  #endif
-		End Function
-	#tag EndMethod
-
-	#tag Method, Flags = &h1
-		Protected Function ScreenToClient(ScreenPoint As Realbasic.Point, HWND As Integer) As REALbasic.Point
-		  Dim p As Win32.POINT
-		  p.X = ScreenPoint.X
-		  p.Y = ScreenPoint.Y
-		  If Not Win32.User32.ScreenToClient(HWND, p) Then
-		    p.X = -1
-		    p.Y = -1
-		  End If
-		  Return New REALbasic.Point(p.X, p.Y)
-		End Function
-	#tag EndMethod
-
-	#tag Method, Flags = &h0
-		Function WM_CAP_DRIVER_GET_CAPS() As Integer
-		  Return WM_USER + 14
-		End Function
-	#tag EndMethod
-
-	#tag Method, Flags = &h0
-		Function WM_CAP_EDIT_COPY() As Integer
-		  Return WM_USER + 30
-		End Function
-	#tag EndMethod
-
-	#tag Method, Flags = &h0
-		Function WM_CAP_GET_SEQUENCE_SETUP() As Integer
-		  Return WM_USER + 65
-		End Function
-	#tag EndMethod
-
-	#tag Method, Flags = &h0
-		Function WM_CAP_SET_CALLBACK_ERROR() As Integer
-		  Return WM_USER + 102
-		End Function
-	#tag EndMethod
-
-	#tag Method, Flags = &h0
-		Function WM_CAP_SET_SCROLL() As Integer
-		  Return WM_USER + 55
-		End Function
-	#tag EndMethod
-
-	#tag Method, Flags = &h0
-		Function WM_CAP_SET_SEQUENCE_SETUP() As Integer
-		  Return WM_USER + 64
-		End Function
-	#tag EndMethod
-
-	#tag Method, Flags = &h0
-		Function WM_CAP_SET_VIDEOFORMAT() As Integer
-		  Return WM_USER + 45
 		End Function
 	#tag EndMethod
 
@@ -252,57 +158,6 @@ Protected Module Win32
 	#tag Constant, Name = CAPTUREBLT, Type = Double, Dynamic = False, Default = \"&h40000000", Scope = Public
 	#tag EndConstant
 
-	#tag Constant, Name = CF_BITMAP, Type = Double, Dynamic = False, Default = \"2", Scope = Protected
-	#tag EndConstant
-
-	#tag Constant, Name = CF_DIB, Type = Double, Dynamic = False, Default = \"8", Scope = Public
-	#tag EndConstant
-
-	#tag Constant, Name = CF_DIBV5, Type = Double, Dynamic = False, Default = \"17", Scope = Public
-	#tag EndConstant
-
-	#tag Constant, Name = CF_DIF, Type = Double, Dynamic = False, Default = \"5", Scope = Public
-	#tag EndConstant
-
-	#tag Constant, Name = CF_ENHMETAFILE, Type = Double, Dynamic = False, Default = \"14", Scope = Public
-	#tag EndConstant
-
-	#tag Constant, Name = CF_HDROP, Type = Double, Dynamic = False, Default = \"15", Scope = Public
-	#tag EndConstant
-
-	#tag Constant, Name = CF_LOCALE, Type = Double, Dynamic = False, Default = \"16", Scope = Public
-	#tag EndConstant
-
-	#tag Constant, Name = CF_METAFILEPICT, Type = Double, Dynamic = False, Default = \"3", Scope = Public
-	#tag EndConstant
-
-	#tag Constant, Name = CF_OEMTEXT, Type = Double, Dynamic = False, Default = \"7", Scope = Public
-	#tag EndConstant
-
-	#tag Constant, Name = CF_PALETTE, Type = Double, Dynamic = False, Default = \"9", Scope = Public
-	#tag EndConstant
-
-	#tag Constant, Name = CF_PENDATA, Type = Double, Dynamic = False, Default = \"10", Scope = Public
-	#tag EndConstant
-
-	#tag Constant, Name = CF_RIFF, Type = Double, Dynamic = False, Default = \"11", Scope = Public
-	#tag EndConstant
-
-	#tag Constant, Name = CF_SYLK, Type = Double, Dynamic = False, Default = \"4", Scope = Public
-	#tag EndConstant
-
-	#tag Constant, Name = CF_TEXT, Type = Double, Dynamic = False, Default = \"1", Scope = Protected
-	#tag EndConstant
-
-	#tag Constant, Name = CF_TIFF, Type = Double, Dynamic = False, Default = \"6", Scope = Public
-	#tag EndConstant
-
-	#tag Constant, Name = CF_UNICODETEXT, Type = Double, Dynamic = False, Default = \"13", Scope = Public
-	#tag EndConstant
-
-	#tag Constant, Name = CF_WAVE, Type = Double, Dynamic = False, Default = \"12", Scope = Public
-	#tag EndConstant
-
 	#tag Constant, Name = COMPRESSION_ENGINE_MAXIMUM, Type = Double, Dynamic = False, Default = \"&h0100", Scope = Public
 	#tag EndConstant
 
@@ -340,12 +195,6 @@ Protected Module Win32
 	#tag EndConstant
 
 	#tag Constant, Name = DSTINVERT, Type = Double, Dynamic = False, Default = \"&h00550009", Scope = Public
-	#tag EndConstant
-
-	#tag Constant, Name = DUPLICATE_CLOSE_SOURCE, Type = Double, Dynamic = False, Default = \"&h00000001", Scope = Public
-	#tag EndConstant
-
-	#tag Constant, Name = DUPLICATE_SAME_ACCESS, Type = Double, Dynamic = False, Default = \"&h00000002", Scope = Public
 	#tag EndConstant
 
 	#tag Constant, Name = ERROR_HANDLE_EOF, Type = Double, Dynamic = False, Default = \"&h26", Scope = Public
@@ -507,13 +356,7 @@ Protected Module Win32
 	#tag Constant, Name = FILE_LIST_DIRECTORY, Type = Double, Dynamic = False, Default = \"&h0001", Scope = Public
 	#tag EndConstant
 
-	#tag Constant, Name = FILE_MAP_COPY, Type = Double, Dynamic = False, Default = \"1", Scope = Public
-	#tag EndConstant
-
 	#tag Constant, Name = FILE_MAP_READ, Type = Double, Dynamic = False, Default = \"&h0004", Scope = Public
-	#tag EndConstant
-
-	#tag Constant, Name = FILE_MAP_WRITE, Type = Double, Dynamic = False, Default = \"2", Scope = Public
 	#tag EndConstant
 
 	#tag Constant, Name = FILE_NAMED_STREAMS, Type = Double, Dynamic = False, Default = \"&h00040000", Scope = Public
@@ -672,12 +515,6 @@ Protected Module Win32
 	#tag Constant, Name = GENERIC_WRITE, Type = Double, Dynamic = False, Default = \"&h40000000", Scope = Public
 	#tag EndConstant
 
-	#tag Constant, Name = GMEM_MOVEABLE, Type = Double, Dynamic = False, Default = \"&h0002", Scope = Public
-	#tag EndConstant
-
-	#tag Constant, Name = GMEM_ZEROINIT, Type = Double, Dynamic = False, Default = \"&h0002", Scope = Public
-	#tag EndConstant
-
 	#tag Constant, Name = GWL_EXSTYLE, Type = Double, Dynamic = False, Default = \"-20", Scope = Public
 	#tag EndConstant
 
@@ -753,7 +590,7 @@ Protected Module Win32
 	#tag Constant, Name = IMAGE_ICON, Type = Double, Dynamic = False, Default = \"1", Scope = Public
 	#tag EndConstant
 
-	#tag Constant, Name = INVALID_HANDLE_VALUE, Type = Double, Dynamic = False, Default = \"-1", Scope = Public
+	#tag Constant, Name = INVALID_HANDLE_VALUE, Type = Double, Dynamic = False, Default = \"&hffffffff", Scope = Public
 	#tag EndConstant
 
 	#tag Constant, Name = INVALID_SET_FILE_POINTER, Type = Double, Dynamic = False, Default = \"-1", Scope = Public
@@ -772,9 +609,6 @@ Protected Module Win32
 	#tag EndConstant
 
 	#tag Constant, Name = MAX_PATH, Type = Double, Dynamic = False, Default = \"260", Scope = Public
-	#tag EndConstant
-
-	#tag Constant, Name = MAX_STR_BLOCKREASON, Type = Double, Dynamic = False, Default = \"256", Scope = Public
 	#tag EndConstant
 
 	#tag Constant, Name = MB_ABORTRETRYIGNORE, Type = Double, Dynamic = False, Default = \"&h00000002", Scope = Public
@@ -862,30 +696,6 @@ Protected Module Win32
 	#tag EndConstant
 
 	#tag Constant, Name = MB_YESNOCANCEL, Type = Double, Dynamic = False, Default = \"&h00000003", Scope = Public
-	#tag EndConstant
-
-	#tag Constant, Name = MEM_COMMIT, Type = Double, Dynamic = False, Default = \"&h00001000", Scope = Public
-	#tag EndConstant
-
-	#tag Constant, Name = MEM_DECOMMIT, Type = Double, Dynamic = False, Default = \"&h4000", Scope = Public
-	#tag EndConstant
-
-	#tag Constant, Name = MEM_LARGE_PAGES, Type = Double, Dynamic = False, Default = \"&h20000000", Scope = Public
-	#tag EndConstant
-
-	#tag Constant, Name = MEM_PHYSICAL, Type = Double, Dynamic = False, Default = \"&h00400000", Scope = Public
-	#tag EndConstant
-
-	#tag Constant, Name = MEM_RELEASE, Type = Double, Dynamic = False, Default = \"&h8000", Scope = Public
-	#tag EndConstant
-
-	#tag Constant, Name = MEM_RESERVE, Type = Double, Dynamic = False, Default = \"&h00002000", Scope = Public
-	#tag EndConstant
-
-	#tag Constant, Name = MEM_TOP_DOWN, Type = Double, Dynamic = False, Default = \"&h00100000", Scope = Public
-	#tag EndConstant
-
-	#tag Constant, Name = MEM_WRITE_WATCH, Type = Double, Dynamic = False, Default = \"&h00200000", Scope = Public
 	#tag EndConstant
 
 	#tag Constant, Name = MERGECOPY, Type = Double, Dynamic = False, Default = \"&h00C000CA", Scope = Public
@@ -1092,9 +902,6 @@ Protected Module Win32
 	#tag Constant, Name = OS_XPORGREATER, Type = Double, Dynamic = False, Default = \"18", Scope = Public
 	#tag EndConstant
 
-	#tag Constant, Name = PAGE_EXECUTE_READWRITE, Type = Double, Dynamic = False, Default = \"&h40", Scope = Public
-	#tag EndConstant
-
 	#tag Constant, Name = PAGE_READONLY, Type = Double, Dynamic = False, Default = \"&h02", Scope = Public
 	#tag EndConstant
 
@@ -1174,48 +981,6 @@ Protected Module Win32
 	#tag EndConstant
 
 	#tag Constant, Name = REPLACEFILE_WRITE_THROUGH, Type = Double, Dynamic = False, Default = \"1", Scope = Public
-	#tag EndConstant
-
-	#tag Constant, Name = SC_MANAGER_ALL_ACCESS, Type = Double, Dynamic = False, Default = \"&hF003F", Scope = Public
-	#tag EndConstant
-
-	#tag Constant, Name = SC_MANAGER_CONNECT, Type = Double, Dynamic = False, Default = \"&h0001", Scope = Public
-	#tag EndConstant
-
-	#tag Constant, Name = SC_MANAGER_CREATE_SERVICE, Type = Double, Dynamic = False, Default = \"&h0002", Scope = Public
-	#tag EndConstant
-
-	#tag Constant, Name = SC_MANAGER_ENUMERATE_SERVICE, Type = Double, Dynamic = False, Default = \"&h0004", Scope = Public
-	#tag EndConstant
-
-	#tag Constant, Name = SC_MANAGER_LOCK, Type = Double, Dynamic = False, Default = \"&h0008", Scope = Public
-	#tag EndConstant
-
-	#tag Constant, Name = SC_MANAGER_MODIFY_BOOT_CONFIG, Type = Double, Dynamic = False, Default = \"&h0020", Scope = Public
-	#tag EndConstant
-
-	#tag Constant, Name = SC_MANAGER_QUERY_LOCK_STATUS, Type = Double, Dynamic = False, Default = \"&h0010", Scope = Public
-	#tag EndConstant
-
-	#tag Constant, Name = SERVICES_ACTIVE_DATABASE, Type = String, Dynamic = False, Default = \"ServicesActive", Scope = Public
-	#tag EndConstant
-
-	#tag Constant, Name = SERVICE_CONTROL_CONTINUE, Type = Double, Dynamic = False, Default = \"&h00000003", Scope = Public
-	#tag EndConstant
-
-	#tag Constant, Name = SERVICE_CONTROL_PAUSE, Type = Double, Dynamic = False, Default = \"&h00000002", Scope = Public
-	#tag EndConstant
-
-	#tag Constant, Name = SERVICE_CONTROL_STOP, Type = Double, Dynamic = False, Default = \"&h00000001", Scope = Public
-	#tag EndConstant
-
-	#tag Constant, Name = SERVICE_PAUSE_CONTINUE, Type = Double, Dynamic = False, Default = \"&h0040", Scope = Public
-	#tag EndConstant
-
-	#tag Constant, Name = SERVICE_START, Type = Double, Dynamic = False, Default = \"&h0010", Scope = Public
-	#tag EndConstant
-
-	#tag Constant, Name = SERVICE_STOP, Type = Double, Dynamic = False, Default = \"&h0020", Scope = Public
 	#tag EndConstant
 
 	#tag Constant, Name = SE_ASSIGNPRIMARYTOKEN_NAME, Type = String, Dynamic = False, Default = \"SeAssignPrimaryTokenPrivilege", Scope = Public
@@ -1521,9 +1286,6 @@ Protected Module Win32
 	#tag Constant, Name = SYNCHRONIZE, Type = Double, Dynamic = False, Default = \"&h00100000", Scope = Public
 	#tag EndConstant
 
-	#tag Constant, Name = SYSTEM_HANDLE_INFORMATION, Type = Double, Dynamic = False, Default = \"16", Scope = Public
-	#tag EndConstant
-
 	#tag Constant, Name = S_OK, Type = Double, Dynamic = False, Default = \"0", Scope = Public
 	#tag EndConstant
 
@@ -1584,37 +1346,7 @@ Protected Module Win32
 	#tag Constant, Name = WHITENESS, Type = Double, Dynamic = False, Default = \"&h00FF0062", Scope = Public
 	#tag EndConstant
 
-	#tag Constant, Name = WM_CAP_DLG_VIDEOFORMAT, Type = Double, Dynamic = False, Default = \"1065", Scope = Public
-	#tag EndConstant
-
-	#tag Constant, Name = WM_CAP_DLG_VIDEOSOURCE, Type = Double, Dynamic = False, Default = \"1066", Scope = Public
-	#tag EndConstant
-
-	#tag Constant, Name = WM_CAP_DRIVER_CONNECT, Type = Double, Dynamic = False, Default = \"1034", Scope = Public
-	#tag EndConstant
-
-	#tag Constant, Name = WM_CAP_DRIVER_DISCONNECT, Type = Double, Dynamic = False, Default = \"1035", Scope = Public
-	#tag EndConstant
-
-	#tag Constant, Name = WM_CAP_EDIT_COPY1, Type = Double, Dynamic = False, Default = \"1054", Scope = Public
-	#tag EndConstant
-
-	#tag Constant, Name = WM_CAP_GRAB_FRAME, Type = Double, Dynamic = False, Default = \"1084", Scope = Public
-	#tag EndConstant
-
-	#tag Constant, Name = WM_CAP_SET_PREVIEW, Type = Double, Dynamic = False, Default = \"1074", Scope = Public
-	#tag EndConstant
-
-	#tag Constant, Name = WM_CAP_SET_PREVIEWRATE, Type = Double, Dynamic = False, Default = \"1076", Scope = Public
-	#tag EndConstant
-
-	#tag Constant, Name = WM_CAP_SET_SCALE, Type = Double, Dynamic = False, Default = \"1077", Scope = Public
-	#tag EndConstant
-
 	#tag Constant, Name = WM_CHANGECBCHAIN, Type = Double, Dynamic = False, Default = \"&h030D", Scope = Public
-	#tag EndConstant
-
-	#tag Constant, Name = WM_CLOSE, Type = Double, Dynamic = False, Default = \"&h10", Scope = Public
 	#tag EndConstant
 
 	#tag Constant, Name = WM_CREATE, Type = Double, Dynamic = False, Default = \"&h0001", Scope = Public
@@ -1659,9 +1391,6 @@ Protected Module Win32
 	#tag Constant, Name = WRITE_OWNER, Type = Double, Dynamic = False, Default = \"&h00080000", Scope = Public
 	#tag EndConstant
 
-	#tag Constant, Name = WS_CHILD, Type = Double, Dynamic = False, Default = \"&h40000000", Scope = Public
-	#tag EndConstant
-
 	#tag Constant, Name = WS_EX_LAYERED, Type = Double, Dynamic = False, Default = \"&h80000", Scope = Public
 	#tag EndConstant
 
@@ -1690,66 +1419,6 @@ Protected Module Win32
 		  DaysOfWeek As Byte
 		  Flags As Byte
 		Command As Ptr
-	#tag EndStructure
-
-	#tag Structure, Name = BITMAPINFO, Flags = &h0
-		Header As BITMAPINFOHEADER
-		RGBQUAD As Ptr
-	#tag EndStructure
-
-	#tag Structure, Name = BITMAPINFOHEADER, Flags = &h0
-		sSize As Integer
-		  Width As Integer
-		  Height As Integer
-		  Planes As Int16
-		  BitCount As Int16
-		  Compression As Integer
-		  SizeImage As Integer
-		  XPelsPerMeter As Integer
-		  YPelsPerMeter As Integer
-		  ClrUsed As Integer
-		ClrImportant As Integer
-	#tag EndStructure
-
-	#tag Structure, Name = CAPDRIVERCAPS, Flags = &h0
-		DeviceIndex As Integer
-		  HasOverlay As Boolean
-		  HasSourceSelectDialog As Boolean
-		  HasFormatSelectDialog As Boolean
-		  HasDisplayDialog As Boolean
-		  CaptureInitialized As Boolean
-		  DriverSuppliesPalettes As Boolean
-		  VideoIn As Integer
-		  VideoOut As Integer
-		  VideoExtIn As Integer
-		VideoExtOut As Integer
-	#tag EndStructure
-
-	#tag Structure, Name = CAPTUREPARMS, Flags = &h0
-		RequestMicroSecPerFrame As Integer
-		  MakeUserHitOKToCapure As Boolean
-		  PercentDropForError As UInt32
-		  Yield As Boolean
-		  IndexSize As Integer
-		  ChunkGranularity As UInt32
-		  UsingDOSMemory As Boolean
-		  NumVideoRequested As UInt32
-		  CaptureAudio As Boolean
-		  NumAudioRequested As UInt32
-		  KeyAbort As UInt32
-		  AbortLeftMouse As Boolean
-		  AbortRightMouse As Boolean
-		  LimitEnabled As Boolean
-		  TimeLimit As UInt32
-		  MCIControl As Boolean
-		  StepMCIDevice As Boolean
-		  MCIStartTime As Integer
-		  MCIStopTime As Integer
-		  StepCaptureAt2x As Boolean
-		  StepCaptureAverageFrames As UInt32
-		  AudioBufferSize As Integer
-		  DisableWriteCache As Boolean
-		AVStreamMaster As UInt32
 	#tag EndStructure
 
 	#tag Structure, Name = CHAR_INFO, Flags = &h0
@@ -1916,16 +1585,6 @@ Protected Module Win32
 		reserved As UInt64
 	#tag EndStructure
 
-	#tag Structure, Name = MEMORY_BASIC_INFORMATION, Flags = &h0
-		BaseAddress As Integer
-		  AllocationBase As Integer
-		  AllocationProtect As Integer
-		  RegionSize As Integer
-		  State As Integer
-		  Protect As Integer
-		Type As Integer
-	#tag EndStructure
-
 	#tag Structure, Name = MIB_IPSTATS, Flags = &h0
 		Forwarding As Integer
 		  DefaultTTL As Integer
@@ -2054,18 +1713,6 @@ Protected Module Win32
 		outSpeed As Integer
 	#tag EndStructure
 
-	#tag Structure, Name = QUERY_SERVICE_CONFIG, Flags = &h0
-		ServiceType As Integer
-		  StartType As Integer
-		  ErrorControl As Integer
-		  BinPathName As Ptr
-		  LoadOrderGroup As Ptr
-		  TagID As Integer
-		  Dependencies As Ptr
-		  ServiceStartName As Ptr
-		DisplayName As Ptr
-	#tag EndStructure
-
 	#tag Structure, Name = RECT, Flags = &h0
 		left As Integer
 		  top As Integer
@@ -2077,16 +1724,6 @@ Protected Module Win32
 		Length As Integer
 		  secDescriptor As Ptr
 		InheritHandle As Boolean
-	#tag EndStructure
-
-	#tag Structure, Name = SERVICE_STATUS, Flags = &h0
-		ServiceType As Integer
-		  CurrentState As Integer
-		  ControlsAccepted As Integer
-		  Win32ExitCode As Integer
-		  ServiceSpecificExitCode As Integer
-		  CheckPoint As Integer
-		WaitHint As Integer
 	#tag EndStructure
 
 	#tag Structure, Name = SHELLFLAGSTATE, Flags = &h0
@@ -2174,15 +1811,6 @@ Protected Module Win32
 		  EstimatedTimer As Integer
 		  DefaultAlert1 As Integer
 		DefaultAlert2 As Integer
-	#tag EndStructure
-
-	#tag Structure, Name = SYSTEM_HANDLE_TABLE_ENTRY_INFO, Flags = &h0
-		ProcessID As Integer
-		  ObjectType As Byte
-		  Flags As Byte
-		  Value As Int16
-		  Address As Ptr
-		GrantedAccess As Integer
 	#tag EndStructure
 
 	#tag Structure, Name = SYSTEM_INFO, Flags = &h0

@@ -1,27 +1,15 @@
 #tag Module
-Protected Module Rpcrt4
+Protected Module ICMP
 	#tag ExternalMethod, Flags = &h1
-		Protected Declare Function RpcStringFree Lib "Rpcrt4" Alias "RpcStringFreeA" (Addr As Ptr) As Integer
+		Protected Declare Sub IcmpCloseHandle Lib "ICMP" (Handle As Integer)
 	#tag EndExternalMethod
 
 	#tag ExternalMethod, Flags = &h1
-		Protected Declare Function UuidCompare Lib "Rpcrt4" (Uuid1 As Ptr, Uuid2 As Ptr, Status As Ptr) As Integer
+		Protected Declare Function IcmpCreateFile Lib "ICMP" () As Integer
 	#tag EndExternalMethod
 
 	#tag ExternalMethod, Flags = &h1
-		Protected Declare Function UuidCreate Lib "Rpcrt4" (Uuid As Ptr) As Integer
-	#tag EndExternalMethod
-
-	#tag ExternalMethod, Flags = &h1
-		Protected Declare Function UuidCreateSequential Lib "Rpcrt4" (Uuid As Ptr) As Integer
-	#tag EndExternalMethod
-
-	#tag ExternalMethod, Flags = &h1
-		Protected Declare Function UuidFromString Lib "Rpcrt4" Alias "UuidFromStringA" (StringUUID As Ptr, BinaryUUID As Ptr) As Integer
-	#tag EndExternalMethod
-
-	#tag ExternalMethod, Flags = &h1
-		Protected Declare Function UuidToString Lib "Rpcrt4" Alias "UuidToStringA" (Uuid As Ptr, ByRef p As ptr) As Integer
+		Protected Declare Function IcmpSendEcho Lib "ICMP" (handle As Integer, address As Integer, data As Integer, size As Integer, options As Ptr, reply As Ptr, replySize As Integer, timeout As Integer) As Integer
 	#tag EndExternalMethod
 
 

@@ -1,27 +1,35 @@
 #tag Module
-Protected Module Rpcrt4
+Protected Module Shlwapi
 	#tag ExternalMethod, Flags = &h1
-		Protected Declare Function RpcStringFree Lib "Rpcrt4" Alias "RpcStringFreeA" (Addr As Ptr) As Integer
+		Protected Soft Declare Function AssocIsDangerous Lib "Shlwapi" (FileExtension As WString) As Boolean
 	#tag EndExternalMethod
 
 	#tag ExternalMethod, Flags = &h1
-		Protected Declare Function UuidCompare Lib "Rpcrt4" (Uuid1 As Ptr, Uuid2 As Ptr, Status As Ptr) As Integer
+		Protected Declare Function IsOS Lib "Shlwapi" (OSFeature As Integer) As Boolean
 	#tag EndExternalMethod
 
 	#tag ExternalMethod, Flags = &h1
-		Protected Declare Function UuidCreate Lib "Rpcrt4" (Uuid As Ptr) As Integer
+		Protected Declare Function PathAddBackslash Lib "Shlwapi" Alias "PathAddBackslashW" (thePath As Ptr) As Integer
 	#tag EndExternalMethod
 
 	#tag ExternalMethod, Flags = &h1
-		Protected Declare Function UuidCreateSequential Lib "Rpcrt4" (Uuid As Ptr) As Integer
+		Protected Declare Function PathAppend Lib "Shlwapi" Alias "PathAppendW" (firstHalf As Ptr, secondHalf As Ptr) As Boolean
 	#tag EndExternalMethod
 
 	#tag ExternalMethod, Flags = &h1
-		Protected Declare Function UuidFromString Lib "Rpcrt4" Alias "UuidFromStringA" (StringUUID As Ptr, BinaryUUID As Ptr) As Integer
+		Protected Declare Function PathCanonicalize Lib "Shlwapi" Alias "PathCanonicalizeW" (OutBuffer As Ptr, InBuffer As Ptr) As Boolean
 	#tag EndExternalMethod
 
 	#tag ExternalMethod, Flags = &h1
-		Protected Declare Function UuidToString Lib "Rpcrt4" Alias "UuidToStringA" (Uuid As Ptr, ByRef p As ptr) As Integer
+		Protected Declare Function PathGetArgs Lib "Shlwapi" Alias "PathGetArgsW" (path As WString) As WString
+	#tag EndExternalMethod
+
+	#tag ExternalMethod, Flags = &h1
+		Protected Declare Function PathMatchSpec Lib "Shlwapi" Alias "PathMatchSpecW" (path As WString, spec As WString) As Boolean
+	#tag EndExternalMethod
+
+	#tag ExternalMethod, Flags = &h1
+		Protected Soft Declare Function PathMatchSpecEx Lib "Shlwapi" Alias "PathMatchSpecExW" (path As WString, spec As WString, Flags As Integer) As Integer
 	#tag EndExternalMethod
 
 
