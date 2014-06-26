@@ -1082,7 +1082,7 @@ Begin Window WizWindow
             Left            =   531
             LockedInPosition=   False
             Mode            =   2
-            Period          =   250
+            Period          =   50
             Scope           =   0
             TabPanelIndex   =   5
             Top             =   77
