@@ -1342,6 +1342,7 @@ End
 
 	#tag Method, Flags = &h0
 		Function SavePic(p As Picture) As FolderItem
+		  App.UseGDIPlus = True
 		  Dim ext As String
 		  Select Case SaveType
 		  Case Picture.SaveAsJPEG
@@ -1354,7 +1355,12 @@ End
 		  Dim filename As String = GetSaveName
 		  If filename.Trim <> "" Then
 		    Dim f As FolderItem = SpecialFolder.Temporary.Child(filename)
-		    p.Save(f, SaveType, Picture.QualityHigh)
+		    Try
+		      p.Save(f, SaveType, Picture.QualityHigh)
+		    Catch 
+		      Call MsgBox("An error occurred while saving the picture as (" + ext + "). Using a different file type may solve this problem.", 16, "Unable to save")
+		      Return Nil
+		    End Try
 		    App.DoEvents(500)
 		    Return f
 		  End If
@@ -1483,6 +1489,7 @@ End
 	#tag Event
 		Sub Action()
 		  FinalFolder = SavePic(FinalPic)
+		  If FinalFolder = Nil Then Return
 		  FinalFolder.MoveFileTo(SaveToFolder)
 		  FinalFolder = SaveToFolder.Child(FinalFolder.Name)
 		  PagePanel1.Value = PagePanel1.Value + 1
