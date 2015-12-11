@@ -106,10 +106,10 @@ End
 		  Overlay.Graphics.PenWidth = 1
 		  Overlay.Graphics.DrawRect(l, t, w, h)
 		  If Coords.left <> Coords.right And Coords.top <> Coords.bottom Then
-		    Dim coord As Picture = TextToPicture("(" + Str(w) + "," + Str(h) + ")", Overlay.Graphics)
+		    Dim coord As Picture = TextToPicture("(" + Str(w) + "x" + Str(h) + ")", Overlay.Graphics)
 		    Overlay.Graphics.DrawPicture(coord, Coords.right + 5, Coords.bottom)
 		    
-		    coord = TextToPicture(Str(l) + "x" + Str(t), Overlay.Graphics)
+		    coord = TextToPicture(Str(l) + "," + Str(t), Overlay.Graphics)
 		    Overlay.Graphics.DrawPicture(coord, Coords.left, Coords.top)
 		    
 		    
