@@ -20,7 +20,7 @@ Begin Window Previewer
    MinimizeButton  =   True
    MinWidth        =   64
    Placement       =   1
-   Resizeable      =   False
+   Resizeable      =   True
    Title           =   "Preview"
    Visible         =   True
    Width           =   988
@@ -29,9 +29,9 @@ Begin Window Previewer
       AcceptTabs      =   ""
       AutoDeactivate  =   True
       Backdrop        =   ""
-      DoubleBuffer    =   False
+      DoubleBuffer    =   True
       Enabled         =   True
-      EraseBackground =   True
+      EraseBackground =   False
       Height          =   599
       HelpTag         =   ""
       Index           =   -2147483648
@@ -82,32 +82,62 @@ Begin Window Previewer
       Visible         =   True
       Width           =   80
    End
+   Begin Timer Timer1
+      Height          =   32
+      Index           =   -2147483648
+      InitialParent   =   ""
+      Left            =   1041
+      LockedInPosition=   False
+      Mode            =   2
+      Period          =   1
+      Scope           =   0
+      TabPanelIndex   =   0
+      Top             =   -11
+      Width           =   32
+   End
 End
 #tag EndWindow
 
 #tag WindowCode
+	#tag Method, Flags = &h1
+		Protected Function Scale(Source As Picture, Ratio As Double = 1.0) As Picture
+		  //Returns a scaled version of the passed Picture object.
+		  //A ratio of 1.0 is 100% (no change,) 0.5 is 50% (half size) and so forth.
+		  //This function should be cross-platform safe.
+		  
+		  Dim wRatio, hRatio As Double
+		  wRatio = (Ratio * Source.width)
+		  hRatio = (Ratio * Source.Height)
+		  If wRatio = Source.Width And hRatio = Source.Height Then Return Source
+		  Dim photo As New Picture(wRatio, hRatio)
+		  Photo.Graphics.DrawPicture(Source, 0, 0, Photo.Width, Photo.Height, 0, 0, Source.Width, Source.Height)
+		  Return photo
+		  
+		Exception
+		  Return Source
+		End Function
+	#tag EndMethod
+
 	#tag Method, Flags = &h0
 		Sub ShowModal(p As Picture)
-		  TruePic = New Picture(p.Width, p.Height, p.Depth)
-		  TruePic.Graphics.DrawPicture(p, 0, 0)
+		  TruePic = p
 		  If p.Width > Me.Width Or p.Height > Me.Height Then
-		    Dim ratio As Double
 		    If p.Width > p.Height Then
-		      ratio = Me.Width / p.Width
+		      mratio = Me.Width / p.Width
 		    Else
-		      ratio = Me.Height / p.Height
+		      mratio = Me.Height / p.Height
 		    End If
-		    Pic = Scale(p, ratio)
-		    Me.Title = "Preview - " + Format(ratio * 100, "##0\%")
-		  Else
-		    Pic = p
 		  End If
-		  Self.Width = Pic.Width
-		  Self.Height = Pic.Height
+		  Self.Width = TruePic.Width * mRatio
+		  Self.Height = TruePic.Height * mRatio
 		  Me.ShowModal()
 		End Sub
 	#tag EndMethod
 
+
+	#tag Property, Flags = &h21
+		Private mRatio As Double
+	#tag EndProperty
 
 	#tag Property, Flags = &h21
 		Private Pic As Picture
@@ -123,9 +153,19 @@ End
 #tag Events Canvas1
 	#tag Event
 		Sub Paint(g As Graphics)
-		  If Pic <> Nil Then
-		    g.DrawPicture(Pic, 0, 0)
-		  End If
+		  If Not App.UseGDIPlus Then App.UseGDIPlus = True
+		  If g.Width <= 0 Or g.Height <= 0 Then Return
+		  mratio = 1.0
+		  If g.Width < TruePic.Width Then mratio = g.Width / TruePic.Width
+		  If g.Height < TruePic.Height Then mratio = Min(g.Height / TruePic.Height, mratio)
+		  Pic = Scale(TruePic, mratio)
+		  Dim p As Picture = transparencycheckerboard
+		  For i As Integer = 0 To g.Width Step p.Width
+		    For j As Integer = 0 To g.Height Step p.Height
+		      g.DrawPicture(p, i, j)
+		    Next
+		  Next
+		  g.DrawPicture(Pic, (g.Width - Pic.Width) / 2, (g.Height - Pic.Height) / 2)
 		End Sub
 	#tag EndEvent
 #tag EndEvents
@@ -133,6 +173,13 @@ End
 	#tag Event
 		Sub Action()
 		  Self.Close
+		End Sub
+	#tag EndEvent
+#tag EndEvents
+#tag Events Timer1
+	#tag Event
+		Sub Action()
+		  Self.Title = "Preview - " + Format(mratio * 100, "##0\%")
 		End Sub
 	#tag EndEvent
 #tag EndEvents

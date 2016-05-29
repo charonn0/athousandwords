@@ -71,6 +71,7 @@ Folder=HelpStyledTexts;Wizard/HelpStyledTexts;&h20685FFF;&h54E8AFFF;false
 RawData=capuretypeshelp;Help/capuretypeshelp.rtf;&h760BEFFF;&h20685FFF;false
 Window=AboutWin;AboutWin.rbfrm;&h1E634FFF;&h0;false
 Picture=Paint;Media/Paint.png;&h57B47FF;&h0;false;0;&h0
+Picture=transparencycheckerboard;Media/transparency-checkerboard.png;&h4C096FFF;&h54E8AFFF;false;0;&h0
 DefaultWindow=WizWindow
 AppMenuBar=MenuBar1
 MajorVersion=1
